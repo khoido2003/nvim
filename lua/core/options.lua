@@ -1,4 +1,6 @@
 --  options.lua
+vim.opt.guifont = "Consolas:h14"
+
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '

@@ -280,7 +280,7 @@ require("typescript-tools").setup {
       vim.cmd([[
         augroup format_on_save
           autocmd!
-          autocmd BufWritePre *.ts,*.tsx lua vim.lsp.buf.format({ async = true })
+          autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx lua vim.lsp.buf.format({ async = true })
         augroup END
       ]])
     end
