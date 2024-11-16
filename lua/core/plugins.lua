@@ -15,6 +15,9 @@ require("lazy").setup({
   "nvim-lualine/lualine.nvim",
   "ellisonleao/gruvbox.nvim",
 
+  -- Tabnine AI
+  { 'codota/tabnine-nvim', build = "pwsh.exe -file .\\dl_binaries.ps1" },
+
   -- Syntax Highlighting and Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
@@ -383,4 +386,18 @@ require("lspconfig").tailwindcss.setup({
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   end,
   capabilities = require("cmp_nvim_lsp").default_capabilities(),
+})
+
+
+-- ////////////////////////////////////////////////
+
+require('tabnine').setup({
+  disable_auto_comment=true,
+  accept_keymap="<Tab>",
+  dismiss_keymap = "<C-]>",
+  debounce_ms = 800,
+  suggestion_color = {gui = "#808080", cterm = 244},
+  exclude_filetypes = {"TelescopePrompt", "NvimTree"},
+  log_file_path = nil, -- absolute path to Tabnine log file
+  ignore_certificate_errors = false,
 })

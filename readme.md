@@ -76,6 +76,14 @@ bash
 npm install -g @tailwindcss/language-server
 ```
 
+### Tabnine AI
+
+On Window, require dowload pswh - Powershell 7
+
+Dowload here: https://github.com/PowerShell/PowerShell/releases/tag/v7.4.6
+
+Then follow the guide from official Tabnine github: https://github.com/codota/tabnine-nvim
+
 ## Requirements
 
 Neovim >= 0.9.0 (needs to be built with LuaJIT)
