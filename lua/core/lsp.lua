@@ -11,7 +11,7 @@ local mason_lspconfig = require('mason-lspconfig')
 -- Ensure the LSP servers are installed
 mason.setup()
 mason_lspconfig.setup({
-  ensure_installed = { "pyright", "ts_ls", "gopls", "clangd", "jdtls", "omnisharp" }, -- Correct server names
+  ensure_installed = { "pyright", "ts_ls", "gopls", "clangd", "jdtls", "omnisharp", "html", "cssls" }, -- Correct server names
 })
 
 -- Set up LSP keymaps and capabilities
@@ -42,16 +42,25 @@ lspconfig.omnisharp.setup({
   
 })
 
-lspconfig.jdtls.setup({
-  cmd = { "jdtls" }, -- Ensure this path matches your jdtls installation
-  filetypes = { "java" },
-  root_dir = lspconfig.util.root_pattern(".git", "pom.xml", "build.gradle", ".project"),
-  settings = {
-    java = {
-      format = {
-        enabled = true,
-      },
-    },
-  },
-})
-
+-- -- Set up LSP for Java with nvim-jdtls
+-- local lspconfig = require('lspconfig')
+-- lspconfig.jdtls.setup {
+--     cmd = {
+--         "java-ls",  -- the LSP server, you can modify if needed
+--         "-data", vim.fn.stdpath('data').."/lsp_servers/jdtls/workspace"
+--     },
+--     settings = {
+--         java = {
+--             configuration = {
+--                 -- Java-specific settings
+--             },
+--         },
+--     },
+--     on_attach = function(client, bufnr)
+--         -- You can add custom on_attach functionality here
+--         -- for example, to enable formatting
+--         if client.resolved_capabilities.document_formatting then
+--             vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr')
+--         end
+--     end,
+-- }

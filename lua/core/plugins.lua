@@ -114,6 +114,13 @@ require("lazy").setup({
     "jose-elias-alvarez/null-ls.nvim", -- Linting and Formatting
     dependencies = { "nvim-lua/plenary.nvim" },
   },
+
+	-- -- JAVA LSP
+	-- 'williamboman/mason.nvim',
+	-- 'williamboman/mason-lspconfig.nvim',
+
+  'hrsh7th/vim-vsnip',
+  'hrsh7th/cmp-vsnip'
 })
 
 -- ///////////////////////////////////////////////////
@@ -319,4 +326,50 @@ require('lspconfig').pyright.setup({
 
 -- //////////////////////////////////////
 
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+
+require("lspconfig").html.setup {
+  cmd = { "C:\\Users\\Lenovo\\AppData\\Local\\nvim-data\\mason\\bin\\vscode-html-language-server.cmd", "--stdio" },
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+      -- Enable auto-format on save
+      if client.server_capabilities.documentFormattingProvider then
+          vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", ":lua vim.lsp.buf.format({ async = true })<CR>", { noremap = true, silent = true })
+          -- Auto-format on save
+          vim.cmd([[
+              augroup AutoFormat
+                  autocmd!
+                  autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = true })
+              augroup END
+          ]])
+      end
+  end,
+}
+require("lspconfig").cssls.setup {
+  cmd = { "C:\\Users\\Lenovo\\AppData\\Local\\nvim-data\\mason\\bin\\vscode-css-language-server.cmd", "--stdio" },
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+      -- Enable auto-format on save
+      if client.server_capabilities.documentFormattingProvider then
+          vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", ":lua vim.lsp.buf.format({ async = true })<CR>", { noremap = true, silent = true })
+          -- Auto-format on save
+          vim.cmd([[
+              augroup AutoFormat
+                  autocmd!
+                  autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = true })
+              augroup END
+          ]])
+      end
+  end,
+}
+
+-- Example for integrating Prettier with null-ls for HTML and CSS formatting
+require("null-ls").setup({
+  sources = {
+    require("null-ls").builtins.formatting.prettier.with({
+      filetypes = { "html", "css", "scss" },
+    }),
+  },
+})
