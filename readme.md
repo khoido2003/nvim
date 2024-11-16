@@ -67,6 +67,15 @@ npm install -g eslint
 
 Require using JDTLS but currently I can not set it up for some reason, will try to fix it in the future
 
+### LSP for TailwindCSS
+
+Open cmd and install tailwind server to global
+bash
+
+```
+npm install -g @tailwindcss/language-server
+```
+
 ## Requirements
 
 Neovim >= 0.9.0 (needs to be built with LuaJIT)

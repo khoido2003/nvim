@@ -373,3 +373,14 @@ require("null-ls").setup({
     }),
   },
 })
+
+-- ////////////////////////////////////////////////////////////////////
+
+
+require("lspconfig").tailwindcss.setup({
+  on_attach = function(client, bufnr)
+    -- Add your LSP keybindings and auto-formatting setup here
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+  end,
+  capabilities = require("cmp_nvim_lsp").default_capabilities(),
+})
