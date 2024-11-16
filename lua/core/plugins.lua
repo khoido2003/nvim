@@ -1,8 +1,14 @@
 -- plugins.lua
+
 require("lazy").setup({
+  
   "lewis6991/gitsigns.nvim",
   "onsails/lspkind.nvim",
-  -- UI Enhancements
+ 
+  -- Commenting plugin
+  "numToStr/Comment.nvim",
+  
+ -- UI Enhancements
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   "nvim-tree/nvim-tree.lua",
   "nvim-tree/nvim-web-devicons",
@@ -14,7 +20,7 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
     opts = {
-      ensure_installed = { "c_sharp", "go", "java", "typescript", "javascript", "html", "css", "lua", "json", "markdown" },
+      ensure_installed = { "c_sharp", "go", "java", "typescript", "javascript", "html", "css", "lua", "json", "markdown", "python" },
       highlight = { enable = true },
     },
   },
@@ -60,8 +66,17 @@ require("lazy").setup({
     dependencies = { "mfussenegger/nvim-dap" },
   },
 
+  -- Typescript
+  "pmizio/typescript-tools.nvim",
+  
+  'nvim-pack/nvim-spectre',
+  
+  -- vimline
+  'nvim-lualine/lualine.nvim',
+
   -- Version Control
   "lewis6991/gitsigns.nvim",
+
   "tpope/vim-fugitive",
 
   -- Web Development Tools
@@ -101,6 +116,11 @@ require("lazy").setup({
   },
 })
 
+-- ///////////////////////////////////////////////////
+-- /////////////////////////////////////////////////////
+
+-- CONFIGURATIONS
+
 -- telescope.nvim setup
 require('telescope').setup {
   defaults = {
@@ -108,13 +128,21 @@ require('telescope').setup {
   },
 }
 
+
+-- /////////////////////////////////////////////////////////////
+
 -- nvim-tree setup
 require("nvim-tree").setup({
  
-  update_cwd = true, 
+  sync_root_with_cwd = true, -- Sync the tree with the current working directory
+  update_cwd = true, -- Update the tree when you change directories
   hijack_netrw = true,  
+  reload_on_bufenter = true, 
 })
 
+-- //////////////////////////////////////////////////////
+
+-- GIT Support
 require('gitsigns').setup {
   signs = {
     add          = { text = '┃' },
@@ -165,3 +193,130 @@ require('gitsigns').setup {
     col = 1
   },
 }
+
+-- ////////////////////////////////////////////////////
+
+-- LUA line
+
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'gruvbox',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
+    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    always_show_tabline = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 100,
+      tabline = 100,
+      winbar = 100,
+    }
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {}
+}
+
+
+
+-- /////////////////////////////////////////////
+
+-- LSP Setup for omnisharp
+require("lspconfig")["omnisharp"].setup({
+  on_attach = function(client, bufnr)
+    -- Enable format on save
+    if client.server_capabilities.documentFormattingProvider then
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", ":lua vim.lsp.buf.format({ async = true })<CR>", { noremap = true, silent = true })
+      
+      -- Auto format on save
+      vim.cmd([[
+        augroup format_on_save
+          autocmd!
+          autocmd BufWritePre *.cs lua vim.lsp.buf.format({ async = true })
+        augroup END
+      ]])
+    end
+  end,
+})
+
+-- ///////////////////////////////
+
+-- LSP for typescript
+require("typescript-tools").setup {
+  on_attach = function(client, bufnr)
+    -- Auto-format on save
+    if client.server_capabilities.documentFormattingProvider then
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", ":lua vim.lsp.buf.format({ async = true })<CR>", { noremap = true, silent = true })
+      vim.cmd([[
+        augroup format_on_save
+          autocmd!
+          autocmd BufWritePre *.ts,*.tsx lua vim.lsp.buf.format({ async = true })
+        augroup END
+      ]])
+    end
+  end,
+  handlers = {
+    -- Customize handlers here if needed
+  },
+  settings = {
+    tsserver_max_memory = "auto",
+    tsserver_format_options = {},
+    tsserver_locale = "en",
+    tsserver_plugins = {}, -- Specify any plugins here
+  }
+}
+
+-- /////////////////////////////////////////////
+
+require('lspconfig').pyright.setup({
+  on_attach = function(client, bufnr)
+    -- Enable format on save
+    if client.server_capabilities.documentFormattingProvider then
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", ":lua vim.lsp.buf.format({ async = true })<CR>", { noremap = true, silent = true })
+      
+      -- Auto format on save
+      vim.cmd([[
+        augroup format_on_save
+          autocmd!
+          autocmd BufWritePre *.py lua vim.lsp.buf.format({ async = true })
+        augroup END
+      ]])
+    end
+  end,
+  settings = {
+    python = {
+      analysis = {
+        typeCheckingMode = "basic",  -- Options: off | basic | strict
+        autoSearchPaths = true,      -- Automatically add search paths
+        useLibraryCodeForTypes = true,  -- Use the library code for type checking
+      },
+    },
+  },
+})
+
+-- //////////////////////////////////////
+
+

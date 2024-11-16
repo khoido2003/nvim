@@ -20,6 +20,7 @@ vim.o.breakindent = true
 vim.o.sidescrolloff = 0
 vim.o.sidescroll = 1
 
+vim.opt.mouse = "a" -- Enable mouse in all modes
 
 vim.opt.backspace = '2'
 vim.opt.showcmd = true
@@ -49,7 +50,7 @@ vim.api.nvim_create_autocmd("User", {
   callback = function()
     vim.cmd("colorscheme gruvbox")
   end,
-})
+})   
 
 
 -- Enable line wrapping globally
@@ -62,10 +63,17 @@ vim.diagnostic.config({
     prefix = "●",   -- You can change the icon for inline diagnostics
     spacing = 2,     -- Control the spacing between text and diagnostic
   },
-  signs = true,        -- Enable sign column for diagnostics
+  signs = true,        -- Enable sign column for diagnostics (icons in the gutter)
   underline = true,    -- Underline lines with diagnostics
   update_in_insert = true,  -- Update diagnostics even in insert mode
+  float = {            -- Disable floating window diagnostics
+    enabled = false,   -- Ensure floating windows are not shown for diagnostics
+  }
 })
+
+-- Ensure no other floating windows are shown
+vim.lsp.handlers["textDocument/hover"] = function() end  -- Disable hover floating window
+vim.lsp.handlers["textDocument/signatureHelp"] = function() end  -- Disable signature help window
 
 -- Configure diagnostic signs (optional customization)
 local signs = { Error = "E", Warn = "W", Hint = "H", Info = "I" }
@@ -73,15 +81,16 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define("DiagnosticSign" .. type, { text = icon, texthl = "Diagnostic" .. type })
 end
 
--- Ensure LSP floating windows don't overflow
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  wrap = true,
-  border = "rounded",  -- Rounded border for better readability
-  max_width = 80,      -- Optionally limit width for floating windows
+
+-- Format code automatically on save for C#
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.cs",  -- Only for C# files
+  callback = function()
+    -- Request formatting from the LSP
+    vim.lsp.buf.format({ async = true })  -- Format asynchronously
+  end,
 })
 
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  wrap = true,
-  border = "rounded",
-  max_width = 80,
-})
+
+-- Keybinding for commenting a line with Ctrl + /
+vim.api.nvim_set_keymap("n", "<C-/>", ":lua require('Comment.api').toggle.linewise.current()<CR>", { noremap = true, silent = true })

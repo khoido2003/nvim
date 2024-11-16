@@ -42,6 +42,12 @@ vim.api.nvim_set_keymap('n', '<leader>lf', '<Cmd>lua vim.lsp.buf.formatting()<CR
 -- LSP: Code Action (Quickfix)
 vim.api.nvim_set_keymap('n', '<leader>ca', '<Cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
 
+-- Set the keybinding for Ctrl+Shift+F to launch Telescope live_grep
+vim.api.nvim_set_keymap('n', '<C-S-f>', ':Telescope live_grep<CR>', { noremap = true, silent = true })
+
+-- Keybinding for opening vim-spectre
+vim.api.nvim_set_keymap('n', '<C-S-R>', ':Spectre<CR>', { noremap = true, silent = true })
+
 
 -- Keymaps for VS Code-style shortcuts
 vim.keymap.set('n', '<C-c>', '"+y', { noremap = true, silent = true }) -- Copy
@@ -60,3 +66,9 @@ vim.api.nvim_set_keymap('v', '<Del>', '"_d', { noremap = true, silent = true })
 
 -- Map Ctrl+A to select all text in the file
 vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
+
+-- Pressing <Leader>f will start search
+vim.api.nvim_set_keymap('n', '<Leader>f', '/', { noremap = true, silent = false })
+
+vim.api.nvim_set_keymap('n', '<Tab>', ':bnext<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<S-Tab>', ':bprev<CR>', { noremap = true, silent = true })

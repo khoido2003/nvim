@@ -55,5 +55,3 @@ lspconfig.jdtls.setup({
   },
 })
 
--- lspconfig.omnisharp.setup(require('core.lsp.omnisharp'))
--- lspconfig.jdtls.setup(require('core.lsp.jdtls'))
