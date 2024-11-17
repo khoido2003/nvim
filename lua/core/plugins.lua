@@ -15,6 +15,9 @@ require("lazy").setup({
   "nvim-lualine/lualine.nvim",
   "ellisonleao/gruvbox.nvim",
 
+  -- Auto close {}
+  "windwp/nvim-autopairs",
+
   -- Tabnine AI
   { 'codota/tabnine-nvim', build = "pwsh.exe -file .\\dl_binaries.ps1" },
 
@@ -400,4 +403,10 @@ require('tabnine').setup({
   exclude_filetypes = {"TelescopePrompt", "NvimTree"},
   log_file_path = nil, -- absolute path to Tabnine log file
   ignore_certificate_errors = false,
+})
+
+
+-- nvim-autopairs setup
+require('nvim-autopairs').setup({
+  check_ts = true,  -- Enable treesitter support
 })

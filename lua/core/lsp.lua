@@ -36,10 +36,14 @@ lspconfig.clangd.setup { on_attach = on_attach, capabilities = capabilities }
 
 
 lspconfig.omnisharp.setup({
-  cmd = { "omnisharp" }, -- Ensure omnisharp is in your PATH
+  cmd = { 
+    "omnisharp",
+    "--languageserver",
+    "--hostPID", tostring(vim.fn.getpid()) 
+  }, -- Ensure omnisharp is in your PATH
   filetypes = { "cs" },
-  root_dir = lspconfig.util.root_pattern(".git", "*.sln"),
-  
+  root_dir = lspconfig.util.root_pattern(".git", "*.sln", '*.csproj'),
+  autostart =  true
 })
 
 -- -- Set up LSP for Java with nvim-jdtls

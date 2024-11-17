@@ -54,7 +54,6 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })   
 
-
 -- Enable line wrapping globally
 vim.o.wrap = true
 vim.o.linebreak = true
