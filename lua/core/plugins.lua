@@ -4,6 +4,9 @@ require("lazy").setup({
   
   "lewis6991/gitsigns.nvim",
   "onsails/lspkind.nvim",
+
+  -- Icon
+  { "kyazdani42/nvim-web-devicons" },
  
   -- Commenting plugin
   "numToStr/Comment.nvim",
@@ -250,7 +253,7 @@ require('gitsigns').setup {
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'gruvbox',
+    theme = 'nightfly',
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {
@@ -446,3 +449,9 @@ require('tabnine').setup({
 require('nvim-autopairs').setup({
   check_ts = true,  -- Enable treesitter support
 })
+
+
+-- Configure nvim-web-devicons (you can customize as needed)
+require'nvim-web-devicons'.setup {
+  default = true,  -- Use default icons for unrecognized filetypes
+}

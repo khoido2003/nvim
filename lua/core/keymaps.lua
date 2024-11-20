@@ -80,3 +80,6 @@ vim.g.VM_maps = {
   ["Add Cursor Down"] = "<C-Down>", -- Add a cursor down
   ["Add Cursor Up"] = "<C-Up>", -- Add a cursor up
 }
+
+-- Keybinding to open diagnostics in a floating window
+vim.api.nvim_set_keymap('n', '<Leader>d', ':lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })

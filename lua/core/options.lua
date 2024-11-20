@@ -1,27 +1,21 @@
 --  options.lua
-vim.opt.guifont = "Consolas:h14"
-
+vim.opt.guifont = "Fira Code:h15"
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Enable line wrapping
-vim.o.wrap = true
+-- General settings
+vim.o.wrap = true               -- Enable line wrapping
+vim.o.linebreak = true          -- Wrap at word boundaries
+vim.o.textwidth = 80            -- Set text width for automatic wrapping
+vim.o.wrapmargin = 2           -- Set the margin for wrapping
+vim.o.breakindent = true       -- Indent wrapped lines
+vim.o.sidescrolloff = 0        -- Disable horizontal scrolling
+vim.o.sidescroll = 1           -- Set minimal horizontal scroll
 
--- Wrap at word boundaries
-vim.o.linebreak = true
-
--- Set the margin for wrapping
-vim.o.textwidth = 80
-vim.o.wrapmargin = 2
-
--- Indent wrapped lines
-vim.o.breakindent = true
-
--- Disable horizontal scrolling
-vim.o.sidescrolloff = 0
-vim.o.sidescroll = 1
-
+vim.opt.wrap = true
+vim.opt.linebreak = true
+vim.opt.scrolloff = 5
 vim.opt.mouse = "a" -- Enable mouse in all modes
 
 vim.opt.backspace = '2'
@@ -50,7 +44,7 @@ vim.g.gruvbox_contrast_dark = "hard"  -- Set the dark hard contrast
 vim.api.nvim_create_autocmd("User", {
   pattern = "LazyVimStarted",
   callback = function()
-    vim.cmd("colorscheme gruvbox")
+    vim.cmd("colorscheme catppuccin")
   end,
 })   
 
@@ -62,13 +56,16 @@ vim.o.linebreak = true
 vim.diagnostic.config({
   virtual_text = {
     prefix = "●",   -- You can change the icon for inline diagnostics
-    spacing = 2,     -- Control the spacing between text and diagnostic
+    spacing = 2,     -- Control the spacing between text and diagnostic,
+    wrap = true,
   },
   signs = true,        -- Enable sign column for diagnostics (icons in the gutter)
   underline = true,    -- Underline lines with diagnostics
   update_in_insert = true,  -- Update diagnostics even in insert mode
   float = {            -- Disable floating window diagnostics
     enabled = false,   -- Ensure floating windows are not shown for diagnostics
+    max_width = 80,   -- Adjust the max width of the floating diagnostic window
+    wrap = true,      -- Ensure diagnostics wrap within the floating window
   }
 })
 
@@ -95,3 +92,27 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 -- Keybinding for commenting a line with Ctrl + /
 vim.api.nvim_set_keymap("n", "<C-/>", ":lua require('Comment.api').toggle.linewise.current()<CR>", { noremap = true, silent = true })
+
+
+-- Disable italics in comments and diagnostics
+vim.api.nvim_set_hl(0, 'Comment', { italic = false })
+vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextError', { italic = false })
+vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextWarn', { italic = false })
+vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextInfo', { italic = false })
+vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextHint', { italic = false })
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineError', { italic = false })
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineWarn', { italic = false })
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineInfo', { italic = false })
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineHint', { italic = false })
+
+vim.cmd [[
+  highlight clear Comment
+  highlight clear DiagnosticVirtualTextError
+  highlight clear DiagnosticVirtualTextWarn
+  highlight clear DiagnosticVirtualTextInfo
+  highlight clear DiagnosticVirtualTextHint
+  highlight clear DiagnosticUnderlineError
+  highlight clear DiagnosticUnderlineWarn
+  highlight clear DiagnosticUnderlineInfo
+  highlight clear DiagnosticUnderlineHint
+]]
