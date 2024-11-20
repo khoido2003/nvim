@@ -7,6 +7,42 @@ require("lazy").setup({
  
   -- Commenting plugin
   "numToStr/Comment.nvim",
+
+  -- Multiple cursor
+  "mg979/vim-visual-multi",
+
+  -- C# LSP server
+  {
+    "seblj/roslyn.nvim",
+    ft = "cs",
+    opts = {
+      exe = {
+            "dotnet",
+            "C:/Users/Lenovo/.vscode/extensions/ms-dotnettools.csharp-2.55.29-win32-x64/.roslyn/Microsoft.CodeAnalysis.LanguageServer.dll",
+        },
+       args = {
+            "--logLevel=Information",
+            "--extensionLogDirectory=C:/Users/Lenovo/.roslyn_logs",
+        },
+        on_new_config = function(new_config, new_root_dir)
+            -- Use the dynamically created pipe name
+            new_config.cmd = { "dotnet", "\\\\.\\pipe\\f7d4a339" }
+        end,
+        config = {
+            settings = {
+                ["csharp|code_lens"] = {
+                    dotnet_enable_references_code_lens = true,
+                },
+                ["csharp|inlay_hints"] = {
+                    csharp_enable_inlay_hints_for_types = true,
+                    dotnet_enable_inlay_hints_for_parameters = true,
+                },
+            },
+        },
+    }
+    
+  },
+
   
  -- UI Enhancements
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
@@ -258,22 +294,22 @@ require('lualine').setup {
 -- /////////////////////////////////////////////
 
 -- LSP Setup for omnisharp
-require("lspconfig")["omnisharp"].setup({
-  on_attach = function(client, bufnr)
-    -- Enable format on save
-    if client.server_capabilities.documentFormattingProvider then
-      vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", ":lua vim.lsp.buf.format({ async = true })<CR>", { noremap = true, silent = true })
+-- require("lspconfig")["omnisharp"].setup({
+--   on_attach = function(client, bufnr)
+--     -- Enable format on save
+--     if client.server_capabilities.documentFormattingProvider then
+--       vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", ":lua vim.lsp.buf.format({ async = true })<CR>", { noremap = true, silent = true })
       
-      -- Auto format on save
-      vim.cmd([[
-        augroup format_on_save
-          autocmd!
-          autocmd BufWritePre *.cs lua vim.lsp.buf.format({ async = true })
-        augroup END
-      ]])
-    end
-  end,
-})
+--       -- Auto format on save
+--       vim.cmd([[
+--         augroup format_on_save
+--           autocmd!
+--           autocmd BufWritePre *.cs lua vim.lsp.buf.format({ async = true })
+--         augroup END
+--       ]])
+--     end
+--   end,
+-- })
 
 -- ///////////////////////////////
 

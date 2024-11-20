@@ -35,16 +35,22 @@ lspconfig.gopls.setup { on_attach = on_attach, capabilities = capabilities }
 lspconfig.clangd.setup { on_attach = on_attach, capabilities = capabilities }
 
 
-lspconfig.omnisharp.setup({
-  cmd = { 
-    "omnisharp",
-    "--languageserver",
-    "--hostPID", tostring(vim.fn.getpid()) 
-  }, -- Ensure omnisharp is in your PATH
-  filetypes = { "cs" },
-  root_dir = lspconfig.util.root_pattern(".git", "*.sln", '*.csproj'),
-  autostart =  true
-})
+-- lspconfig.omnisharp.setup({
+--   cmd = { 
+--     "omnisharp",
+--     "--languageserver",
+--     "--hostPID", tostring(vim.fn.getpid()) 
+--   }, -- Ensure omnisharp is in your PATH
+--   filetypes = { "cs" },
+--   root_dir = lspconfig.util.root_pattern(".git", "*.sln", '*.csproj'),
+--   autostart =  true,
+--   handlers = {
+--     ["textDocument/definition"] = require('omnisharp_extended').handler,
+-- },
+--   on_attach = function(client, bufnr)
+--       client.server_capabilities.semanticTokensProvider = nil
+--   end,
+-- })
 
 -- -- Set up LSP for Java with nvim-jdtls
 -- local lspconfig = require('lspconfig')

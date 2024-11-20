@@ -74,3 +74,9 @@ vim.api.nvim_set_keymap('n', '<Tab>', ':bnext<CR>', { noremap = true, silent = t
 vim.api.nvim_set_keymap('n', '<S-Tab>', ':bprev<CR>', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('t', '<Esc>', [[<C-\><C-n>]], { noremap = true, silent = true })
+
+vim.g.VM_maps = {
+  ["Find Under"] = "<C-d>", -- Key to find and select occurrences
+  ["Add Cursor Down"] = "<C-Down>", -- Add a cursor down
+  ["Add Cursor Up"] = "<C-Up>", -- Add a cursor up
+}

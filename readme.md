@@ -33,6 +33,10 @@ Omnisharp: https://github.com/OmniSharp/omnisharp-roslyn/releases/
 
 Visual Studio Build Tools: https://visualstudio.microsoft.com/downloads/
 
+New Update: since the omnisharp support is so horrible so I will use another approach which is using the C# dev kit Roslyn from Vs code as the LSP server so I will use "seblj/roslyn.nvim", this will execute the extension from vs code to do the LSP
+
+Find the Roslyn, something similar to this: C:/Users/Lenovo/.vscode/extensions/ms-dotnettools.csharp-2.55.29-win32-x64/.roslyn/Microsoft.CodeAnalysis.LanguageServer.dll
+
 ### LSP for HTML, CSS
 
 Using adminstrator access in CMD or Powershell to dowload by Nodejs:
