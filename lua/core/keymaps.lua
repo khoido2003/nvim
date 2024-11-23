@@ -83,3 +83,12 @@ vim.g.VM_maps = {
 
 -- Keybinding to open diagnostics in a floating window
 vim.api.nvim_set_keymap('n', '<Leader>d', ':lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
+
+
+vim.api.nvim_create_user_command('R', function()
+  vim.cmd('wa') -- Save all files
+  vim.cmd('silent! exec "!kill -USR1 $(pgrep -f nvim)"')
+end, { desc = "Restart Neovim" })
+
+
+vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })

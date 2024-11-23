@@ -181,6 +181,13 @@ require('telescope').setup {
   defaults = {
     file_ignore_patterns = { "node_modules", ".git/*", "*.log" }, -- Ignore specific files or directories
   },
+  extensions = {
+    lsp_handlers = {
+        code_action = {
+            telescope = require('telescope.themes').get_dropdown({})
+        }
+    }
+  }
 }
 
 
@@ -302,18 +309,6 @@ require('lualine').setup {
 -- LSP Setup for omnisharp
 -- require("lspconfig")["omnisharp"].setup({
 --   on_attach = function(client, bufnr)
---     -- Enable format on save
---     if client.server_capabilities.documentFormattingProvider then
---       vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", ":lua vim.lsp.buf.format({ async = true })<CR>", { noremap = true, silent = true })
-      
---       -- Auto format on save
---       vim.cmd([[
---         augroup format_on_save
---           autocmd!
---           autocmd BufWritePre *.cs lua vim.lsp.buf.format({ async = true })
---         augroup END
---       ]])
---     end
 --   end,
 -- })
 

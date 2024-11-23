@@ -1,5 +1,5 @@
 --  options.lua
-vim.opt.guifont = "Fira Code:h15"
+vim.opt.guifont = "Fira Code:h14"
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -128,3 +128,10 @@ vim.lsp.handlers["textDocument/semanticTokens/full"] = vim.lsp.with(
   vim.lsp.handlers.semantic_tokens,
   { highlight = true }
 )
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "*.cs",
+  callback = function()
+      vim.cmd('LspRestart') -- Automatically restart the language server
+  end,
+})

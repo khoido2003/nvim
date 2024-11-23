@@ -1,5 +1,20 @@
 -- init.lua
 
+-- Normal mode mappings
+vim.api.nvim_set_keymap('n', '<Down>', 'gj', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Up>', 'gk', { noremap = true, silent = true })
+
+-- Insert mode mappings
+vim.api.nvim_set_keymap('i', '<Down>', '<C-o>gj', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<Up>', '<C-o>gk', { noremap = true, silent = true })
+
+-- Visual mode mappings
+vim.api.nvim_set_keymap('v', '<Down>', 'gj', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<Up>', 'gk', { noremap = true, silent = true })
+
+
+vim.o.scrolloff = 3  -- Keep 3 lines visible above and below the cursor
+
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 

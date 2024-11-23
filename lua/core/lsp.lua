@@ -46,6 +46,7 @@ lspconfig.omnisharp.setup({
   autostart =  true,
   handlers = {
     ["textDocument/definition"] = require('omnisharp_extended').handler,
+    ["textDocument/inlayHint"] = function() end -- Disable inlay hints
 },
   on_attach = function(client, bufnr)
       -- client.server_capabilities.semanticTokensProvider = true
