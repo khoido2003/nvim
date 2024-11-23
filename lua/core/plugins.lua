@@ -5,6 +5,9 @@ require("lazy").setup({
   "lewis6991/gitsigns.nvim",
   "onsails/lspkind.nvim",
 
+  -- Kanagawa theme
+  "rebelot/kanagawa.nvim",
+
   -- Icon
   { "kyazdani42/nvim-web-devicons" },
  
@@ -16,7 +19,7 @@ require("lazy").setup({
 
   -- C# LSP server
   {
-    "seblj/roslyn.nvim",
+    "seblj/roslyn.nvim", 
     ft = "cs",
     opts = {
       exe = {
@@ -253,7 +256,7 @@ require('gitsigns').setup {
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'nightfly',
+    theme = 'codedark',
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {
@@ -455,3 +458,66 @@ require('nvim-autopairs').setup({
 require'nvim-web-devicons'.setup {
   default = true,  -- Use default icons for unrecognized filetypes
 }
+
+-- Catpuccin config
+require("catppuccin").setup({
+  no_italic = true, -- Force no italic
+})
+
+-- Default options:
+require('kanagawa').setup({
+  compile = false,             -- enable compiling the colorscheme
+  undercurl = true,            -- enable undercurls
+  commentStyle = { italic = false },
+  functionStyle = {},
+  keywordStyle = { italic = false},
+  statementStyle = { bold = true },
+  typeStyle = {},
+  transparent = false,         -- do not set background color
+  dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
+  terminalColors = true,       -- define vim.g.terminal_color_{0,17}
+  colors = {                   -- add/modify theme and palette colors
+      palette = {},
+      theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+  },
+  overrides = function(colors)
+    return {
+      GitSignsAdd = { bg = "NONE", fg = colors.palette.springGreen }, -- Git add highlight
+      GitSignsChange = { bg = "NONE", fg = colors.palette.autumnYellow }, -- Git change highlight
+      GitSignsDelete = { bg = "NONE", fg = colors.palette.sakuraPink }, -- Git delete highlight
+      DiffAdd = { bg = "NONE", fg = colors.palette.springGreen },
+      DiffChange = { bg = "NONE", fg = colors.palette.autumnYellow },
+      DiffDelete = { bg = "NONE", fg = colors.palette.sakuraPink },
+      DiffText = { bg = "NONE", fg = colors.theme.ui.fg }, -- Remove gray background for unchanged parts
+      CursorLine = { bg = colors.theme.ui.bg_p1 }, -- Less bright cursor line
+      LineNr = { bg = "NONE" }, -- Remove background from line numbers
+      Normal = { bg = "NONE" }, -- Ensure normal text has no background
+      NormalNC = { bg = "NONE" }, -- Remove background from inactive windows
+      SignColumn = { bg = "NONE" }, -- Remove background from sign column
+
+      -- Remove background for diagnostics
+      DiagnosticError = { fg = colors.palette.autumnRed, bg = "NONE" },
+      DiagnosticWarn = { fg = colors.palette.autumnYellow, bg = "NONE" },
+      DiagnosticInfo = { fg = colors.palette.waveBlue1, bg = "NONE" },
+      DiagnosticHint = { fg = colors.palette.springGreen, bg = "NONE" },
+
+      -- Optionally adjust virtual text colors
+      DiagnosticVirtualTextError = { fg = colors.palette.autumnRed, bg = "NONE" },
+      DiagnosticVirtualTextWarn = { fg = colors.palette.autumnYellow, bg = "NONE" },
+      DiagnosticVirtualTextInfo = { fg = colors.palette.waveBlue1, bg = "NONE" },
+      DiagnosticVirtualTextHint = { fg = colors.palette.springGreen, bg = "NONE" },
+
+      -- Diagnostic signs (e.g., symbols like H for Hint)
+      DiagnosticSignError = { fg = colors.palette.autumnRed, bg = "NONE" },
+      DiagnosticSignWarn = { fg = colors.palette.autumnYellow, bg = "NONE" },
+      DiagnosticSignInfo = { fg = colors.palette.waveBlue1, bg = "NONE" },
+      DiagnosticSignHint = { fg = colors.palette.springGreen, bg = "NONE" },
+    }
+  end,
+  theme = "dragon",              -- Load "wave" theme when 'background' option is not set
+  background = {               -- map the value of 'background' option to a theme
+      dark = "dragon",           -- try "dragon" !
+      light = "lotus"
+  },
+})
+

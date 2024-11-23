@@ -35,22 +35,32 @@ lspconfig.gopls.setup { on_attach = on_attach, capabilities = capabilities }
 lspconfig.clangd.setup { on_attach = on_attach, capabilities = capabilities }
 
 
--- lspconfig.omnisharp.setup({
---   cmd = { 
---     "omnisharp",
---     "--languageserver",
---     "--hostPID", tostring(vim.fn.getpid()) 
---   }, -- Ensure omnisharp is in your PATH
---   filetypes = { "cs" },
---   root_dir = lspconfig.util.root_pattern(".git", "*.sln", '*.csproj'),
---   autostart =  true,
---   handlers = {
---     ["textDocument/definition"] = require('omnisharp_extended').handler,
--- },
---   on_attach = function(client, bufnr)
---       client.server_capabilities.semanticTokensProvider = nil
---   end,
--- })
+lspconfig.omnisharp.setup({
+  cmd = { 
+    "omnisharp",
+    "--languageserver",
+    "--hostPID", tostring(vim.fn.getpid()) 
+  }, -- Ensure omnisharp is in your PATH
+  filetypes = { "cs" },
+  root_dir = lspconfig.util.root_pattern(".git", "*.sln", '*.csproj'),
+  autostart =  true,
+  handlers = {
+    ["textDocument/definition"] = require('omnisharp_extended').handler,
+},
+  on_attach = function(client, bufnr)
+      -- client.server_capabilities.semanticTokensProvider = true
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.completionProvider = false
+      client.server_capabilities.definitionProvider = false
+      client.server_capabilities.referencesProvider = false
+      -- client.server_capabilities.renameProvider = false
+      -- -- Enable only semantic tokens for highlighting
+      if client.server_capabilities.semanticTokensProvider then  
+        print("OmniSharp is providing semantic tokens for highlighting.")
+      end
+
+  end,
+})
 
 -- -- Set up LSP for Java with nvim-jdtls
 -- local lspconfig = require('lspconfig')

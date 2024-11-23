@@ -44,13 +44,13 @@ vim.g.gruvbox_contrast_dark = "hard"  -- Set the dark hard contrast
 vim.api.nvim_create_autocmd("User", {
   pattern = "LazyVimStarted",
   callback = function()
-    vim.cmd("colorscheme catppuccin")
+    vim.cmd("colorscheme kanagawa")
   end,
 })   
 
 -- Enable line wrapping globally
 vim.o.wrap = true
-vim.o.linebreak = true
+vim.o.linebreak = true 
 
 -- Configure LSP diagnostics
 vim.diagnostic.config({
@@ -79,6 +79,12 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define("DiagnosticSign" .. type, { text = icon, texthl = "Diagnostic" .. type })
 end
 
+vim.cmd([[
+  highlight DiagnosticError guibg=NONE 
+  highlight DiagnosticWarn guibg=NONE 
+  highlight DiagnosticInfo guibg=NONE
+  highlight DiagnosticHint guibg=NONE 
+]])
 
 -- Format code automatically on save for C#
 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -116,3 +122,9 @@ vim.cmd [[
   highlight clear DiagnosticUnderlineInfo
   highlight clear DiagnosticUnderlineHint
 ]]
+
+vim.o.termguicolors = true -- Ensure true color support
+vim.lsp.handlers["textDocument/semanticTokens/full"] = vim.lsp.with(
+  vim.lsp.handlers.semantic_tokens,
+  { highlight = true }
+)
