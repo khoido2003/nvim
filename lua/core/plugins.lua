@@ -34,6 +34,7 @@ require("lazy").setup({
             -- Use the dynamically created pipe name
             new_config.cmd = { "dotnet", "\\\\.\\pipe\\f7d4a339" }
         end,
+        filewatching = true,
         config = {
             settings = {
                 ["csharp|code_lens"] = {
@@ -50,6 +51,8 @@ require("lazy").setup({
   },
 
   
+  { 'neoclide/coc.nvim', branch = 'release' },
+
  -- UI Enhancements
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   "nvim-tree/nvim-tree.lua",
@@ -69,8 +72,19 @@ require("lazy").setup({
     run = ":TSUpdate",
     opts = {
       ensure_installed = { "c_sharp", "go", "java", "typescript", "javascript", "html", "css", "lua", "json", "markdown", "python" },
-      highlight = { enable = true },
+      highlight = { enable = true,additional_vim_regex_highlighting = false, },
     },
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    opts = {
+      enable = true, -- Show context for methods/classes at the top
+    },
+  }, 
+
+  {
+    "sheerun/vim-polyglot",
   },
 
     -- Terminal management
@@ -202,6 +216,17 @@ require("nvim-tree").setup({
   reload_on_bufenter = true, 
 })
 
+require("nvim-treesitter.parsers").get_parser_configs().c_sharp = {
+  install_info = {
+    url = "https://github.com/tree-sitter/tree-sitter-c-sharp",  -- Specify the parser's repo
+    files = { "src/parser.c", "src/scanner.c" },
+    branch = "main",
+  },
+  filetype = "cs",
+}
+
+
+
 -- //////////////////////////////////////////////////////
 
 -- GIT Support
@@ -311,6 +336,9 @@ require('lualine').setup {
 --   on_attach = function(client, bufnr)
 --   end,
 -- })
+
+require('lspconfig').util.root_pattern('*.sln', '*.csproj')
+
 
 -- ///////////////////////////////
 
@@ -515,4 +543,3 @@ require('kanagawa').setup({
       light = "lotus"
   },
 })
-

@@ -31,37 +31,81 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Configure individual LSP servers
 lspconfig.pyright.setup { on_attach = on_attach, capabilities = capabilities }
 lspconfig.ts_ls.setup { on_attach = on_attach, capabilities = capabilities }
-lspconfig.gopls.setup { on_attach = on_attach, capabilities = capabilities }
 lspconfig.clangd.setup { on_attach = on_attach, capabilities = capabilities }
 
 
-lspconfig.omnisharp.setup({
-  cmd = { 
-    "omnisharp",
-    "--languageserver",
-    "--hostPID", tostring(vim.fn.getpid()) 
-  }, -- Ensure omnisharp is in your PATH
-  filetypes = { "cs" },
-  root_dir = lspconfig.util.root_pattern(".git", "*.sln", '*.csproj'),
-  autostart =  true,
-  handlers = {
-    ["textDocument/definition"] = require('omnisharp_extended').handler,
-    ["textDocument/inlayHint"] = function() end -- Disable inlay hints
-},
-  on_attach = function(client, bufnr)
-      -- client.server_capabilities.semanticTokensProvider = true
-      client.server_capabilities.documentFormattingProvider = false
-      client.server_capabilities.completionProvider = false
-      client.server_capabilities.definitionProvider = false
-      client.server_capabilities.referencesProvider = false
-      -- client.server_capabilities.renameProvider = false
-      -- -- Enable only semantic tokens for highlighting
-      if client.server_capabilities.semanticTokensProvider then  
-        print("OmniSharp is providing semantic tokens for highlighting.")
-      end
+-- Go LSP
+require'lspconfig'.gopls.setup{
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,  -- Detect unused parameters in your code
+        shadow = true,        -- Detect shadowed variables
+        fieldalignment = true, -- Align struct fields
+        nilness = true,       -- Detect nil pointer dereferencing
+      },
+      staticcheck = true,     -- Enable staticcheck for advanced linting
+      semanticTokens = true,  -- Enable semantic tokens for better syntax highlighting
+      -- You can now remove the `format` setting here, as gopls handles this differently
+    },
+  },
 
+  on_attach = function(client, bufnr)
+    -- Disable the default formatting in LSP (we will configure it separately)
+    client.server_capabilities.documentFormattingProvider = true
+    -- Configure keybindings
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true })
   end,
-})
+}
+
+-- Auto format on save for Go files
+vim.cmd([[
+  augroup GoLsp
+    autocmd!
+    autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 1000)
+  augroup END
+]])
+
+
+-- Function to start OmniSharp asynchronously
+local function start_omnisharp_async()
+  -- Use a timer to launch OmniSharp LSP asynchronously after a short delay
+  vim.defer_fn(function()
+    lspconfig.omnisharp.setup({
+      cmd = {
+        "omnisharp",
+        "--languageserver",
+        "--hostPID", tostring(vim.fn.getpid())
+      },
+      filetypes = { "cs" },
+      root_dir = lspconfig.util.root_pattern(".git", "*.sln", "*.csproj"),
+      autostart = true,
+      handlers = {
+        ["textDocument/inlayHint"] = function() end, -- Disable inlay hints
+      },
+      on_attach = function(client, bufnr)
+        -- Disable all non-syntax related capabilities
+        client.server_capabilities.completionProvider = false
+        client.server_capabilities.definitionProvider = false
+        client.server_capabilities.referencesProvider = false
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.renameProvider = false
+
+        -- Enable only semantic tokens for syntax highlighting
+        if client.server_capabilities.semanticTokensProvider then
+          print("OmniSharp is providing semantic tokens for highlighting.")
+        end
+      end,
+    })
+  end, 10)  -- Delay start by 100ms (can be adjusted for faster or slower start)
+end
+
+-- Start OmniSharp asynchronously
+start_omnisharp_async()
+
+-- ///////////////////////////////////////////
 
 -- -- Set up LSP for Java with nvim-jdtls
 -- local lspconfig = require('lspconfig')
