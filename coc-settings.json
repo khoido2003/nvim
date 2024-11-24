@@ -1,3 +1,25 @@
 {
-  "snippets.ultisnips.pythonPrompt": false
+  "snippets.ultisnips.pythonPrompt": false,
+   "coc.preferences.completionPriority": 99,
+  "languageserver": {
+    "omnisharp": {
+      "command": "omnisharp",
+      "args": ["--languageserver"],
+      "filetypes": ["csharp"],
+      "rootPatterns": ["*.sln", "*.csproj"],
+      "initializationOptions": {
+        "enableEditorConfigSupport": false,
+        "enableRoslynAnalyzers": false,
+        "enableFormatting": false,
+        "enableCodeActions": false,
+        "enableCompletion": false,
+        "enableSignatureHelp": false,
+        "enableFindReferences": false,
+        "enableGoToDefinition": false,
+        "enableRename": false,
+        "enableDiagnostics": false,
+        "enableHover": false
+      }
+    }
+  }
 }

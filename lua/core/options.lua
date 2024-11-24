@@ -1,5 +1,5 @@
 --  options.lua
-vim.opt.guifont = "Fira Code:h14"
+vim.opt.guifont = "Fira Code:h13"
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
