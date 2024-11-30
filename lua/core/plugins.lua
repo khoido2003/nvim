@@ -7,7 +7,7 @@ require("lazy").setup({
 
   -- Kanagawa theme
   "rebelot/kanagawa.nvim",
-
+  
   -- Icon
   { "kyazdani42/nvim-web-devicons" },
  
@@ -50,15 +50,9 @@ require("lazy").setup({
     
   },
 
-  
-  { 'neoclide/coc.nvim', branch = 'release' },
-
- -- UI Enhancements
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   "nvim-tree/nvim-tree.lua",
   "nvim-tree/nvim-web-devicons",
   "nvim-lualine/lualine.nvim",
-  "ellisonleao/gruvbox.nvim",
 
   -- Auto close {}
   "windwp/nvim-autopairs",
@@ -75,18 +69,6 @@ require("lazy").setup({
       highlight = { enable = true,additional_vim_regex_highlighting = false, },
     },
   },
-
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    opts = {
-      enable = true, -- Show context for methods/classes at the top
-    },
-  }, 
-
-  {
-    "sheerun/vim-polyglot",
-  },
-
     -- Terminal management
     {
       "akinsho/toggleterm.nvim",
@@ -147,10 +129,6 @@ require("lazy").setup({
     "iamcco/markdown-preview.nvim",
     run = "cd app && npm install",
   },
-  {
-    "vinnymeller/swagger-preview.nvim",
-    run = "npm install -g swagger-ui-watcher",
-  },
 
   -- Telescope for Fuzzy Finding
   {
@@ -161,28 +139,17 @@ require("lazy").setup({
 
   -- Language Specific Tools
   {
-    "Hoffs/omnisharp-extended-lsp.nvim", -- C# support
-    dependencies = { "neovim/nvim-lspconfig" },
+    'OmniSharp/omnisharp-vim'
   },
   {
     "fatih/vim-go", -- Go development
     run = ":GoUpdateBinaries",
   },
   {
-    "mfussenegger/nvim-jdtls", -- Java development
-    dependencies = { "neovim/nvim-lspconfig" },
-  },
-  {
     "jose-elias-alvarez/null-ls.nvim", -- Linting and Formatting
     dependencies = { "nvim-lua/plenary.nvim" },
   },
 
-	-- -- JAVA LSP
-	-- 'williamboman/mason.nvim',
-	-- 'williamboman/mason-lspconfig.nvim',
-
-  'hrsh7th/vim-vsnip',
-  'hrsh7th/cmp-vsnip'
 })
 
 -- ///////////////////////////////////////////////////
@@ -224,8 +191,6 @@ require("nvim-treesitter.parsers").get_parser_configs().c_sharp = {
   },
   filetype = "cs",
 }
-
-
 
 -- //////////////////////////////////////////////////////
 
@@ -331,14 +296,7 @@ require('lualine').setup {
 
 -- /////////////////////////////////////////////
 
--- LSP Setup for omnisharp
--- require("lspconfig")["omnisharp"].setup({
---   on_attach = function(client, bufnr)
---   end,
--- })
-
 require('lspconfig').util.root_pattern('*.sln', '*.csproj')
-
 
 -- ///////////////////////////////
 
@@ -459,16 +417,16 @@ require("lspconfig").tailwindcss.setup({
 
 -- ////////////////////////////////////////////////
 
-require('tabnine').setup({
-  disable_auto_comment=true,
-  accept_keymap="<Tab>",
-  dismiss_keymap = "<C-]>",
-  debounce_ms = 800,
-  suggestion_color = {gui = "#808080", cterm = 244},
-  exclude_filetypes = {"TelescopePrompt", "NvimTree"},
-  log_file_path = nil, -- absolute path to Tabnine log file
-  ignore_certificate_errors = false,
-})
+-- require('tabnine').setup({
+--   disable_auto_comment=true,
+--   accept_keymap="<Tab>",
+--   dismiss_keymap = "<C-]>",
+--   debounce_ms = 800,
+--   suggestion_color = {gui = "#808080", cterm = 244},
+--   exclude_filetypes = {"TelescopePrompt", "NvimTree"},
+--   log_file_path = nil, -- absolute path to Tabnine log file
+--   ignore_certificate_errors = false,
+-- })
 
 
 -- nvim-autopairs setup
@@ -482,10 +440,6 @@ require'nvim-web-devicons'.setup {
   default = true,  -- Use default icons for unrecognized filetypes
 }
 
--- Catpuccin config
-require("catppuccin").setup({
-  no_italic = true, -- Force no italic
-})
 
 -- Default options:
 require('kanagawa').setup({

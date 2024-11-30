@@ -70,40 +70,29 @@ vim.cmd([[
 
 
 -- Function to start OmniSharp asynchronously
-local function start_omnisharp_async()
-  -- Use a timer to launch OmniSharp LSP asynchronously after a short delay
-  vim.defer_fn(function()
-    lspconfig.omnisharp.setup({
-      cmd = {
-        "omnisharp",
-        "--languageserver",
-        "--hostPID", tostring(vim.fn.getpid())
-      },
-      filetypes = { "cs" },
-      root_dir = lspconfig.util.root_pattern(".git", "*.sln", "*.csproj"),
-      autostart = true,
-      handlers = {
-        ["textDocument/inlayHint"] = function() end, -- Disable inlay hints
-      },
-      on_attach = function(client, bufnr)
-        -- Disable all non-syntax related capabilities
-        client.server_capabilities.completionProvider = false
-        client.server_capabilities.definitionProvider = false
-        client.server_capabilities.referencesProvider = false
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.renameProvider = false
-
-        -- Enable only semantic tokens for syntax highlighting
-        if client.server_capabilities.semanticTokensProvider then
-          print("OmniSharp is providing semantic tokens for highlighting.")
-        end
-      end,
-    })
-  end, 10)  -- Delay start by 100ms (can be adjusted for faster or slower start)
+local function start_omnisharp()
+  -- Setup OmniSharp LSP without delay
+  lspconfig.omnisharp.setup({
+    cmd = {
+      "omnisharp",
+      "--languageserver",
+      "--hostPID", tostring(vim.fn.getpid())
+    },
+    filetypes = { "cs" },
+    root_dir = lspconfig.util.root_pattern(".git", "*.sln", "*.csproj"),
+    autostart = true,
+    handlers = {
+      ["textDocument/inlayHint"] = function() end, -- Disable inlay hints
+    },
+    on_attach = function(client, bufnr)
+      -- Custom on_attach logic (if needed)
+    end,
+  })
 end
 
--- Start OmniSharp asynchronously
-start_omnisharp_async()
+-- Start OmniSharp without delay
+start_omnisharp()
+
 
 -- ///////////////////////////////////////////
 
