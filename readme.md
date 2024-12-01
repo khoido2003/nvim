@@ -100,22 +100,13 @@ lazygit (optional)
 ## Results
 
 ![img](images/1.png)
-_Folder Tree_
 
 ![img](images/2.png)
-_Folder tree and editor_
 
 ![img](images/3.png)
-_Find file_
 
 ![img](images/4.png)
-_Auto completion_
 
 ![img](images/5.png)
-_LazyVim Packet management _
 
 ![img](images/6.png)
-_Find word in all files_
-
-![img](images/7.png)
-_Terminal_

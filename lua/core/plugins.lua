@@ -3,7 +3,6 @@
 require("lazy").setup({
 
   { "rose-pine/neovim", name = "rose-pine" },
-  'marko-cerovac/material.nvim',
   {
     'nvimdev/dashboard-nvim',
     event = 'VimEnter',
@@ -18,8 +17,8 @@ require("lazy").setup({
   "lewis6991/gitsigns.nvim",
   "onsails/lspkind.nvim",
 
-  -- Kanagawa theme
-  "rebelot/kanagawa.nvim",
+  -- -- Kanagawa theme
+  -- "rebelot/kanagawa.nvim",
   
   -- Icon
   { "kyazdani42/nvim-web-devicons" },
