@@ -1,6 +1,19 @@
 -- plugins.lua
 
 require("lazy").setup({
+
+  { "rose-pine/neovim", name = "rose-pine" },
+  'marko-cerovac/material.nvim',
+  {
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+      require('dashboard').setup {
+        -- config
+      }
+    end,
+    dependencies = { {'nvim-tree/nvim-web-devicons'}}
+  },
   
   "lewis6991/gitsigns.nvim",
   "onsails/lspkind.nvim",
@@ -115,9 +128,6 @@ require("lazy").setup({
   
   'nvim-pack/nvim-spectre',
   
-  -- vimline
-  'nvim-lualine/lualine.nvim',
-
   -- Version Control
   "lewis6991/gitsigns.nvim",
 
@@ -253,22 +263,38 @@ require('gitsigns').setup {
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'codedark',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
+    theme = {
+      normal = {
+        a = { fg = '#ffffff', bg = '#2e3238', gui = 'bold' },  -- Normal mode 
+        b = { fg = '#c5c8c6', bg = '#202426' },                  -- Background for branch, diagnostics (dark grayish)
+        c = { fg = '#c5c8c6', bg = '#202426' },                  -- Background for filename (dark grayish)
+      },
+      insert = {
+        a = { fg = '#ffffff', bg = '#9d7cd8', gui = 'bold' },  -- Insert mode (background dark blue-gray)
+      },
+      visual = {
+        a = { fg = '#ffffff', bg = '#e46876', gui = 'bold' },  -- Visual mode (background muted gray)
+      },
+      replace = {
+        a = { fg = '#ffffff', bg = '#5a6374', gui = 'bold' },  -- Replace mode (background rose red)
+      },
+      command = {
+        a = { fg = '#ffffff', bg = '#364F6B', gui = 'bold' },  -- Command mode (background purple)
+      },
+      inactive = {
+        a = { fg = '#c5c8c6', bg = '#1c1f24' },  -- Inactive sections have a muted gray background
+        b = { fg = '#c5c8c6', bg = '#1c1f24' },
+        c = { fg = '#c5c8c6', bg = '#1c1f24' },
+      },
+    },
+    component_separators = { left = '', right = '' },
+    section_separators = { left = '', right = '' },
     disabled_filetypes = {
       statusline = {},
       winbar = {},
     },
-    ignore_focus = {},
     always_divide_middle = true,
-    always_show_tabline = true,
     globalstatus = false,
-    refresh = {
-      statusline = 100,
-      tabline = 100,
-      winbar = 100,
-    }
   },
   sections = {
     lualine_a = {'mode'},
@@ -276,7 +302,7 @@ require('lualine').setup {
     lualine_c = {'filename'},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
-    lualine_z = {'location'}
+    lualine_z = {'location'},
   },
   inactive_sections = {
     lualine_a = {},
@@ -284,14 +310,13 @@ require('lualine').setup {
     lualine_c = {'filename'},
     lualine_x = {'location'},
     lualine_y = {},
-    lualine_z = {}
+    lualine_z = {},
   },
   tabline = {},
   winbar = {},
   inactive_winbar = {},
   extensions = {}
 }
-
 
 
 -- /////////////////////////////////////////////
@@ -497,3 +522,224 @@ require('kanagawa').setup({
       light = "lotus"
   },
 })
+
+-- //////////////////////////////////////////////////////////////////////////////////////
+
+require('dashboard').setup({
+  theme = 'hyper',
+
+  config = {
+    header = {
+        [[                                          ]],
+        [[                                          ]],
+        [[                                          ]],
+        [[    ███╗   ███╗ █████╗ ██╗  ██╗███████╗   ]],
+        [[    ████╗ ████║██╔══██╗██║ ██╔╝██╔════╝   ]],
+        [[    ██╔████╔██║███████║█████╔╝ █████╗     ]],
+        [[    ██║╚██╔╝██║██╔══██║██╔═██╗ ██╔══╝     ]],
+        [[    ██║ ╚═╝ ██║██║  ██║██║  ██╗███████╗   ]],
+        [[    ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝   ]],
+        [[      ██████╗ ██████╗  ██████╗ ██╗        ]],
+        [[     ██╔════╝██╔═══██╗██╔═══██╗██║        ]],
+        [[     ██║     ██║   ██║██║   ██║██║        ]],
+        [[     ██║     ██║   ██║██║   ██║██║        ]],
+        [[     ╚██████╗╚██████╔╝╚██████╔╝███████╗   ]],
+        [[      ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝   ]],
+        [[███████╗████████╗██╗   ██╗███████╗███████╗]],
+        [[██╔════╝╚══██╔══╝██║   ██║██╔════╝██╔════╝]],
+        [[███████╗   ██║   ██║   ██║█████╗  █████╗  ]],
+        [[╚════██║   ██║   ██║   ██║██╔══╝  ██╔══╝  ]],
+        [[███████║   ██║   ╚██████╔╝██║     ██║     ]],
+        [[╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝     ]],
+        [[                                          ]],
+        [[                                          ]],                                         
+            },
+      
+      -- week_header = {
+      --  enable = true,
+      -- },
+      shortcut = {
+        { desc = '🌀 Update', group = 'DashboardShortcut', action = 'Lazy update', key = 'u' },
+        { desc = "🌙  Find File", group = "DashboardShortcut", action = "Telescope find_files", key = "f" },
+        { desc = "🌿  Find Word", group = "DashboardShortcut", action = "Telescope live_grep", key = "w" },
+        { desc = "📚  Recent Files", group = "DashboardShortcut", action = "Telescope oldfiles", key = "r" },
+        { desc = "❍  Quit", group = "DashboardShortcut", action = ":qa", key = "q" },
+      },
+
+      footer = {
+        "🌸 Breathe deeply, code calmly 🌸",
+    },
+  },
+})
+
+----/////////////////////////////////////////////////////////////
+
+-- Material color scheme
+
+--Lua:
+vim.g.material_style = "darker"
+
+require('material').setup({
+
+  contrast = {
+      terminal = false, -- Enable contrast for the built-in terminal
+      sidebars = false, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
+      floating_windows = false, -- Enable contrast for floating windows
+      cursor_line = false, -- Enable darker background for the cursor line
+      lsp_virtual_text = false, -- Enable contrasted background for lsp virtual text
+      non_current_windows = false, -- Enable contrasted background for non-current windows
+      filetypes = {}, -- Specify which filetypes get the contrasted (darker) background
+  },
+
+  styles = { -- Give comments style such as bold, italic, underline etc.
+      comments = { --[[ italic = true ]] },
+      strings = { --[[ bold = true ]] },
+      keywords = { --[[ underline = true ]] },
+      functions = { --[[ bold = true, undercurl = true ]] },
+      variables = {},
+      operators = {},
+      types = {},
+  },
+
+  plugins = { -- Uncomment the plugins that you use to highlight them
+      -- Available plugins:
+      -- "coc",
+      -- "colorful-winsep",
+      -- "dap",
+      -- "dashboard",
+      -- "eyeliner",
+      -- "fidget",
+      -- "flash",
+      -- "gitsigns",
+      -- "harpoon",
+      -- "hop",
+      -- "illuminate",
+      -- "indent-blankline",
+      -- "lspsaga",
+      -- "mini",
+      -- "neogit",
+      -- "neotest",
+      -- "neo-tree",
+      -- "neorg",
+      -- "noice",
+      -- "nvim-cmp",
+      -- "nvim-navic",
+      -- "nvim-tree",
+      -- "nvim-web-devicons",
+      -- "rainbow-delimiters",
+      -- "sneak",
+      -- "telescope",
+      -- "trouble",
+      -- "which-key",
+      -- "nvim-notify",
+  },
+
+  disable = {
+      colored_cursor = false, -- Disable the colored cursor
+      borders = false, -- Disable borders between vertically split windows
+      background = false, -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
+      term_colors = false, -- Prevent the theme from setting terminal colors
+      eob_lines = false -- Hide the end-of-buffer lines
+  },
+
+  high_visibility = {
+      lighter = false, -- Enable higher contrast text for lighter style
+      darker = false -- Enable higher contrast text for darker style
+  },
+
+  lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
+
+  async_loading = true, -- Load parts of the theme asynchronously for faster startup (turned on by default)
+
+  custom_colors = nil, -- If you want to override the default colors, set this to a function
+
+  custom_highlights = {}, -- Overwrite highlights with your own
+})
+
+
+-- ////////////////////////////////////////////////////////////////
+
+require("rose-pine").setup({
+  variant = "moon", -- auto, main, moon, or dawn
+  dark_variant = "moon", -- main, moon, or dawn
+  dim_inactive_windows = false,
+  extend_background_behind_borders = true,
+
+  enable = {
+      terminal = true,
+      legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
+      migrations = true, -- Handle deprecated options automatically
+  },
+
+  styles = {
+      bold = true,
+      italic = false,
+      transparency = false,
+  },
+
+  groups = {
+      border = "muted",
+      link = "iris",
+      panel = "surface",
+
+      error = "love",
+      hint = "iris",
+      info = "foam",
+      note = "pine",
+      todo = "rose",
+      warn = "gold",
+
+      git_add = "foam",
+      git_change = "rose",
+      git_delete = "love",
+      git_dirty = "rose",
+      git_ignore = "muted",
+      git_merge = "iris",
+      git_rename = "pine",
+      git_stage = "iris",
+      git_text = "rose",
+      git_untracked = "subtle",
+
+      h1 = "iris",
+      h2 = "foam",
+      h3 = "rose",
+      h4 = "gold",
+      h5 = "pine",
+      h6 = "foam",
+  },
+
+  palette = {
+      -- Override the builtin palette per variant
+      moon = {
+          -- base = '#1c1f24',   -- Neutral dark background
+          -- overlay = '#2e3238', -- Softer dark overlay
+
+          base = '#18191a',
+          overlay = '#363738',
+      },
+  },
+
+  highlight_groups = {
+      -- Customize floating and popup backgrounds
+      Normal = { bg = "#18191a" },
+      NormalFloat = { bg = "#18191a" },
+      FloatBorder = { bg = "#18191a", fg = "#363738" },
+      Pmenu = { bg = "#363738", fg = "#c5c8c6" },
+      PmenuSel = { bg = "#363738", fg = "#ffffff" },
+
+      -- Telescope specific overrides
+      TelescopeBorder = { fg = "#363738", bg = "#18191a" }, -- Border of Telescope popups
+      TelescopePromptBorder = { fg = "#363738", bg = "#18191a" }, -- Prompt border
+      TelescopeResultsBorder = { fg = "#363738", bg = "#18191a" }, -- Results border
+      TelescopePreviewBorder = { fg = "#363738", bg = "#18191a" }, -- Preview border
+  },
+
+  before_highlight = function(group, highlight, palette)
+      -- Adjust palette colors for specific groups
+      if group == "NormalFloat" or group == "TelescopeNormal" then
+          highlight.bg = palette.base
+      end
+  end,
+})
+
+

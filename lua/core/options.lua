@@ -44,9 +44,11 @@ vim.g.gruvbox_contrast_dark = "hard"  -- Set the dark hard contrast
 vim.api.nvim_create_autocmd("User", {
   pattern = "LazyVimStarted",
   callback = function()
-    vim.cmd("colorscheme kanagawa")
+    -- vim.cmd("colorscheme kanagawa")    
+    -- vim.cmd 'colorscheme material'
+    vim.cmd("colorscheme rose-pine")
   end,
-})   
+})  
 
 -- Enable line wrapping globally
 vim.o.wrap = true
@@ -135,3 +137,8 @@ vim.api.nvim_create_autocmd("BufWritePost", {
       vim.cmd('LspRestart') -- Automatically restart the language server
   end,
 })
+
+
+vim.api.nvim_set_hl(0, "DashboardHeader", { fg = "#8D9F8E" }) -- Soft moonlight gray
+vim.api.nvim_set_hl(0, "DashboardShortcut", { fg = "#98BB6C" }) -- Kanagawa green
+vim.api.nvim_set_hl(0, "DashboardFooter", { fg = "#9F8A7A" }) -- Calm warm tone
