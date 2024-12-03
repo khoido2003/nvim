@@ -369,6 +369,21 @@ require('lspconfig').pyright.setup({
 
 -- //////////////////////////////////////
 
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {
+    "java", "c_sharp", "python", "javascript", "typescript", "cpp", "c",
+    "zig", "rust", "dockerfile", "proto", "http", "yaml", "go", "sql",
+    "css", "html", "scss", "prisma", "svelte", "lua", "json", "tsx", "gitignore", "toml", "php"
+  },
+  auto_install = true, -- Automatically install missing parsers
+  highlight = {
+    enable = true,    -- Enable syntax highlighting
+    additional_vim_regex_highlighting = false,
+  },
+}
+
+-- /////////////////////////////////////////
+
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
