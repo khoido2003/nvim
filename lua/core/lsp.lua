@@ -11,7 +11,7 @@ local mason_lspconfig = require('mason-lspconfig')
 -- Ensure the LSP servers are installed
 mason.setup()
 mason_lspconfig.setup({
-  ensure_installed = { "pyright", "ts_ls", "gopls", "clangd", "jdtls", "omnisharp", "html", "cssls" }, -- Correct server names
+  ensure_installed = { "pyright", "ts_ls", "gopls", "clangd", "jdtls", "omnisharp", "html", "cssls", "yamlls" }, -- Correct server names
 })
 
 -- Set up LSP keymaps and capabilities
@@ -32,6 +32,25 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 lspconfig.pyright.setup { on_attach = on_attach, capabilities = capabilities }
 lspconfig.ts_ls.setup { on_attach = on_attach, capabilities = capabilities }
 lspconfig.clangd.setup { on_attach = on_attach, capabilities = capabilities }
+lspconfig.dockerls.setup({
+  cmd = { "docker-langserver", "--stdio" },
+})
+
+
+-- Setup yamlls (YAML Language Server)
+lspconfig.yamlls.setup({
+  settings = {
+    yaml = {
+      schemas = {
+        -- Correct Kubernetes schema URL from the official Kubernetes repository
+        ["https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json"] = "*.yaml",  -- Kubernetes schema
+      },
+    },
+  },
+})
+
+-- Configure dockerls for Dockerfile
+lspconfig.dockerls.setup{}
 
 
 -- Go LSP

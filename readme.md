@@ -4,7 +4,7 @@
 
 This configuration will make Neonvim become a full-fledged IDE like VS Code
 
-Theme: Gruvbox Dark Hard
+Theme: ROSE PINE
 Support: C#, JS/TS, Go, Java, HTML/CSS, Python
 
 ## Tools
@@ -19,6 +19,17 @@ Below is some dependencies needed to make sure all the code reccommendation and 
 
 Written in Rust so it is super fast and have some built in features with icon support
 Dowload: https://neovide.dev/
+
+### If using Window, dowload Zig as compiler for Nvim-Tree-sitter since C have some problem when compile
+
+Using chocolatey
+bash
+
+```
+choco install zig
+```
+
+or visit Zig website for more guide: https://ziglang.org/learn/getting-started/#direct
 
 ### Win32Yank: Only on Window
 

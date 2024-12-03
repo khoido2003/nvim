@@ -142,3 +142,9 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 vim.api.nvim_set_hl(0, "DashboardHeader", { fg = "#8D9F8E" }) -- Soft moonlight gray
 vim.api.nvim_set_hl(0, "DashboardShortcut", { fg = "#98BB6C" }) -- Kanagawa green
 vim.api.nvim_set_hl(0, "DashboardFooter", { fg = "#9F8A7A" }) -- Calm warm tone
+
+-- Add Dockerfile filetype detection
+vim.cmd('autocmd BufNewFile,BufRead Dockerfile* set filetype=dockerfile')
+-- Set filetype for Kubernetes and Docker-related YAML files
+vim.cmd('autocmd BufNewFile,BufRead *.yaml set filetype=yaml')
+vim.cmd('autocmd BufNewFile,BufRead *.yml set filetype=yaml')
