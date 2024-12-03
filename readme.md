@@ -5,7 +5,7 @@
 This configuration will make Neonvim become a full-fledged IDE like VS Code
 
 Theme: ROSE PINE
-Support: C#, JS/TS, Go, Java, HTML/CSS, Python
+Support: C#, JS/TS, Go, Java, HTML/CSS, Python, Java, yaml, Dockerfile
 
 ## Tools
 
@@ -19,6 +19,10 @@ Below is some dependencies needed to make sure all the code reccommendation and 
 
 Written in Rust so it is super fast and have some built in features with icon support
 Dowload: https://neovide.dev/
+
+### Using built in terminal
+Recommend dowload FiraCode for better font and syntax support
+Dowload: https://github.com/tonsky/FiraCode
 
 ### If using Window, dowload Zig as compiler for Nvim-Tree-sitter since C have some problem when compile
 
@@ -81,6 +85,19 @@ npm install -g eslint
 ### LSP for Java
 
 Require using JDTLS but currently I can not set it up for some reason, will try to fix it in the future
+
+UPDATE:
+Dowload jdtls from this: https://download.eclipse.org/jdtls/snapshots/?d  
+
+After dowload, extract it to a folder then find the /bin and add it to the global environment variables
+
+Check if jdtls in cmd:
+bash
+```
+jdtls --version
+```
+NOTE: without jdtls, the LSP can not work so make sure this have to be installed
+and added to the global variables.
 
 ### LSP for TailwindCSS
 

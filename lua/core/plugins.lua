@@ -121,13 +121,13 @@ require("lazy").setup({
   "saadparwaiz1/cmp_luasnip",
   "rafamadriz/friendly-snippets",
 
-  -- Debugging
-  "mfussenegger/nvim-dap",
-  "rcarriga/nvim-dap-ui",
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-    dependencies = { "mfussenegger/nvim-dap" },
-  },
+  -- -- Debugging
+  -- "mfussenegger/nvim-dap",
+  -- "rcarriga/nvim-dap-ui",
+  -- {
+  --   "jay-babu/mason-nvim-dap.nvim",
+  --   dependencies = { "mfussenegger/nvim-dap" },
+  -- },
 
   -- Typescript
   "pmizio/typescript-tools.nvim",
@@ -138,13 +138,6 @@ require("lazy").setup({
   "lewis6991/gitsigns.nvim",
 
   "tpope/vim-fugitive",
-
-  -- Web Development Tools
-  "mattn/emmet-vim",
-  {
-    "iamcco/markdown-preview.nvim",
-    run = "cd app && npm install",
-  },
 
   -- Telescope for Fuzzy Finding
   {
@@ -161,11 +154,6 @@ require("lazy").setup({
     "fatih/vim-go", -- Go development
     run = ":GoUpdateBinaries",
   },
-  {
-    "jose-elias-alvarez/null-ls.nvim", -- Linting and Formatting
-    dependencies = { "nvim-lua/plenary.nvim" },
-  },
-
 })
 
 -- ///////////////////////////////////////////////////
@@ -324,11 +312,6 @@ require('lualine').setup {
   extensions = {}
 }
 
-
--- /////////////////////////////////////////////
-
-require('lspconfig').util.root_pattern('*.sln', '*.csproj')
-
 -- ///////////////////////////////
 
 -- LSP for typescript
@@ -388,63 +371,6 @@ require('lspconfig').pyright.setup({
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-
-require("lspconfig").html.setup {
-  cmd = { "C:\\Users\\Lenovo\\AppData\\Local\\nvim-data\\mason\\bin\\vscode-html-language-server.cmd", "--stdio" },
-  capabilities = capabilities,
-  on_attach = function(client, bufnr)
-      -- Enable auto-format on save
-      if client.server_capabilities.documentFormattingProvider then
-          vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", ":lua vim.lsp.buf.format({ async = true })<CR>", { noremap = true, silent = true })
-          -- Auto-format on save
-          vim.cmd([[
-              augroup AutoFormat
-                  autocmd!
-                  autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = true })
-              augroup END
-          ]])
-      end
-  end,
-}
-require("lspconfig").cssls.setup {
-  cmd = { "C:\\Users\\Lenovo\\AppData\\Local\\nvim-data\\mason\\bin\\vscode-css-language-server.cmd", "--stdio" },
-  capabilities = capabilities,
-  on_attach = function(client, bufnr)
-      -- Enable auto-format on save
-      if client.server_capabilities.documentFormattingProvider then
-          vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", ":lua vim.lsp.buf.format({ async = true })<CR>", { noremap = true, silent = true })
-          -- Auto-format on save
-          vim.cmd([[
-              augroup AutoFormat
-                  autocmd!
-                  autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = true })
-              augroup END
-          ]])
-      end
-  end,
-}
-
--- Example for integrating Prettier with null-ls for HTML and CSS formatting
-require("null-ls").setup({
-  sources = {
-    require("null-ls").builtins.formatting.prettier.with({
-      filetypes = { "html", "css", "scss" },
-    }),
-  },
-})
-
--- ////////////////////////////////////////////////////////////////////
-
-
-require("lspconfig").tailwindcss.setup({
-  on_attach = function(client, bufnr)
-    -- Add your LSP keybindings and auto-formatting setup here
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  end,
-  capabilities = require("cmp_nvim_lsp").default_capabilities(),
-})
-
 
 -- ////////////////////////////////////////////////
 

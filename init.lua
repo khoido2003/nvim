@@ -1,4 +1,5 @@
 -- init.lua
+vim.env.PATH = vim.env.PATH .. ':/c/Users/Lenovo/AppData/Roaming/npm'
 
 -- Normal mode mappings
 vim.api.nvim_set_keymap('n', '<Down>', 'gj', { noremap = true, silent = true })

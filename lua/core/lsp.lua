@@ -11,7 +11,7 @@ local mason_lspconfig = require('mason-lspconfig')
 -- Ensure the LSP servers are installed
 mason.setup()
 mason_lspconfig.setup({
-  ensure_installed = { "pyright", "ts_ls", "gopls", "clangd", "jdtls", "omnisharp", "html", "cssls", "yamlls" }, -- Correct server names
+  ensure_installed = { "pyright", "ts_ls", "gopls", "clangd", "jdtls", "omnisharp", "html", "cssls", "yamlls", "tailwindcss" }, -- Correct server names
 })
 
 -- Set up LSP keymaps and capabilities
@@ -30,12 +30,14 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Configure individual LSP servers
 lspconfig.pyright.setup { on_attach = on_attach, capabilities = capabilities }
+
 lspconfig.ts_ls.setup { on_attach = on_attach, capabilities = capabilities }
+
 lspconfig.clangd.setup { on_attach = on_attach, capabilities = capabilities }
+
 lspconfig.dockerls.setup({
   cmd = { "docker-langserver", "--stdio" },
 })
-
 
 -- Setup yamlls (YAML Language Server)
 lspconfig.yamlls.setup({
@@ -48,10 +50,6 @@ lspconfig.yamlls.setup({
     },
   },
 })
-
--- Configure dockerls for Dockerfile
-lspconfig.dockerls.setup{}
-
 
 -- Go LSP
 require'lspconfig'.gopls.setup{
@@ -87,7 +85,7 @@ vim.cmd([[
   augroup END
 ]])
 
-
+require('lspconfig').util.root_pattern('*.sln', '*.csproj')
 -- Function to start OmniSharp asynchronously
 local function start_omnisharp()
   -- Setup OmniSharp LSP without delay
@@ -113,27 +111,63 @@ end
 start_omnisharp()
 
 
+-- /////////////////////////////////////////////////
+
+require("lspconfig").html.setup {
+  cmd = { "C:\\Users\\Lenovo\\AppData\\Local\\nvim-data\\mason\\bin\\vscode-html-language-server.cmd", "--stdio" },
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+      -- Enable auto-format on save
+      if client.server_capabilities.documentFormattingProvider then
+          vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", ":lua vim.lsp.buf.format({ async = true })<CR>", { noremap = true, silent = true })
+          -- Auto-format on save
+          vim.cmd([[
+              augroup AutoFormat
+                  autocmd!
+                  autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = true })
+              augroup END
+          ]])
+      end
+  end,
+}
+require("lspconfig").cssls.setup {
+  cmd = { "C:\\Users\\Lenovo\\AppData\\Local\\nvim-data\\mason\\bin\\vscode-css-language-server.cmd", "--stdio" },
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+      -- Enable auto-format on save
+      if client.server_capabilities.documentFormattingProvider then
+          vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", ":lua vim.lsp.buf.format({ async = true })<CR>", { noremap = true, silent = true })
+          -- Auto-format on save
+          vim.cmd([[
+              augroup AutoFormat
+                  autocmd!
+                  autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = true })
+              augroup END
+          ]])
+      end
+  end,
+}
+
+-- ////////////////////////////////////////////////////////////////////
+
+require'lspconfig'.tailwindcss.setup{
+  cmd = { "tailwindcss-language-server", "--stdio" },
+  filetypes = { "html", "css", "javascript", "typescript", "javascriptreact", "typescriptreact", "vue", "svelte" },
+}
+
+
 -- ///////////////////////////////////////////
 
 -- -- Set up LSP for Java with nvim-jdtls
--- local lspconfig = require('lspconfig')
--- lspconfig.jdtls.setup {
---     cmd = {
---         "java-ls",  -- the LSP server, you can modify if needed
---         "-data", vim.fn.stdpath('data').."/lsp_servers/jdtls/workspace"
---     },
---     settings = {
---         java = {
---             configuration = {
---                 -- Java-specific settings
---             },
---         },
---     },
---     on_attach = function(client, bufnr)
---         -- You can add custom on_attach functionality here
---         -- for example, to enable formatting
---         if client.resolved_capabilities.document_formatting then
---             vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr')
---         end
---     end,
--- }
+local lspconfig = require'lspconfig'
+
+lspconfig.jdtls.setup{
+  cmd = { 'jdtls' },  -- You can use the path if necessary
+  root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
+  settings = {
+    java = {
+      -- Optional: You can add specific Java settings here
+    }
+  }
+}
+
