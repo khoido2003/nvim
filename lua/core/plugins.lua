@@ -1,6 +1,12 @@
 -- plugins.lua
 require("lazy").setup({
 
+  {
+    'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup()
+    end
+  },
   { "rose-pine/neovim", name = "rose-pine" },
   {
     'nvimdev/dashboard-nvim',

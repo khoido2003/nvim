@@ -92,3 +92,13 @@ end, { desc = "Restart Neovim" })
 
 
 vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
+
+-- Move line up
+vim.api.nvim_set_keymap('n', '<A-k>', ':m .-2<CR>==', { noremap = true, silent = true })
+-- Move line down
+vim.api.nvim_set_keymap('n', '<A-j>', ':m .+1<CR>==', { noremap = true, silent = true })
+
+-- Comment 
+vim.api.nvim_set_keymap('n', '<C-_>', 'gcc', { noremap = false, silent = true })
+vim.api.nvim_set_keymap('v', '<C-_>', 'gc', { noremap = false, silent = true })
+

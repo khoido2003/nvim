@@ -85,31 +85,31 @@ vim.cmd([[
   augroup END
 ]])
 
-require('lspconfig').util.root_pattern('*.sln', '*.csproj')
--- Function to start OmniSharp asynchronously
-local function start_omnisharp()
-  -- Setup OmniSharp LSP without delay
-  lspconfig.omnisharp.setup({
-    cmd = {
-      "omnisharp",
-      "--languageserver",
-      "--hostPID", tostring(vim.fn.getpid())
-    },
-    filetypes = { "cs" },
-    root_dir = lspconfig.util.root_pattern(".git", "*.sln", "*.csproj"),
-    autostart = true,
-    handlers = {
-      ["textDocument/inlayHint"] = function() end, -- Disable inlay hints
-    },
-    on_attach = function(client, bufnr)
-      -- Custom on_attach logic (if needed)
-    end,
-  })
-end
-
--- Start OmniSharp without delay
-start_omnisharp()
-
+-- require('lspconfig').util.root_pattern('*.sln', '*.csproj')
+-- -- Function to start OmniSharp asynchronously
+-- local function start_omnisharp()
+--   -- Setup OmniSharp LSP without delay
+--   lspconfig.omnisharp.setup({
+--     cmd = {
+--       "omnisharp",
+--       "--languageserver",
+--       "--hostPID", tostring(vim.fn.getpid())
+--     },
+--     filetypes = { "cs" },
+--     root_dir = lspconfig.util.root_pattern(".git", "*.sln", "*.csproj"),
+--     autostart = true,
+--     handlers = {
+--       ["textDocument/inlayHint"] = function() end, -- Disable inlay hints
+--     },
+--     on_attach = function(client, bufnr)
+--       -- Custom on_attach logic (if needed)
+--     end,
+--   })
+-- end
+--
+-- -- Start OmniSharp without delay
+-- start_omnisharp()
+--
 
 -- /////////////////////////////////////////////////
 
