@@ -148,3 +148,14 @@ vim.cmd('autocmd BufNewFile,BufRead Dockerfile* set filetype=dockerfile')
 -- Set filetype for Kubernetes and Docker-related YAML files
 vim.cmd('autocmd BufNewFile,BufRead *.yaml set filetype=yaml')
 vim.cmd('autocmd BufNewFile,BufRead *.yml set filetype=yaml')
+
+-- Restart Roslyn LSP when create new C# file
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
+    pattern = "*.cs",
+    callback = function()
+        -- Restart Roslyn LSP server automatically
+        vim.cmd("Roslyn restart")
+    end,
+})
+
+
