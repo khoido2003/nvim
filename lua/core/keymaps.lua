@@ -102,3 +102,31 @@ vim.api.nvim_set_keymap('n', '<A-j>', ':m .+1<CR>==', { noremap = true, silent =
 vim.api.nvim_set_keymap('n', '<C-_>', 'gcc', { noremap = false, silent = true })
 vim.api.nvim_set_keymap('v', '<C-_>', 'gc', { noremap = false, silent = true })
 
+
+-- Reset hunk (Undo changes in the current hunk)
+vim.api.nvim_set_keymap('n', '<Leader>rh', ':Gitsigns reset_hunk<CR>', { noremap = true, silent = true })
+
+-- Reset buffer (Undo changes in the entire file)
+vim.api.nvim_set_keymap('n', '<Leader>rb', ':Gitsigns reset_buffer<CR>', { noremap = true, silent = true })
+
+-- Preview current hunk
+vim.api.nvim_set_keymap('n', '<Leader>ph', ':Gitsigns preview_hunk<CR>', { noremap = true, silent = true })
+
+-- Diff current file
+vim.api.nvim_set_keymap('n', '<Leader>df', ':Gitsigns diffthis<CR>', { noremap = true, silent = true })
+
+-- Blame current line
+vim.api.nvim_set_keymap('n', '<Leader>bl', ':Gitsigns blame_line<CR>', { noremap = true, silent = true })
+
+-- Toggle GitSigns
+vim.api.nvim_set_keymap('n', '<Leader>gs', ':Gitsigns toggle_signs<CR>', { noremap = true, silent = true })
+
+-- Toggle line blame
+vim.api.nvim_set_keymap('n', '<Leader>bl', ':Gitsigns toggle_current_line_blame<CR>', { noremap = true, silent = true })
+
+-- Next hunk
+vim.api.nvim_set_keymap('n', '<Leader>nh', ':Gitsigns next_hunk<CR>', { noremap = true, silent = true })
+
+-- Previous hunk
+vim.api.nvim_set_keymap('n', '<Leader>ph', ':Gitsigns prev_hunk<CR>', { noremap = true, silent = true })
+
