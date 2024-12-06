@@ -1,6 +1,9 @@
 --  options.lua
 vim.opt.guifont = "Fira Code:h13"
 
+-- Make the cursor thin/vertical in all modes(Optional)
+--[[ vim.opt.guicursor = "n-v-c-i-ci-ve-r-cr-o:ver25" ]]
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 

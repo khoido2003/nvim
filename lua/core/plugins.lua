@@ -164,6 +164,14 @@ require("lazy").setup({
     "fatih/vim-go", -- Go development
     run = ":GoUpdateBinaries",
   },
+
+  -- Multiple cursor
+  {
+    "mg979/vim-visual-multi",
+    branch = "master",
+  },
+
+
 })
 
 -- ///////////////////////////////////////////////////
