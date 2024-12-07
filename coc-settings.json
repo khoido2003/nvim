@@ -1,7 +1,0 @@
-{
-  "snippets.ultisnips.pythonPrompt": false,
-   "coc.preferences.completionPriority": 99,
-  "coc.preferences.disableDiagnostics": true,
-  "coc.preferences.filetypeExclude": ["cs"]
-  
-}

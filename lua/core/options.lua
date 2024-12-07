@@ -184,3 +184,12 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
 })
 
 
+vim.cmd [[
+  autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
+  autocmd vimenter * hi NormalNC guibg=NONE ctermbg=NONE
+  autocmd vimenter * hi SignColumn guibg=NONE ctermbg=NONE
+  autocmd vimenter * hi VertSplit guibg=NONE ctermbg=NONE
+  autocmd vimenter * hi StatusLine guibg=NONE ctermbg=NONE
+  autocmd vimenter * hi StatusLineNC guibg=NONE ctermbg=NONE
+]]
+
