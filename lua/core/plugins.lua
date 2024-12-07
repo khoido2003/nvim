@@ -171,6 +171,8 @@ require("lazy").setup({
     branch = "master",
   },
 
+  -- colorizer to show color in css/html, ...
+  'norcalli/nvim-colorizer.lua',
 
 })
 
@@ -622,6 +624,9 @@ require("rose-pine").setup({
       end
   end,
 })
+
+-- colorizer
+require 'colorizer'.setup() 
 
 -- USING ZIG AS COMPILER FOR TREESITTER
 require ('nvim-treesitter.install').compilers = { 'zig' }
