@@ -130,3 +130,8 @@ vim.api.nvim_set_keymap('n', '<Leader>nh', ':Gitsigns next_hunk<CR>', { noremap 
 -- Previous hunk
 vim.api.nvim_set_keymap('n', '<Leader>ph', ':Gitsigns prev_hunk<CR>', { noremap = true, silent = true })
 
+-- Togge paste/no paste mode with F2
+vim.api.nvim_set_keymap('n', '<F2>', ':set paste!<CR>', { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<C-m>', 'V', { noremap = true, silent = true })
+
