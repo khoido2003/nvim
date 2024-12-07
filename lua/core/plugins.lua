@@ -10,16 +10,6 @@ require("lazy").setup({
   { "rose-pine/neovim", name = "rose-pine" },
 
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-  -- {
-  --   'nvimdev/dashboard-nvim',
-  --   event = 'VimEnter',
-  --   config = function()
-  --     require('dashboard').setup {
-  --       -- config
-  --     }
-  --   end,
-  --   dependencies = { {'nvim-tree/nvim-web-devicons'}}
-  -- },
   {
     'goolord/alpha-nvim',
     config = function ()
@@ -138,14 +128,6 @@ require("lazy").setup({
   "L3MON4D3/LuaSnip",
   "saadparwaiz1/cmp_luasnip",
   "rafamadriz/friendly-snippets",
-
-  -- -- Debugging
-  -- "mfussenegger/nvim-dap",
-  -- "rcarriga/nvim-dap-ui",
-  -- {
-  --   "jay-babu/mason-nvim-dap.nvim",
-  --   dependencies = { "mfussenegger/nvim-dap" },
-  -- },
 
   -- Typescript
   "pmizio/typescript-tools.nvim",
@@ -441,114 +423,8 @@ require'nvim-web-devicons'.setup {
 }
 
 
--- -- Default options:
--- require('kanagawa').setup({
---   compile = false,             -- enable compiling the colorscheme
---   undercurl = true,            -- enable undercurls
---   commentStyle = { italic = false },
---   functionStyle = {},
---   keywordStyle = { italic = false},
---   statementStyle = { bold = true },
---   typeStyle = {},
---   transparent = false,         -- do not set background color
---   dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
---   terminalColors = true,       -- define vim.g.terminal_color_{0,17}
---   colors = {                   -- add/modify theme and palette colors
---       palette = {},
---       theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
---   },
---   overrides = function(colors)
---     return {
---       GitSignsAdd = { bg = "NONE", fg = colors.palette.springGreen }, -- Git add highlight
---       GitSignsChange = { bg = "NONE", fg = colors.palette.autumnYellow }, -- Git change highlight
---       GitSignsDelete = { bg = "NONE", fg = colors.palette.sakuraPink }, -- Git delete highlight
---       DiffAdd = { bg = "NONE", fg = colors.palette.springGreen },
---       DiffChange = { bg = "NONE", fg = colors.palette.autumnYellow },
---       DiffDelete = { bg = "NONE", fg = colors.palette.sakuraPink },
---       DiffText = { bg = "NONE", fg = colors.theme.ui.fg }, -- Remove gray background for unchanged parts
---       CursorLine = { bg = colors.theme.ui.bg_p1 }, -- Less bright cursor line
---       LineNr = { bg = "NONE" }, -- Remove background from line numbers
---       Normal = { bg = "NONE" }, -- Ensure normal text has no background
---       NormalNC = { bg = "NONE" }, -- Remove background from inactive windows
---       SignColumn = { bg = "NONE" }, -- Remove background from sign column
-
---       -- Remove background for diagnostics
---       DiagnosticError = { fg = colors.palette.autumnRed, bg = "NONE" },
---       DiagnosticWarn = { fg = colors.palette.autumnYellow, bg = "NONE" },
---       DiagnosticInfo = { fg = colors.palette.waveBlue1, bg = "NONE" },
---       DiagnosticHint = { fg = colors.palette.springGreen, bg = "NONE" },
-
---       -- Optionally adjust virtual text colors
---       DiagnosticVirtualTextError = { fg = colors.palette.autumnRed, bg = "NONE" },
---       DiagnosticVirtualTextWarn = { fg = colors.palette.autumnYellow, bg = "NONE" },
---       DiagnosticVirtualTextInfo = { fg = colors.palette.waveBlue1, bg = "NONE" },
---       DiagnosticVirtualTextHint = { fg = colors.palette.springGreen, bg = "NONE" },
-
---       -- Diagnostic signs (e.g., symbols like H for Hint)
---       DiagnosticSignError = { fg = colors.palette.autumnRed, bg = "NONE" },
---       DiagnosticSignWarn = { fg = colors.palette.autumnYellow, bg = "NONE" },
---       DiagnosticSignInfo = { fg = colors.palette.waveBlue1, bg = "NONE" },
---       DiagnosticSignHint = { fg = colors.palette.springGreen, bg = "NONE" },
---     }
---   end,
---   theme = "dragon",              -- Load "wave" theme when 'background' option is not set
---   background = {               -- map the value of 'background' option to a theme
---       dark = "dragon",           -- try "dragon" !
---       light = "lotus"
---   },
--- })
-
 -- //////////////////////////////////////////////////////////////////////////////////////
 
--- require('dashboard').setup({
---   theme = 'hyper',
---
---   config = {
---     header = {
---         [[                                          ]],
---         [[                                          ]],
---         [[                                          ]],
---         [[    ███╗   ███╗ █████╗ ██╗  ██╗███████╗   ]],
---         [[    ████╗ ████║██╔══██╗██║ ██╔╝██╔════╝   ]],
---         [[    ██╔████╔██║███████║█████╔╝ █████╗     ]],
---         [[    ██║╚██╔╝██║██╔══██║██╔═██╗ ██╔══╝     ]],
---         [[    ██║ ╚═╝ ██║██║  ██║██║  ██╗███████╗   ]],
---         [[    ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝   ]],
---         [[      ██████╗ ██████╗  ██████╗ ██╗        ]],
---         [[     ██╔════╝██╔═══██╗██╔═══██╗██║        ]],
---         [[     ██║     ██║   ██║██║   ██║██║        ]],
---         [[     ██║     ██║   ██║██║   ██║██║        ]],
---         [[     ╚██████╗╚██████╔╝╚██████╔╝███████╗   ]],
---         [[      ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝   ]],
---         [[███████╗████████╗██╗   ██╗███████╗███████╗]],
---         [[██╔════╝╚══██╔══╝██║   ██║██╔════╝██╔════╝]],
---         [[███████╗   ██║   ██║   ██║█████╗  █████╗  ]],
---         [[╚════██║   ██║   ██║   ██║██╔══╝  ██╔══╝  ]],
---         [[███████║   ██║   ╚██████╔╝██║     ██║     ]],
---         [[╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝     ]],
---         [[                                          ]],
---         [[                                          ]],                                         
---             },
---       
---       -- week_header = {
---       --  enable = true,
---       -- },
---       shortcut = {
---         { desc = '🌀 Update', group = 'DashboardShortcut', action = 'Lazy update', key = 'u' },
---         { desc = "🌙  Find File", group = "DashboardShortcut", action = "Telescope find_files", key = "f" },
---         { desc = "🌿  Find Word", group = "DashboardShortcut", action = "Telescope live_grep", key = "w" },
---         { desc = "🎍  Recent Files", group = "DashboardShortcut", action = "Telescope oldfiles", key = "r" },
---         { desc = "🎯  Quit", group = "DashboardShortcut", action = ":qa", key = "q" },
---       },
---
---       footer = {
---         "🌸 Breathe deeply, code calmly 🌸",
---     },
---   },
--- })
-
-
--- ////////////////////////////////////////////////////////////////
 
 require("rose-pine").setup({
   variant = "moon", -- auto, main, moon, or dawn
