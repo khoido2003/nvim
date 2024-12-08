@@ -32,8 +32,18 @@ bash
 ```
 choco install zig
 ```
-
 or visit Zig website for more guide: https://ziglang.org/learn/getting-started/#direct
+
+## Install Lazygit to use Git in terminal
+
+On Window
+bash
+```
+choco install lazygit
+```
+
+![img](images/7.png)
+
 
 ### Win32Yank: Only on Window
 
@@ -144,3 +154,5 @@ lazygit (optional)
 ![img](images/5.png)
 
 ![img](images/6.png)
+
+![img](images/7.png)

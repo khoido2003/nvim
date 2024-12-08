@@ -100,7 +100,7 @@ require("lazy").setup(
             "akinsho/toggleterm.nvim",
             version = "*", -- Optional: use the latest version,
             lazy = true,
-            keys = { "<c-\\>", "<C-t>" },
+            keys = {"<c-\\>", "<C-t>"},
             config = function()
                 require("toggleterm").setup(
                     {
@@ -169,19 +169,19 @@ require("lazy").setup(
             tag = "0.1.4",
             lazy = true,
             dependencies = {"nvim-lua/plenary.nvim"},
-            cmd = { "Telescope" },
+            cmd = {"Telescope"}
         },
         -- Language Specific Tools
         {
             "OmniSharp/omnisharp-vim",
             lazy = true,
-            ft = "cs",
+            ft = "cs"
         },
         {
             "fatih/vim-go", -- Go development
             run = ":GoUpdateBinaries",
             lazy = true,
-            ft = "go",
+            ft = "go"
         },
         -- Multiple cursor
         {
@@ -189,7 +189,27 @@ require("lazy").setup(
             branch = "master"
         },
         -- colorizer to show color in css/html, ...
-        "norcalli/nvim-colorizer.lua"
+        "norcalli/nvim-colorizer.lua",
+        -- Lazy git
+        {
+            "kdheepak/lazygit.nvim",
+            lazy = false,
+            cmd = {
+                "LazyGit",
+                "LazyGitConfig",
+                "LazyGitCurrentFile",
+                "LazyGitFilter",
+                "LazyGitFilterCurrentFile"
+            },
+            -- optional for floating window border decoration
+            dependencies = {
+                "nvim-telescope/telescope.nvim",
+                "nvim-lua/plenary.nvim"
+            },
+            config = function()
+                require("telescope").load_extension("lazygit")
+            end
+        }
     }
 )
 
@@ -349,7 +369,6 @@ require("lualine").setup {
     extensions = {}
 }
 
-
 -- //////////////////////////////////////
 
 require "nvim-treesitter.configs".setup {
@@ -500,5 +519,3 @@ require("rose-pine").setup(
 
 -- colorizer
 require "colorizer".setup()
-
-

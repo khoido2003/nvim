@@ -135,3 +135,5 @@ vim.api.nvim_set_keymap('n', '<F2>', ':set paste!<CR>', { noremap = true, silent
 
 vim.api.nvim_set_keymap('n', '<C-m>', 'V', { noremap = true, silent = true })
 
+-- Manually set the keybinding for LazyGit
+vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<cr>", { desc = "Open LazyGit" })
