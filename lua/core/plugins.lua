@@ -13,19 +13,25 @@ require("lazy").setup(
             lazy = true,
             event = "VeryLazy"
         },
-        {
-            "catppuccin/nvim",
-            name = "catppuccin",
-            priority = 1000,
-            lazy = true,
-            event = "VeryLazy"
-        },
-        {
-            "goolord/alpha-nvim",
-            config = function()
-                require "alpha".setup(require "alpha.themes.dashboard".config)
-            end
-        },
+        -- {
+        --     "catppuccin/nvim",
+        --     name = "catppuccin",
+        --     priority = 1000,
+        --     lazy = true,
+        --     event = "VeryLazy"
+        -- },
+        -- {
+        --     "goolord/alpha-nvim",
+        --     config = function()
+        --         require "alpha".setup(require "alpha.themes.dashboard".config)
+        --     end
+        -- },
+   
+				{
+    			'mhinz/vim-startify',
+    			lazy = false
+				},
+ 
         "lewis6991/gitsigns.nvim",
         "onsails/lspkind.nvim",
         -- -- Kanagawa theme
@@ -168,8 +174,22 @@ require("lazy").setup(
             "nvim-telescope/telescope.nvim",
             tag = "0.1.4",
             lazy = true,
-            dependencies = {"nvim-lua/plenary.nvim"},
-            cmd = {"Telescope"}
+            dependencies = {
+              "nvim-lua/plenary.nvim",
+              "nvim-telescope/telescope-live-grep-args.nvim",  -- Add this line to install the live_grep_args extension
+            },           
+            cmd = {"Telescope"},
+						config = function()
+    					local telescope = require("telescope")
+
+    					-- first setup telescope
+    					telescope.setup({
+        			-- your config
+    					})
+
+    					-- then load the extension
+    					telescope.load_extension("live_grep_args")
+  					end
         },
         -- Language Specific Tools
         {

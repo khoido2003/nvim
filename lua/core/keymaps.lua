@@ -43,10 +43,14 @@ vim.api.nvim_set_keymap('n', '<leader>lf', '<Cmd>lua vim.lsp.buf.formatting()<CR
 vim.api.nvim_set_keymap('n', '<leader>ca', '<Cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
 
 -- Set the keybinding for Ctrl+Shift+F to launch Telescope live_grep
-vim.api.nvim_set_keymap('n', '<C-S-f>', ':Telescope live_grep<CR>', { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<A-f>', ':Telescope live_grep_args<CR>', { noremap = true, silent = true })
+
+-- Keybinding to search within the current file (using Telescope's fuzzy search)
+vim.api.nvim_set_keymap('n', '<A-F>', ':Telescope current_buffer_fuzzy_find<CR>', { noremap = true, silent = true })
 
 -- Keybinding for opening vim-spectre
-vim.api.nvim_set_keymap('n', '<C-S-R>', ':Spectre<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>rp', ':Spectre<CR>', { noremap = true, silent = true })
 
 
 -- Keymaps for VS Code-style shortcuts
