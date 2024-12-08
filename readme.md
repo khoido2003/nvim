@@ -99,6 +99,12 @@ jdtls --version
 NOTE: without jdtls, the LSP can not work so make sure this have to be installed
 and added to the global variables.
 
+Add formatter for java:
+
+Dowload it here and put the path to the formatter in lsp.lua:
+https://github.com/google/google-java-format/releases
+
+
 ### LSP for TailwindCSS
 
 Open cmd and install tailwind server to global

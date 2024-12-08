@@ -238,12 +238,55 @@ require "lspconfig".tailwindcss.setup {
 -- ///////////////////////////////////////////
 
 -- -- Set up LSP for Java with nvim-jdtls
+
+
+
 local lspconfig = require "lspconfig"
+local util = require "lspconfig.util"
 
 lspconfig.jdtls.setup {
-    cmd = {"jdtls"}, -- You can use the path if necessary
+    cmd = { "jdtls" },  -- Path to jdtls executable
     root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
     settings = {
-        java = {}
-    }
+        java = {
+            -- Custom formatting settings
+            format = {
+                enabled = true,  -- Enable auto-formatting
+                settings = {
+                    -- Assuming you will format manually for now
+                    url = "C:/java-formatter/google-java-format.jar"  -- Update path if needed
+                }
+            }
+        }
+    },
+    on_attach = function(client, bufnr)
+        -- Optional: Trigger manual formatting on space+f
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>f', ':lua FormatJavaFile()<CR>', { noremap = true, silent = true })
+    end
 }
+
+-- Function to format using google-java-format without prompting for confirmation
+
+function FormatJavaFile()
+    -- Save the file before formatting
+    vim.cmd("write")
+
+    -- Get the current file path
+    local filename = vim.fn.expand("%:p")
+
+    -- Run the external formatter
+    vim.fn.system("C:/java-formatter/google-java-format.exe --replace " .. filename)
+
+    -- Reload the file to apply the formatting
+    vim.cmd("e!")  -- The `e!` command will reload the buffer, discarding any unsaved changes.
+end
+-- Optional: Bind formatting to save
+vim.cmd [[
+  augroup LspFormatting
+    autocmd! * <buffer>
+    autocmd BufWritePre *.java lua FormatJavaFile()
+  augroup END
+]]
+
+
+-- :!C:/java-formatter/google-java-format.exe --replace %
