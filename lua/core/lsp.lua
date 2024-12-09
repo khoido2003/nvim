@@ -8,15 +8,29 @@ require("conform").setup({
 	formatters_by_ft = {
 		javascript = { "prettier" },
 		typescript = { "prettier" },
-		-- Add other file types you want Prettier to handle
-
+		typescriptreact = { "prettier" }, -- For React (TypeScript)
+		javascriptreact = { "prettier" }, -- For React (JavaScript)
+		html = { "prettier" },
+		css = { "prettier" },
+		scss = { "prettier" },
+		jsx = { "prettier" }, -- For React (JSX)
+		tsx = { "prettier" }, -- For React (TSX)
+		json = { "prettier" },
 		python = { "black" },
 		go = { "gofmt", "goimports" },
-		lua = { "stylua" }, -- Use stylua for Lua
+		lua = { "stylua" },
 	},
 	debug = true, -- Enable debugging
+	timeout = 20000, -- Timeout in milliseconds (adjust as needed)
 })
 
+-- Autoformat on save
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*",
+	callback = function(args)
+		require("conform").format({ bufnr = args.buf })
+	end,
+})
 ----------------------------------------------------------
 
 -- Lua Language Server Setup
@@ -49,13 +63,6 @@ lspconfig.lua_ls.setup({
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 	end,
 })
-
-vim.cmd([[
-  augroup FormatOnSave
-    autocmd!
-    autocmd BufWritePre *.lua echo "Formatting Lua file..." | lua require('conform').format()
-  augroup END
-]])
 
 ----------------------------------------------------------------------
 
@@ -98,13 +105,6 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- ////////////////////////////////////////////////////////
 
 lspconfig.ts_ls.setup({ on_attach = on_attach, capabilities = capabilities })
-
-vim.cmd([[
-  augroup PrettierOnSave
-    autocmd!
-    autocmd BufWritePre *.js,*.ts,*.jsx,*.tsx lua require('conform').format()
-  augroup END
-]])
 
 -- /////////////////////////////////////////////
 
@@ -197,13 +197,6 @@ require("lspconfig").gopls.setup({
 	end,
 })
 -- Auto format on save for Go files
-
-vim.cmd([[
-  augroup FormatOnSave
-    autocmd!
-    autocmd BufWritePre *.go lua require('conform').format()
-  augroup END
-]])
 
 -- /////////////////////////////////////////////////
 
