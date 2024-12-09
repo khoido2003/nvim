@@ -3,7 +3,7 @@ local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
 
 -- Formatter
-
+-- :lua require('conform').format()
 require("conform").setup({
 	formatters_by_ft = {
 		javascript = { "prettier" },
@@ -14,12 +14,46 @@ require("conform").setup({
 		go = { "gofmt", "goimports" },
 		lua = { "stylua" }, -- Use stylua for Lua
 	},
+	debug = true, -- Enable debugging
+})
+
+----------------------------------------------------------
+
+-- Lua Language Server Setup
+lspconfig.lua_ls.setup({
+	settings = {
+		Lua = {
+			runtime = {
+				-- Lua version (LuaJIT is used in Neovim)
+				version = "LuaJIT",
+			},
+			diagnostics = {
+				-- Recognize the `vim` global
+				globals = { "vim" },
+			},
+			workspace = {
+				-- Make the server aware of Neovim runtime files
+				library = vim.api.nvim_get_runtime_file("", true),
+				checkThirdParty = false, -- Avoid prompts for third-party libraries
+			},
+			telemetry = {
+				enable = false, -- Disable telemetry for privacy
+			},
+		},
+	},
+	on_attach = function(client, bufnr)
+		local opts = { noremap = true, silent = true }
+		-- Keybindings for LSP
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	end,
 })
 
 vim.cmd([[
   augroup FormatOnSave
     autocmd!
-    autocmd BufWritePre *.lua lua require('conform').format()
+    autocmd BufWritePre *.lua echo "Formatting Lua file..." | lua require('conform').format()
   augroup END
 ]])
 
@@ -39,11 +73,16 @@ mason_lspconfig.setup({
 		"cssls",
 		"yamlls",
 		"tailwindcss",
+		"lua_ls",
 	}, -- Correct server names
+	automatic_installation = true,
 })
 
 -- Set up LSP keymaps and capabilities
 local on_attach = function(client, bufnr)
+	if client.server_capabilities.codeLensProvider then
+		client.server_capabilities.codeLensProvider = false
+	end
 	local opts = { noremap = true, silent = true }
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>k", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
@@ -92,6 +131,7 @@ require("lspconfig").pyright.setup({
 	end,
 	settings = {
 		python = {
+			codelenses = { generate = false },
 			analysis = {
 				typeCheckingMode = "basic", -- Options: off | basic | strict
 				autoSearchPaths = true, -- Automatically add search paths
@@ -117,6 +157,7 @@ lspconfig.dockerls.setup({
 lspconfig.yamlls.setup({
 	settings = {
 		yaml = {
+			codelenses = { generate = false },
 			schemas = {
 				-- Correct Kubernetes schema URL from the official Kubernetes repository
 				["https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json"] = "*.yaml", -- Kubernetes schema
@@ -128,47 +169,33 @@ lspconfig.yamlls.setup({
 -- //////////////////////////////////////////////////////////
 
 -- Go LSP
+
 require("lspconfig").gopls.setup({
 	settings = {
 		gopls = {
 			directoryFilters = { "-node_modules", "-vendor", "-.git" },
 			analyses = {
-				unusedparams = true, -- Detect unused parameters
-				shadow = true, -- Detect shadowed variables
-				fieldalignment = true, -- Align struct fields
-				nilness = true, -- Detect nil pointer dereferencing
+				unusedparams = true,
+				shadow = true,
+				fieldalignment = true,
+				nilness = true,
 			},
-			staticcheck = true, -- Enable staticcheck for advanced linting
-			semanticTokens = true, -- Enable semantic tokens for better syntax highlighting
+			staticcheck = true,
+			semanticTokens = true,
+			codelenses = { generate = false }, -- Disable unused features like code lenses
 		},
 	},
+	flags = {
+		debounce_text_changes = 150, -- Reduce the frequency of text synchronization
+	},
 	on_attach = function(client, bufnr)
-		client.server_capabilities.documentFormattingProvider = true
-		-- Keybindings for LSP
-		vim.api.nvim_buf_set_keymap(
-			bufnr,
-			"n",
-			"gd",
-			"<cmd>lua vim.lsp.buf.definition()<CR>",
-			{ noremap = true, silent = true }
-		)
-		vim.api.nvim_buf_set_keymap(
-			bufnr,
-			"n",
-			"K",
-			"<cmd>lua vim.lsp.buf.hover()<CR>",
-			{ noremap = true, silent = true }
-		)
-		vim.api.nvim_buf_set_keymap(
-			bufnr,
-			"n",
-			"gr",
-			"<cmd>lua vim.lsp.buf.references()<CR>",
-			{ noremap = true, silent = true }
-		)
+		client.server_capabilities.documentFormattingProvider = false -- Disable LSP formatting if it conflicts
+		local opts = { noremap = true, silent = true }
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 	end,
 })
-
 -- Auto format on save for Go files
 
 vim.cmd([[
@@ -184,6 +211,9 @@ require("lspconfig").html.setup({
 	cmd = { "C:\\Users\\Lenovo\\AppData\\Local\\nvim-data\\mason\\bin\\vscode-html-language-server.cmd", "--stdio" },
 	capabilities = capabilities,
 	on_attach = function(client, bufnr)
+		if client.server_capabilities.codeLensProvider then
+			client.server_capabilities.codeLensProvider = false
+		end
 		-- Enable auto-format on save
 		if client.server_capabilities.documentFormattingProvider then
 			vim.api.nvim_buf_set_keymap(
@@ -208,6 +238,9 @@ require("lspconfig").cssls.setup({
 	cmd = { "C:\\Users\\Lenovo\\AppData\\Local\\nvim-data\\mason\\bin\\vscode-css-language-server.cmd", "--stdio" },
 	capabilities = capabilities,
 	on_attach = function(client, bufnr)
+		if client.server_capabilities.codeLensProvider then
+			client.server_capabilities.codeLensProvider = false
+		end
 		-- Enable auto-format on save
 		if client.server_capabilities.documentFormattingProvider then
 			vim.api.nvim_buf_set_keymap(
@@ -237,16 +270,45 @@ require("lspconfig").tailwindcss.setup({
 
 -- ///////////////////////////////////////////
 
--- -- Set up LSP for Java with nvim-jdtls
+require("lspconfig").omnisharp.setup({
+	filetypes = { "cs" }, -- Only activate OmniSharp for C# files
+	settings = {
+		OmniSharp = {
+			codeLens = { enable = false }, -- Disable code lens
+			completion = { enabled = false }, -- Disable autocompletion
+			diagnostics = { enabled = false }, -- Disable diagnostics
+			formatting = { enabled = false }, -- Disable formatting
+			hover = { enabled = false }, -- Disable hover
+			symbol = { enabled = false }, -- Disable symbol searching
+			workspace = { enabled = false }, -- Disable workspace symbols
+		},
+	},
+	on_attach = function(client, bufnr)
+		-- Disable unnecessary capabilities like codeLens and formatting
+		if client.server_capabilities.codeLensProvider then
+			client.server_capabilities.codeLensProvider = false
+		end
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.documentRangeFormattingProvider = false
 
-local lspconfig = require("lspconfig")
-local util = require("lspconfig.util")
+		-- Keybindings for LSP
+		local opts = { noremap = true, silent = true }
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	end,
+})
+
+-- //////////////////////////////////////////
+--
+-- -- Set up LSP for Java with nvim-jdtls
 
 lspconfig.jdtls.setup({
 	cmd = { "jdtls" }, -- Path to jdtls executable
 	root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
 	settings = {
 		java = {
+			codelenses = { generate = false },
 			-- Custom formatting settings
 			format = {
 				enabled = true, -- Enable auto-formatting

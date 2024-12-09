@@ -88,17 +88,6 @@ require("lazy").setup({
 		run = ":TSUpdate",
 		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				highlight = {
-					enable = true, -- Enable syntax highlighting
-					additional_vim_regex_highlighting = false,
-				},
-				indent = {
-					enable = true, -- Enable Tree-sitter indentation
-				},
-			})
-		end,
 	},
 	-- Terminal management
 	{
@@ -398,10 +387,21 @@ require("nvim-treesitter.configs").setup({
 		"toml",
 		"php",
 	},
-	auto_install = true, -- Automatically install missing parsers
+	auto_install = true, -- Automatically install missing parsers,
+	-- Sync installation (installs parsers synchronously)
+	sync_install = false,
+
+	-- Add modules explicitly
+	modules = {},
+	-- Ignore installing specific parsers
+	ignore_install = {},
 	highlight = {
 		enable = true, -- Enable syntax highlighting
 		additional_vim_regex_highlighting = false,
+	},
+
+	indent = {
+		enable = true, -- Enable Tree-sitter indentation
 	},
 })
 
