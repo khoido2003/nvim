@@ -229,16 +229,11 @@ require("nvim-tree").setup({
 	update_cwd = true, -- Update the tree when you change directories
 	hijack_netrw = true,
 	reload_on_bufenter = true,
-})
-
-require("nvim-treesitter.parsers").get_parser_configs().c_sharp = {
-	install_info = {
-		url = "https://github.com/tree-sitter/tree-sitter-c-sharp", -- Specify the parser's repo
-		files = { "src/parser.c", "src/scanner.c" },
-		branch = "main",
+	filters = {
+		custom = { ".git", "node_modules", "__pycache__" }, -- Ignore heavy directories
 	},
-	filetype = "cs",
-}
+	diagnostics = { enable = false }, -- Disable diagnostics
+})
 
 -- //////////////////////////////////////////////////////
 

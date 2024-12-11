@@ -1,118 +1,180 @@
-local wezterm = require 'wezterm'
-local config = {}
+local wezterm = require("wezterm")
 
--- Set padding for the terminal to zero to avoid any unnecessary space around
--- Neovim
-config.window_padding = {
-  left = 0,
-  right = 0,
-  top = 0,
-  bottom = 0,
+local act = wezterm.action
+local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
+
+local config = {
+
+	-- Window Config
+	window_padding = {
+		left = 0,
+		right = 0,
+		top = 0,
+		bottom = 0,
+	},
+	window_close_confirmation = "NeverPrompt",
+	adjust_window_size_when_changing_font_size = false,
+
+	-- Tab config
+	use_fancy_tab_bar = false,
+	tab_bar_at_bottom = true,
+	show_new_tab_button_in_tab_bar = false,
+	-- tab_max_width = 16,
+
+	-- Font Config
+
+	font = wezterm.font("Fira Code", { weight = "Regular" }),
+
+	font_size = 14.0,
+
+	-- Color Style
+
+	colors = {
+		tab_bar = {
+			background = "rgba(0,0,0,0)", -- Transparent background for tab bar
+		},
+
+		foreground = "#e0def4", -- Rose Pine text color
+		background = "#18191a", -- Rose Pine base background
+
+		cursor_bg = "#ebbcba", -- Rose Pine rose accent color
+		cursor_fg = "#18191a", -- Rose Pine base background for cursor
+
+		selection_fg = "#e0def4", -- Rose Pine text color for selected text
+
+		selection_bg = "rgba(57, 53, 82, 0.7)", -- Rose Pine overlay with 70% opacity
+
+		ansi = {
+			"#18191a", -- Black (base)
+			"#eb6f92", -- Red (love)
+			"#9ccfd8", -- Green (foam)
+			"#ebbcba", -- Yellow (rose)
+			"#31748f", -- Blue (pine)
+			"#c4a7e7", -- Purple (iris)
+			"#89d3c3", -- Teal (accent)
+			"#e0def4", -- Silver (text)
+		},
+
+		brights = {
+			"#18191a", -- Grey (base)
+			"#eb6f92", -- Red (love)
+			"#9ccfd8", -- Lime (foam)
+			"#ebbcba", -- Yellow (rose)
+			"#31748f", -- Blue (pine)
+			"#c4a7e7", -- Fuchsia (iris)
+			"#89d3c3", -- Aqua (accent)
+			"#e0def4", -- White (text)
+		},
+	},
+	-- Cursor
+	cursor_thickness = 2,
+	default_cursor_style = "SteadyBar",
+
+	-- Keybindings
+	keys = {
+		{
+			key = "w",
+			mods = "CTRL|ALT",
+			action = act.CloseCurrentTab({ confirm = false }),
+		},
+		{
+			key = "t",
+			mods = "CTRL",
+			action = act.SpawnTab("CurrentPaneDomain"),
+		},
+	},
 }
 
--- Define the Rose Pine Moon palette
-local rose_pine = {
-  base = '#18191a',        -- Base background color
-  overlay = '#393552',     -- Overlay background color for floating windows
-  text = '#e0def4',        -- Text color
-  accent = '#89d3c3',      -- Cyan accent color
-  rose = '#ebbcba',        -- Yellow accent color
-  love = '#eb6f92',        -- Red accent color
-  foam = '#9ccfd8',        -- Green accent color
-  pine = '#31748f',        -- Blue accent color
-  iris = '#c4a7e7',        -- Purple accent color
-  gold = '#f6c177',        -- Gold accent color
-}
+for i = 1, 8 do
+	table.insert(config.keys, {
+		key = tostring(i),
+		mods = "ALT",
+		action = act.ActivateTab(i - 1),
+	})
+end
 
-config.colors = {
-  -- The default text color
-  foreground = rose_pine.text,
-  -- The default background color
-  background = rose_pine.base,
+local function getTabTitle(tab_info)
+	local processName = tab_info.active_pane.foreground_process_name
+	return string.gsub(processName, "(.*[/\\])(.*)", "%2")
+end
 
-  -- Overrides the cell background color when the current cell is occupied by the cursor and the cursor style is set to Block
-  cursor_bg = rose_pine.rose,  -- Cyan for cursor background
-  -- Overrides the text color when the current cell is occupied by the cursor
-  cursor_fg = rose_pine.base,  -- Background color of cursor
-  -- Specifies the border color of the cursor when the cursor style is set to Block
-  cursor_border = rose_pine.accent,
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+	local active_background = "#2e3238"
+	local active_foreground = "#aab2bf"
+	local inactive_background = "#1c1f24"
+	local inactive_foreground = "#aab2bf"
+	local transparent = "rgba(0,0,0,0)"
+	-- local title = getTabTitle(tab)
+	local index = tab.tab_index + 1
+	local isFirst = index == 1
+	local isLast = index == #tabs and #tabs ~= 0
+	-- title = wezterm.truncate_right(title, max_width - 2)
 
-  -- the foreground color of selected text
-  selection_fg = rose_pine.text,
-  -- the background color of selected text
-  selection_bg = rose_pine.overlay,  -- Yellow background for selection
-  
+	local items = {}
 
-  -- The color of the scrollbar "thumb"
-  scrollbar_thumb = '#222222',  -- Dark scrollbar thumb
+	if tab.is_active then
+		table.insert(items, { Background = { Color = active_background } })
+		table.insert(items, { Foreground = { Color = active_foreground } })
+		table.insert(items, { Text = " " .. index .. " " })
 
-  -- The color of the split lines between panes
-  split = rose_pine.overlay,
+		if isFirst then
+			if #tabs > 1 then
+				table.insert(items, { Background = { Color = inactive_background } })
+				table.insert(items, { Foreground = { Color = active_background } })
+			else
+				table.insert(items, { Background = { Color = transparent } })
+				table.insert(items, { Foreground = { Color = active_background } })
+			end
+		end
 
-  -- ANSI colors, mapped to Rose Pine colors
-  ansi = {
-    rose_pine.base,   -- Black
-    rose_pine.love,   -- Maroon
-    rose_pine.foam,   -- Green
-    rose_pine.rose,   -- Olive
-    rose_pine.pine,   -- Navy
-    rose_pine.iris,   -- Purple
-    rose_pine.accent, -- Teal
-    rose_pine.text,   -- Silver
-  },
+		if isLast then
+			table.insert(items, { Background = { Color = transparent } })
+			table.insert(items, { Foreground = { Color = active_background } })
+		else
+			table.insert(items, { Background = { Color = inactive_background } })
+			table.insert(items, { Foreground = { Color = active_background } })
+		end
 
-  -- Bright colors, mapped to Rose Pine colors
-  brights = {
-    rose_pine.base,   -- Grey
-    rose_pine.love,   -- Red
-    rose_pine.foam,   -- Lime
-    rose_pine.rose,   -- Yellow
-    rose_pine.pine,   -- Blue
-    rose_pine.iris,   -- Fuchsia
-    rose_pine.accent, -- Aqua
-    rose_pine.text,   -- White
-  },
+		table.insert(items, { Text = SOLID_RIGHT_ARROW })
+	else
+		table.insert(items, { Background = { Color = active_background } })
+		table.insert(items, { Foreground = { Color = active_foreground } })
+		table.insert(items, { Background = { Color = inactive_background } })
+		table.insert(items, { Foreground = { Color = inactive_foreground } })
+		table.insert(items, { Text = " " .. index .. " " })
 
-  indexed = { [136] = rose_pine.rose },  
+		if isLast then
+			table.insert(items, { Background = { Color = transparent } })
+			table.insert(items, { Foreground = { Color = inactive_background } })
+		else
+			-- Check if the next tab is active
+			if index - 1 < #tabs then
+				local nextTab = tabs[index + 1]
+				if nextTab.is_active then
+					table.insert(items, { Background = { Color = active_background } })
+					table.insert(items, { Foreground = { Color = inactive_background } })
+				else
+					table.insert(items, { Background = { Color = inactive_background } })
+					table.insert(items, { Foreground = { Color = inactive_background } })
+				end
+			end
+		end
+		table.insert(items, { Text = SOLID_RIGHT_ARROW })
+	end
 
-  -- IME compose cursor color
-  compose_cursor = rose_pine.iris,  -- Purple
+	return items
+end)
 
-  -- Colors for copy_mode and quick_select
-  copy_mode_active_highlight_bg = { Color = rose_pine.base },
-  copy_mode_active_highlight_fg = { AnsiColor = 'Black' },
-  copy_mode_inactive_highlight_bg = { Color = rose_pine.foam },
-  copy_mode_inactive_highlight_fg = { AnsiColor = 'White' },
-
-  quick_select_label_bg = { Color = rose_pine.pine },
-  quick_select_label_fg = { Color = rose_pine.text },
-  quick_select_match_bg = { AnsiColor = 'Navy' },
-  quick_select_match_fg = { Color = rose_pine.text },
-}
-
-
-local dimmer = { brightness = 0.2 }
+local dimmer = { brightness = 0.16 }
 
 config.background = {
-  -- This is the deepest/back-most layer. It will be rendered first
-  {
-    source = {
-      File = 'C:/Users/Lenovo/OneDrive/Pictures/arcane-11.jpg',
-    },
-    -- The texture tiles vertically but not horizontally.
-    -- When we repeat it, mirror it so that it appears "more seamless".
-    -- An alternative to this is to set `width = "100%"` and have
-    -- it stretch across the display
-    repeat_x = 'Mirror',
-    hsb = dimmer,
-    -- When the viewport scrolls, move this layer 10% of the number of
-    -- pixels moved by the main viewport. This makes it appear to be
-    -- further behind the text.
-    attachment = { Parallax = 0.0 },
-  },
- }
+	{
+		source = {
+			File = "C:/Users/Lenovo/OneDrive/Pictures/arcane-11.jpg",
+		},
 
-
-
+		hsb = dimmer,
+	},
+}
 
 return config
