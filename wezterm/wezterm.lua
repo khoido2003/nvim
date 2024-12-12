@@ -4,7 +4,7 @@ local act = wezterm.action
 local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
 
 local config = {
-
+	dpi = 120.0,
 	-- Window Config
 	window_padding = {
 		left = 0,
@@ -37,8 +37,8 @@ local config = {
 		foreground = "#e0def4", -- Rose Pine text color
 		background = "#18191a", -- Rose Pine base background
 
-		cursor_bg = "#ebbcba", -- Rose Pine rose accent color
-		cursor_fg = "#18191a", -- Rose Pine base background for cursor
+		-- cursor_bg = "#fff", -- Rose Pine rose accent color
+		-- cursor_fg = "#18191a", -- Rose Pine base background for cursor
 
 		selection_fg = "#e0def4", -- Rose Pine text color for selected text
 
@@ -99,9 +99,9 @@ local function getTabTitle(tab_info)
 end
 
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-	local active_background = "#2e3238"
-	local active_foreground = "#aab2bf"
-	local inactive_background = "#1c1f24"
+	local active_background = "#b4befe"
+	local active_foreground = "#1e1e2e"
+	local inactive_background = "#313244"
 	local inactive_foreground = "#aab2bf"
 	local transparent = "rgba(0,0,0,0)"
 	-- local title = getTabTitle(tab)
@@ -165,7 +165,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	return items
 end)
 
-local dimmer = { brightness = 0.16 }
+local dimmer = { brightness = 0.04 }
 
 config.background = {
 	{

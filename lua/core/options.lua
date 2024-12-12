@@ -73,7 +73,7 @@ vim.api.nvim_create_autocmd("User", {
 	callback = function()
 		-- vim.cmd("colorscheme kanagawa")
 		-- vim.cmd 'colorscheme material'
-		vim.cmd("colorscheme rose-pine")
+		vim.cmd("colorscheme catppuccin")
 	end,
 })
 

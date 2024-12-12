@@ -1,31 +1,14 @@
 -- plugins.lua
 require("lazy").setup({
+
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+
 	{
 		"numToStr/Comment.nvim",
 		config = function()
 			require("Comment").setup()
 		end,
 	},
-	{
-		"rose-pine/neovim",
-		name = "rose-pine",
-		lazy = true,
-		event = "VeryLazy",
-	},
-	-- {
-	--     "catppuccin/nvim",
-	--     name = "catppuccin",
-	--     priority = 1000,
-	--     lazy = true,
-	--     event = "VeryLazy"
-	-- },
-	-- {
-	--     "goolord/alpha-nvim",
-	--     config = function()
-	--         require "alpha".setup(require "alpha.themes.dashboard".config)
-	--     end
-	-- },
-
 	{
 		"mhinz/vim-startify",
 		lazy = false,
@@ -40,6 +23,7 @@ require("lazy").setup({
 	{ "kyazdani42/nvim-web-devicons", lazy = true },
 	-- Multiple cursor
 	"mg979/vim-visual-multi",
+
 	-- C# LSP server
 	{
 		"seblj/roslyn.nvim",
@@ -58,6 +42,7 @@ require("lazy").setup({
 				new_config.cmd = { "dotnet", "\\\\.\\pipe\\f7d4a339" }
 			end,
 			filewatching = true,
+			lock_target = true,
 			config = {
 				settings = {
 					["csharp|code_lens"] = {
@@ -75,9 +60,10 @@ require("lazy").setup({
 			},
 		},
 	},
+
 	"nvim-tree/nvim-tree.lua",
 	"nvim-tree/nvim-web-devicons",
-	"nvim-lualine/lualine.nvim",
+
 	-- Auto close {}
 	"windwp/nvim-autopairs",
 	-- Tabnine AI
@@ -94,6 +80,7 @@ require("lazy").setup({
 		"akinsho/toggleterm.nvim",
 		version = "*", -- Optional: use the latest version,
 		lazy = true,
+		autostart = true,
 		keys = { "<c-\\>", "<C-t>" },
 		config = function()
 			require("toggleterm").setup({
@@ -176,12 +163,6 @@ require("lazy").setup({
 			telescope.load_extension("live_grep_args")
 		end,
 	},
-	-- Language Specific Tools
-	{
-		"OmniSharp/omnisharp-vim",
-		lazy = true,
-		ft = "cs",
-	},
 	{
 		"fatih/vim-go", -- Go development
 		run = ":GoUpdateBinaries",
@@ -204,6 +185,58 @@ require("lazy").setup({
 
 -- ///////////////////////////////////////////////////
 -- /////////////////////////////////////////////////////
+
+require("catppuccin").setup({
+	flavour = "auto", -- latte, frappe, macchiato, mocha
+	background = { -- :h background
+		light = "latte",
+		dark = "mocha",
+	},
+	transparent_background = true, -- disables setting the background color.
+	show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
+	term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+	dim_inactive = {
+		enabled = false, -- dims the background color of inactive window
+		shade = "dark",
+		percentage = 0.15, -- percentage of the shade to apply to the inactive window
+	},
+	no_italic = false, -- Force no italic
+	no_bold = false, -- Force no bold
+	no_underline = false, -- Force no underline
+	styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+		comments = { "italic" }, -- Change the style of comments
+		conditionals = { "italic" },
+		loops = {},
+		functions = {},
+		keywords = {},
+		strings = {},
+		variables = {},
+		numbers = {},
+		booleans = {},
+		properties = {},
+		types = {},
+		operators = {},
+		-- miscs = {}, -- Uncomment to turn off hard-coded styles
+	},
+	color_overrides = {},
+	custom_highlights = {},
+	default_integrations = true,
+	integrations = {
+		cmp = true,
+		gitsigns = true,
+		nvimtree = true,
+		treesitter = true,
+		notify = false,
+		mini = {
+			enabled = true,
+			indentscope_color = "",
+		},
+		-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+	},
+})
+
+-- setup must be called before loading
+vim.cmd.colorscheme("catppuccin")
 
 -- CONFIGURATIONS
 
@@ -293,64 +326,6 @@ require("gitsigns").setup({
 
 -- LUA line
 
-require("lualine").setup({
-	options = {
-		icons_enabled = true,
-		theme = {
-			normal = {
-				a = { fg = "#ffffff", bg = "#2e3238", gui = "bold" }, -- Normal mode
-				b = { fg = "#c5c8c6", bg = "#202426" }, -- Background for branch, diagnostics (dark grayish)
-				c = { fg = "#c5c8c6", bg = "#202426" }, -- Background for filename (dark grayish)
-			},
-			insert = {
-				a = { fg = "#ffffff", bg = "#9d7cd8", gui = "bold" }, -- Insert mode (background dark blue-gray)
-			},
-			visual = {
-				a = { fg = "#ffffff", bg = "#e46876", gui = "bold" }, -- Visual mode (background muted gray)
-			},
-			replace = {
-				a = { fg = "#ffffff", bg = "#5a6374", gui = "bold" }, -- Replace mode (background rose red)
-			},
-			command = {
-				a = { fg = "#ffffff", bg = "#364F6B", gui = "bold" }, -- Command mode (background purple)
-			},
-			inactive = {
-				a = { fg = "#c5c8c6", bg = "#1c1f24" }, -- Inactive sections have a muted gray background
-				b = { fg = "#c5c8c6", bg = "#1c1f24" },
-				c = { fg = "#c5c8c6", bg = "#1c1f24" },
-			},
-		},
-		component_separators = { left = "", right = "" },
-		section_separators = { left = "", right = "" },
-		disabled_filetypes = {
-			statusline = {},
-			winbar = {},
-		},
-		always_divide_middle = true,
-		globalstatus = false,
-	},
-	sections = {
-		lualine_a = { "mode" },
-		lualine_b = { "branch", "diff", "diagnostics" },
-		lualine_c = { "filename" },
-		lualine_x = { "encoding", "fileformat", "filetype" },
-		lualine_y = { "progress" },
-		lualine_z = { "location" },
-	},
-	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = { "filename" },
-		lualine_x = { "location" },
-		lualine_y = {},
-		lualine_z = {},
-	},
-	tabline = {},
-	winbar = {},
-	inactive_winbar = {},
-	extensions = {},
-})
-
 -- //////////////////////////////////////
 
 require("nvim-treesitter.configs").setup({
@@ -432,79 +407,6 @@ require("nvim-web-devicons").setup({
 })
 
 -- //////////////////////////////////////////////////////////////////////////////////////
-
-require("rose-pine").setup({
-	variant = "moon", -- auto, main, moon, or dawn
-	dark_variant = "moon", -- main, moon, or dawn
-	dim_inactive_windows = false,
-	extend_background_behind_borders = true,
-	enable = {
-		terminal = true,
-		legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
-		migrations = true, -- Handle deprecated options automatically
-	},
-	styles = {
-		bold = true,
-		italic = false,
-		transparency = false,
-	},
-	groups = {
-		border = "muted",
-		link = "iris",
-		panel = "surface",
-		error = "love",
-		hint = "iris",
-		info = "foam",
-		note = "pine",
-		todo = "rose",
-		warn = "gold",
-		git_add = "foam",
-		git_change = "rose",
-		git_delete = "love",
-		git_dirty = "rose",
-		git_ignore = "muted",
-		git_merge = "iris",
-		git_rename = "pine",
-		git_stage = "iris",
-		git_text = "rose",
-		git_untracked = "subtle",
-		h1 = "iris",
-		h2 = "foam",
-		h3 = "rose",
-		h4 = "gold",
-		h5 = "pine",
-		h6 = "foam",
-	},
-	palette = {
-		-- Override the builtin palette per variant
-		moon = {
-			-- base = '#1c1f24',   -- Neutral dark background
-			-- overlay = '#2e3238', -- Softer dark overlay
-
-			base = "#18191a",
-			overlay = "#363738",
-		},
-	},
-	highlight_groups = {
-		-- Customize floating and popup backgrounds
-		Normal = { bg = "#18191a" },
-		NormalFloat = { bg = "#18191a" },
-		FloatBorder = { bg = "#18191a", fg = "#363738" },
-		Pmenu = { bg = "#363738", fg = "#c5c8c6" },
-		PmenuSel = { bg = "#363738", fg = "#ffffff" },
-		-- Telescope specific overrides
-		TelescopeBorder = { fg = "#363738", bg = "#18191a" }, -- Border of Telescope popups
-		TelescopePromptBorder = { fg = "#363738", bg = "#18191a" }, -- Prompt border
-		TelescopeResultsBorder = { fg = "#363738", bg = "#18191a" }, -- Results border
-		TelescopePreviewBorder = { fg = "#363738", bg = "#18191a" }, -- Preview border
-	},
-	before_highlight = function(group, highlight, palette)
-		-- Adjust palette colors for specific groups
-		if group == "NormalFloat" or group == "TelescopeNormal" then
-			highlight.bg = palette.base
-		end
-	end,
-})
 
 -- colorizer
 require("colorizer").setup()

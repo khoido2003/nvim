@@ -263,35 +263,34 @@ require("lspconfig").tailwindcss.setup({
 
 -- ///////////////////////////////////////////
 
-require("lspconfig").omnisharp.setup({
-	filetypes = { "cs" }, -- Only activate OmniSharp for C# files
-	settings = {
-		OmniSharp = {
-			codeLens = { enable = false }, -- Disable code lens
-			completion = { enabled = false }, -- Disable autocompletion
-			diagnostics = { enabled = false }, -- Disable diagnostics
-			formatting = { enabled = false }, -- Disable formatting
-			hover = { enabled = false }, -- Disable hover
-			symbol = { enabled = false }, -- Disable symbol searching
-			workspace = { enabled = false }, -- Disable workspace symbols
-		},
-	},
-	on_attach = function(client, bufnr)
-		-- Disable unnecessary capabilities like codeLens and formatting
-		if client.server_capabilities.codeLensProvider then
-			client.server_capabilities.codeLensProvider = false
-		end
-		client.server_capabilities.documentFormattingProvider = false
-		client.server_capabilities.documentRangeFormattingProvider = false
-
-		-- Keybindings for LSP
-		local opts = { noremap = true, silent = true }
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	end,
-})
-
+-- require("lspconfig").omnisharp.setup({
+-- 	cmd = { "C:\\omnisharp\\omnisharp.EXE", "--languageserver" },
+-- 	filetypes = { "cs" },
+-- 	settings = {
+-- 		OmniSharp = {
+-- 			diagnostics = { enabled = true }, -- Disable diagnostics if needed
+-- 			completion = { enabled = true }, -- Enable completion
+-- 			hover = { enabled = true }, -- Enable hover
+-- 			codeLens = { enable = false }, -- Optionally disable codeLens
+-- 		},
+-- 	},
+-- 	on_attach = function(client, bufnr)
+-- 		-- Disable diagnostics handling explicitly if needed
+-- 		if client.server_capabilities.diagnosticProvider then
+-- 			client.server_capabilities.diagnosticProvider = true
+-- 		end
+--
+-- 		-- Disable diagnostics from OmniSharp entirely
+-- 		vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+--
+-- 		-- Set up key mappings
+-- 		local opts = { noremap = true, silent = true }
+-- 		vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+-- 		vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+-- 		vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+-- 	end,
+-- })
+--
 -- //////////////////////////////////////////
 --
 -- -- Set up LSP for Java with nvim-jdtls
