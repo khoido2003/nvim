@@ -165,7 +165,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	return items
 end)
 
-local dimmer = { brightness = 0.04 }
+local dimmer = { brightness = 0.15 }
 
 config.background = {
 	{

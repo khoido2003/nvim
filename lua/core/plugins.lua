@@ -21,8 +21,9 @@ require("lazy").setup({
 
 	-- Icon
 	{ "kyazdani42/nvim-web-devicons", lazy = true },
+
 	-- Multiple cursor
-	"mg979/vim-visual-multi",
+	"mg979/vim-visual-multi", -- Using ctrl + n to select multiple element.
 
 	-- C# LSP server
 	{
@@ -192,7 +193,7 @@ require("catppuccin").setup({
 		light = "latte",
 		dark = "mocha",
 	},
-	transparent_background = true, -- disables setting the background color.
+	transparent_background = false, -- disables setting the background color.
 	show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
 	term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
 	dim_inactive = {
@@ -202,10 +203,10 @@ require("catppuccin").setup({
 	},
 	no_italic = false, -- Force no italic
 	no_bold = false, -- Force no bold
-	no_underline = false, -- Force no underline
+	no_underline = true, -- Force no underline
 	styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-		comments = { "italic" }, -- Change the style of comments
-		conditionals = { "italic" },
+		comments = {}, -- Change the style of comments
+		conditionals = {},
 		loops = {},
 		functions = {},
 		keywords = {},
@@ -218,7 +219,13 @@ require("catppuccin").setup({
 		operators = {},
 		-- miscs = {}, -- Uncomment to turn off hard-coded styles
 	},
-	color_overrides = {},
+	color_overrides = {
+		mocha = {
+			base = "#18191a",
+			mantle = "#18191a",
+			crust = "#18191a",
+		},
+	},
 	custom_highlights = {},
 	default_integrations = true,
 	integrations = {
