@@ -65,8 +65,8 @@ vim.wo.relativenumber = true
 vim.opt.number = true
 
 -- gruvbox_config.lua
-vim.o.background = "dark" -- Set background to dark
-vim.g.gruvbox_contrast_dark = "hard" -- Set the dark hard contrast
+-- vim.o.background = "dark" -- Set background to dark
+-- vim.g.gruvbox_contrast_dark = "hard" -- Set the dark hard contrast
 
 vim.api.nvim_create_autocmd("User", {
 	pattern = "LazyVimStarted",
@@ -166,9 +166,9 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	end,
 })
 
-vim.api.nvim_set_hl(0, "DashboardHeader", { fg = "#8D9F8E" }) -- Soft moonlight gray
-vim.api.nvim_set_hl(0, "DashboardShortcut", { fg = "#98BB6C" }) -- Kanagawa green
-vim.api.nvim_set_hl(0, "DashboardFooter", { fg = "#9F8A7A" }) -- Calm warm tone
+-- vim.api.nvim_set_hl(0, "DashboardHeader", { fg = "#8D9F8E" }) -- Soft moonlight gray
+-- vim.api.nvim_set_hl(0, "DashboardShortcut", { fg = "#98BB6C" }) -- Kanagawa green
+-- vim.api.nvim_set_hl(0, "DashboardFooter", { fg = "#9F8A7A" }) -- Calm warm tone
 
 -- Add Dockerfile filetype detection
 vim.cmd("autocmd BufNewFile,BufRead Dockerfile* set filetype=dockerfile")
@@ -185,14 +185,14 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
 	end,
 })
 
-vim.cmd([[
-  autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
-  autocmd vimenter * hi NormalNC guibg=NONE ctermbg=NONE
-  autocmd vimenter * hi SignColumn guibg=NONE ctermbg=NONE
-  autocmd vimenter * hi VertSplit guibg=NONE ctermbg=NONE
-  autocmd vimenter * hi StatusLine guibg=NONE ctermbg=NONE
-  autocmd vimenter * hi StatusLineNC guibg=NONE ctermbg=NONE
-]])
+-- vim.cmd([[
+--   autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
+--   autocmd vimenter * hi NormalNC guibg=NONE ctermbg=NONE
+--   autocmd vimenter * hi SignColumn guibg=NONE ctermbg=NONE
+--   autocmd vimenter * hi VertSplit guibg=NONE ctermbg=NONE
+--   autocmd vimenter * hi StatusLine guibg=NONE ctermbg=NONE
+--   autocmd vimenter * hi StatusLineNC guibg=NONE ctermbg=NONE
+-- ]])
 
 vim.lsp.handlers["textDocument/definition"] = function(_, result, ctx, config)
 	if not result or vim.tbl_isempty(result) then
@@ -212,3 +212,14 @@ vim.lsp.handlers["textDocument/definition"] = function(_, result, ctx, config)
 		end
 	end
 end
+
+vim.g.lightline = {
+	colorscheme = "catppuccin",
+	active = {
+		left = { { "#cdd6f4", "#1e1e2e" }, { "#cdd6f4", "#292938" } },
+		right = { { "#cdd6f4", "#181820" }, { "#cdd6f4", "#292938" } },
+	},
+	inactive = {
+		left = { { "#6c7086", "#181820" }, { "#6c7086", "#181820" } },
+	},
+}

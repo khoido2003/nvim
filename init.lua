@@ -1,6 +1,5 @@
 -- init.lua
 vim.opt.termguicolors = true
-vim.env.PATH = vim.env.PATH .. ":/c/Users/Lenovo/AppData/Roaming/npm"
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
