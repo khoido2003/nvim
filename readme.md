@@ -34,7 +34,7 @@ choco install zig
 ```
 or visit Zig website for more guide: https://ziglang.org/learn/getting-started/#direct
 
-## Install Lazygit to use Git in terminal
+### Install Lazygit to use Git in terminal
 
 On Window
 bash
@@ -44,6 +44,20 @@ choco install lazygit
 
 ![img](images/7.png)
 
+
+### Add diff to global varibles(Require to use proto format)
+
+Add this to the edit global varible
+bash
+```
+C:\Program Files\Git\usr\bin
+```
+
+### Install buf for proto file format
+bash
+```
+scoop install buf
+```
 
 ### Win32Yank: Only on Window
 

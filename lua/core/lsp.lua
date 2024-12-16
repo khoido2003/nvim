@@ -19,6 +19,7 @@ require("conform").setup({
 		python = { "black" },
 		go = { "gofmt", "goimports" },
 		lua = { "stylua" },
+		proto = { "buf" },
 	},
 	debug = true, -- Enable debugging
 	timeout = 20000, -- Timeout in milliseconds (adjust as needed)
@@ -142,8 +143,20 @@ require("lspconfig").pyright.setup({
 })
 
 -- //////////////////////////////////////////////////////////
+-- C/C++
+lspconfig.clangd.setup({
 
-lspconfig.clangd.setup({ on_attach = on_attach, capabilities = capabilities })
+	filetypes = {
+		"c",
+		"cpp",
+		"objc",
+		"objcpp",
+		"cuda",
+	},
+
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
 
 -- //////////////////////////////////////////////////////////
 
