@@ -76,7 +76,6 @@ mason_lspconfig.setup({
 		"gopls",
 		"clangd",
 		"jdtls",
-		"omnisharp",
 		"html",
 		"cssls",
 		"yamlls",
@@ -275,34 +274,6 @@ require("lspconfig").tailwindcss.setup({
 })
 
 -- ///////////////////////////////////////////
-
--- require("lspconfig").omnisharp.setup({
--- 	cmd = { "C:\\omnisharp\\omnisharp.EXE", "--languageserver" },
--- 	filetypes = { "cs" },
--- 	settings = {
--- 		OmniSharp = {
--- 			diagnostics = { enabled = true }, -- Disable diagnostics if needed
--- 			completion = { enabled = true }, -- Enable completion
--- 			hover = { enabled = true }, -- Enable hover
--- 			codeLens = { enable = false }, -- Optionally disable codeLens
--- 		},
--- 	},
--- 	on_attach = function(client, bufnr)
--- 		-- Disable diagnostics handling explicitly if needed
--- 		if client.server_capabilities.diagnosticProvider then
--- 			client.server_capabilities.diagnosticProvider = true
--- 		end
---
--- 		-- Disable diagnostics from OmniSharp entirely
--- 		vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
---
--- 		-- Set up key mappings
--- 		local opts = { noremap = true, silent = true }
--- 		vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
--- 		vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
--- 		vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
--- 	end,
--- })
 --
 -- //////////////////////////////////////////
 --
