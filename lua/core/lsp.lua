@@ -10,8 +10,8 @@ require("conform").setup({
 		typescript = { "prettier" },
 		typescriptreact = { "prettier" }, -- For React (TypeScript)
 		javascriptreact = { "prettier" }, -- For React (JavaScript)
-		html = { "prettier" },
-		css = { "prettier" },
+		-- html = { "prettier" },
+		-- css = { "prettier" },
 		scss = { "prettier" },
 		jsx = { "prettier" }, -- For React (JSX)
 		tsx = { "prettier" }, -- For React (TSX)

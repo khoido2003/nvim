@@ -75,6 +75,10 @@ require("lazy").setup({
 		run = ":TSUpdate",
 		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
+
+		dependencies = {
+			"windwp/nvim-ts-autotag",
+		},
 	},
 	-- Terminal management
 	{
@@ -216,8 +220,8 @@ require("catppuccin").setup({
 		shade = "dark",
 		percentage = 0.15, -- percentage of the shade to apply to the inactive window
 	},
-	no_italic = false, -- Force no italic
-	no_bold = false, -- Force no bold
+	no_italic = true, -- Force no italic
+	no_bold = true, -- Force no bold
 	no_underline = false, -- Force no underline
 	styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
 		comments = {}, -- Change the style of comments
@@ -435,3 +439,18 @@ require("nvim-web-devicons").setup({
 
 -- colorizer
 require("colorizer").setup()
+
+-- Auto close tag
+require("nvim-ts-autotag").setup({
+	filetypes = {
+		"html",
+		"javascript",
+		"typescript",
+		"javascriptreact",
+		"typescriptreact",
+		"vue",
+		"svelte",
+		"php",
+		"markdown",
+	},
+})
