@@ -198,6 +198,13 @@ require("lazy").setup({
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
+
+	--Rust
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^5", -- Recommended
+		lazy = false, -- This plugin is already lazy
+	},
 })
 
 -- ///////////////////////////////////////////////////
@@ -427,6 +434,7 @@ require("nvim-treesitter.configs").setup({
 		"gitignore",
 		"toml",
 		"php",
+		"rust",
 	},
 	auto_install = true, -- Automatically install missing parsers,
 	-- Sync installation (installs parsers synchronously)

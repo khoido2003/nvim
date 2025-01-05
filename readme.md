@@ -1,11 +1,25 @@
 # Neovim Config
 
+## How to use this repo (Guide for Window user)
+Clone this repo to nvim folder
+bash
+```
+C:\Users\Your-Name\AppData\Local\nvim
+```
+
+If using Wezterm terminal, paste the wezterm folder to .config folder
+bash
+```
+C:\Users\Your-Name\.config
+```
+
 ## Overview
 
 This configuration will make Neonvim become a full-fledged IDE like VS Code
 
-Theme: ROSE PINE
-Support: C#, JS/TS, Go, Java, HTML/CSS, Python, Java, yaml, Dockerfile
+Theme: Nordic(https://github.com/AlexvZyl/nordic.nvim)
+
+Support: C#, JS/TS, Go, Rust, Java, HTML/CSS, Python, Java, yaml, Dockerfile
 
 ## Tools
 
@@ -21,7 +35,12 @@ Written in Rust so it is super fast and have some built in features with icon su
 Dowload: https://neovide.dev/
 
 ### Using built in terminal
+
+I am currently using Wezterm as my terminal and it is amazing, you should try it
+out
+
 Recommend dowload FiraCode for better font and syntax support
+
 Dowload: https://github.com/tonsky/FiraCode
 
 ### If using Window, dowload Zig as compiler for Nvim-Tree-sitter since C have some problem when compile
@@ -52,6 +71,28 @@ bash
 ```
 C:\Program Files\Git\usr\bin
 ```
+### LSP for Rust
+
+Step 1: Dowload MinGW-w64 and add it to the global path
+Step 2: Configure Rust to use MinGW 
+bash 
+```
+rustup install stable-x86_64-pc-windows-gnu
+
+rustup default stable-x86_64-pc-windows-gnu
+
+rustc --version --verbose
+
+```
+
+Step 3: Dowload rust-analyzer for the LSP
+bash
+```
+rustup component add rust-analyzer
+```
+
+NOTE: Default Rust will use MSVC instead of MinGW-w64 so in order to use that
+you have to install Visual Studio Installer and install MSVC from there
 
 ### Install buf for proto file format
 bash

@@ -20,6 +20,7 @@ require("conform").setup({
 		go = { "gofmt", "goimports" },
 		lua = { "stylua" },
 		proto = { "buf" },
+		rust = { "rustfmt" },
 	},
 	debug = true, -- Enable debugging
 	timeout = 20000, -- Timeout in milliseconds (adjust as needed)
@@ -81,6 +82,7 @@ mason_lspconfig.setup({
 		"yamlls",
 		"tailwindcss",
 		"lua_ls",
+		"rust_analyzer",
 	}, -- Correct server names
 	automatic_installation = true,
 })
@@ -274,7 +276,7 @@ require("lspconfig").tailwindcss.setup({
 })
 
 -- ///////////////////////////////////////////
---
+
 -- //////////////////////////////////////////
 --
 -- -- Set up LSP for Java with nvim-jdtls

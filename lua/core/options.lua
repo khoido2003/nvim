@@ -221,3 +221,32 @@ vim.g.lightline = {
 		left = { { "#6c7086", "#181820" }, { "#6c7086", "#181820" } },
 	},
 }
+
+-- ////////////////////////////////////////
+
+-- Rust
+vim.g.rustaceanvim = {
+	-- LSP configuration
+	server = {
+		on_attach = function(client, bufnr)
+			-- Keymaps for LSP actions
+			vim.keymap.set("n", "<C-G> <C-D>", function()
+				vim.lsp.buf.definition()
+			end, { buffer = bufnr, silent = true })
+
+			vim.keymap.set("n", "<C-C> <C-A>", function()
+				vim.lsp.buf.code_action()
+			end, { buffer = bufnr, silent = true })
+		end,
+		default_settings = {
+			["rust-analyzer"] = {
+				-- Add any specific settings for rust-analyzer here if necessary
+			},
+		},
+	},
+	-- Tools configuration (optional)
+	tools = {
+		rustfmt = true, -- Enable rustfmt for automatic formatting
+		clippy = true, -- Enable clippy for linting
+	},
+}
