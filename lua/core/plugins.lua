@@ -21,16 +21,16 @@ require("lazy").setup({
 		lazy = false,
 	},
 
-	"lewis6993/gitsigns.nvim",
+	"lewis6991/gitsigns.nvim",
 	"onsails/lspkind.nvim",
 	-- -- Kanagawa theme
 	-- "rebelot/kanagawa.nvim",
 
 	-- Icon
-	{ "kyazdani44/nvim-web-devicons", lazy = true },
+	{ "kyazdani42/nvim-web-devicons", lazy = true },
 
 	-- Multiple cursor
-	"mg981/vim-visual-multi", -- Using ctrl + n to select multiple element.
+	"mg979/vim-visual-multi", -- Using ctrl + n to select multiple element.
 
 	-- C# LSP server
 	{
@@ -39,7 +39,7 @@ require("lazy").setup({
 		opts = {
 			exe = {
 				"dotnet",
-				"C:/Users/Lenovo/.vscode/extensions/ms-dotnettools.csharp0.55.29-win32-x64/.roslyn/Microsoft.CodeAnalysis.LanguageServer.dll",
+				"C:/Users/Lenovo/.vscode/extensions/ms-dotnettools.csharp-2.55.29-win32-x64/.roslyn/Microsoft.CodeAnalysis.LanguageServer.dll",
 			},
 			args = {
 				"--logLevel=Information",
@@ -47,7 +47,7 @@ require("lazy").setup({
 			},
 			on_new_config = function(new_config, new_root_dir)
 				-- Use the dynamically created pipe name
-				new_config.cmd = { "dotnet", "\\\\.\\pipe\\f9d4a339" }
+				new_config.cmd = { "dotnet", "\\\\.\\pipe\\f7d4a339" }
 			end,
 			filewatching = true,
 			lock_target = true,
@@ -75,7 +75,7 @@ require("lazy").setup({
 	-- Auto close {}
 	"windwp/nvim-autopairs",
 	-- Tabnine AI
-	{ "codota/tabnine-nvim", build = "pwsh.exe -file .\\dl_binaries.ps4" },
+	{ "codota/tabnine-nvim", build = "pwsh.exe -file .\\dl_binaries.ps1" },
 	-- Syntax Highlighting and Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -96,7 +96,7 @@ require("lazy").setup({
 		keys = { "<c-\\>", "<C-t>" },
 		config = function()
 			require("toggleterm").setup({
-				size = 22, -- Height of the terminal window
+				size = 20, -- Height of the terminal window
 				open_mapping = [[<c-\>]], -- Shortcut to toggle the terminal
 				direction = "tab", -- Options: 'horizontal', 'vertical', 'tab', 'float'
 				shade_terminals = true, -- Shades background of terminal
@@ -118,27 +118,27 @@ require("lazy").setup({
 		event = { "BufReadPre", "BufNewFile" },
 	},
 	{
-		"hrsh9th/nvim-cmp",
+		"hrsh7th/nvim-cmp",
 		lazy = true,
 		event = "InsertEnter",
 	},
 	{
-		"hrsh9th/cmp-nvim-lsp",
+		"hrsh7th/cmp-nvim-lsp",
 		lazy = true,
 		event = "InsertEnter",
 	},
 	{
-		"hrsh9th/cmp-path",
+		"hrsh7th/cmp-path",
 		lazy = true,
 		event = "InsertEnter",
 	},
 	{
-		"hrsh9th/cmp-buffer",
+		"hrsh7th/cmp-buffer",
 		lazy = true,
 		event = "InsertEnter",
 	},
 	{
-		"saadparwaiz3/cmp_luasnip",
+		"saadparwaiz1/cmp_luasnip",
 		lazy = true,
 		event = "InsertEnter",
 	},
@@ -147,16 +147,16 @@ require("lazy").setup({
 		lazy = true,
 		event = "InsertEnter",
 	},
-	"L5MON4D3/LuaSnip",
+	"L3MON4D3/LuaSnip",
 
 	"nvim-pack/nvim-spectre",
 	-- Version Control
-	"lewis6993/gitsigns.nvim",
+	"lewis6991/gitsigns.nvim",
 	"tpope/vim-fugitive",
 	-- Telescope for Fuzzy Finding
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "2.1.4",
+		tag = "0.1.4",
 		lazy = true,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -183,7 +183,7 @@ require("lazy").setup({
 	},
 	-- Multiple cursor
 	{
-		"mg981/vim-visual-multi",
+		"mg979/vim-visual-multi",
 		branch = "master",
 	},
 	-- colorizer to show color in css/html, ...
@@ -254,7 +254,7 @@ require("nordic").setup({
 	},
 	noice = {
 		-- Available styles: `classic`, `flat`.
-		style = "flat",
+		style = "classic",
 	},
 	telescope = {
 		-- Available styles: `classic`, `flat`.
