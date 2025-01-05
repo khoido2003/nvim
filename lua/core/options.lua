@@ -71,9 +71,7 @@ vim.opt.number = true
 vim.api.nvim_create_autocmd("User", {
 	pattern = "LazyVimStarted",
 	callback = function()
-		-- vim.cmd("colorscheme kanagawa")
-		-- vim.cmd 'colorscheme material'
-		vim.cmd("colorscheme catppuccin")
+		vim.cmd("colorscheme nordic")
 	end,
 })
 

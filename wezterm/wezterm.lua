@@ -4,6 +4,7 @@ local act = wezterm.action
 local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
 
 local config = {
+
 	dpi = 120.0,
 	-- Window Config
 	window_padding = {
@@ -34,36 +35,40 @@ local config = {
 			background = "rgba(0,0,0,0)", -- Transparent background for tab bar
 		},
 
-		foreground = "#e0def4", -- Rose Pine text color
-		background = "#18191a", -- Rose Pine base background
+		foreground = "#D8DEE9", -- Nordic white1 for text
+		background = "#242933", -- Nordic gray0 for the base background
 
-		-- cursor_bg = "#fff", -- Rose Pine rose accent color
-		-- cursor_fg = "#18191a", -- Rose Pine base background for cursor
+		-- -- cursor colors
+		-- cursor_bg = "#D8DEE9", -- Nordic white1 for the cursor
+		-- cursor_fg = "#242933", -- Nordic gray0 for the cursor foreground
+		-- cursor_border = "#D8DEE9", -- Cursor border matches cursor color
 
-		selection_fg = "#e0def4", -- Rose Pine text color for selected text
+		-- Selection
+		selection_fg = "#D8DEE9", -- Nordic white1 for selected text
+		selection_bg = "rgba(57, 53, 82, 0.7)", -- Similar to Rose Pine but unchanged
 
-		selection_bg = "rgba(57, 53, 82, 0.7)", -- Rose Pine overlay with 70% opacity
-
+		-- ANSI colors
 		ansi = {
-			"#18191a", -- Black (base)
-			"#eb6f92", -- Red (love)
-			"#9ccfd8", -- Green (foam)
-			"#ebbcba", -- Yellow (rose)
-			"#31748f", -- Blue (pine)
-			"#c4a7e7", -- Purple (iris)
-			"#89d3c3", -- Teal (accent)
-			"#e0def4", -- Silver (text)
+			"#242933", -- Black (Nordic gray0)
+			"#BF616A", -- Red (Nordic red.base)
+			"#A3BE8C", -- Green (Nordic green.base)
+			"#EBCB8B", -- Yellow (Nordic yellow.base)
+			"#5E81AC", -- Blue (Nordic blue0)
+			"#B48EAD", -- Magenta (Nordic magenta.base)
+			"#8FBCBB", -- Cyan (Nordic cyan.base)
+			"#D8DEE9", -- White (Nordic white1)
 		},
 
+		-- Bright colors
 		brights = {
-			"#18191a", -- Grey (base)
-			"#eb6f92", -- Red (love)
-			"#9ccfd8", -- Lime (foam)
-			"#ebbcba", -- Yellow (rose)
-			"#31748f", -- Blue (pine)
-			"#c4a7e7", -- Fuchsia (iris)
-			"#89d3c3", -- Aqua (accent)
-			"#e0def4", -- White (text)
+			"#3B4252", -- Bright black (Nordic gray2)
+			"#BF616A", -- Bright red (Nordic red.base)
+			"#A3BE8C", -- Bright green (Nordic green.base)
+			"#EBCB8B", -- Bright yellow (Nordic yellow.base)
+			"#81A1C1", -- Bright blue (Nordic blue1)
+			"#B48EAD", -- Bright magenta (Nordic magenta.base)
+			"#8FBCBB", -- Bright cyan (Nordic cyan.base)
+			"#ECEFF4", -- Bright white (Nordic white3)
 		},
 	},
 	-- Cursor
@@ -99,8 +104,8 @@ local function getTabTitle(tab_info)
 end
 
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-	local active_background = "#b4befe"
-	local active_foreground = "#1e1e2e"
+	local active_background = "#4c566a"
+	local active_foreground = "#e5e9f0"
 	local inactive_background = "#313244"
 	local inactive_foreground = "#aab2bf"
 	local transparent = "rgba(0,0,0,0)"
@@ -135,7 +140,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 			table.insert(items, { Foreground = { Color = active_background } })
 		end
 
-		table.insert(items, { Text = SOLID_RIGHT_ARROW })
+		table.insert(items, { Text = "" })
 	else
 		table.insert(items, { Background = { Color = active_background } })
 		table.insert(items, { Foreground = { Color = active_foreground } })
@@ -159,18 +164,20 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 				end
 			end
 		end
-		table.insert(items, { Text = SOLID_RIGHT_ARROW })
+		table.insert(items, { Text = "" })
 	end
 
 	return items
 end)
 
-local dimmer = { brightness = 0.15 }
+local dimmer = { brightness = 0.1 }
 
 config.background = {
 	{
 		source = {
 			File = "C:/Users/Lenovo/OneDrive/Pictures/arcane-11.jpg",
+
+			-- File = "C:/Users/Lenovo/OneDrive/Pictures/g7.jpg",
 		},
 
 		hsb = dimmer,

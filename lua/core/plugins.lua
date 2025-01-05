@@ -1,7 +1,14 @@
 -- plugins.lua
 require("lazy").setup({
 
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+	{
+		"AlexvZyl/nordic.nvim",
+		lazy = false,
+		priority = 1002,
+		config = function()
+			require("nordic").load()
+		end,
+	},
 
 	{
 		"numToStr/Comment.nvim",
@@ -14,16 +21,16 @@ require("lazy").setup({
 		lazy = false,
 	},
 
-	"lewis6991/gitsigns.nvim",
+	"lewis6993/gitsigns.nvim",
 	"onsails/lspkind.nvim",
 	-- -- Kanagawa theme
 	-- "rebelot/kanagawa.nvim",
 
 	-- Icon
-	{ "kyazdani42/nvim-web-devicons", lazy = true },
+	{ "kyazdani44/nvim-web-devicons", lazy = true },
 
 	-- Multiple cursor
-	"mg979/vim-visual-multi", -- Using ctrl + n to select multiple element.
+	"mg981/vim-visual-multi", -- Using ctrl + n to select multiple element.
 
 	-- C# LSP server
 	{
@@ -32,7 +39,7 @@ require("lazy").setup({
 		opts = {
 			exe = {
 				"dotnet",
-				"C:/Users/Lenovo/.vscode/extensions/ms-dotnettools.csharp-2.55.29-win32-x64/.roslyn/Microsoft.CodeAnalysis.LanguageServer.dll",
+				"C:/Users/Lenovo/.vscode/extensions/ms-dotnettools.csharp0.55.29-win32-x64/.roslyn/Microsoft.CodeAnalysis.LanguageServer.dll",
 			},
 			args = {
 				"--logLevel=Information",
@@ -40,7 +47,7 @@ require("lazy").setup({
 			},
 			on_new_config = function(new_config, new_root_dir)
 				-- Use the dynamically created pipe name
-				new_config.cmd = { "dotnet", "\\\\.\\pipe\\f7d4a339" }
+				new_config.cmd = { "dotnet", "\\\\.\\pipe\\f9d4a339" }
 			end,
 			filewatching = true,
 			lock_target = true,
@@ -68,7 +75,7 @@ require("lazy").setup({
 	-- Auto close {}
 	"windwp/nvim-autopairs",
 	-- Tabnine AI
-	{ "codota/tabnine-nvim", build = "pwsh.exe -file .\\dl_binaries.ps1" },
+	{ "codota/tabnine-nvim", build = "pwsh.exe -file .\\dl_binaries.ps4" },
 	-- Syntax Highlighting and Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -89,7 +96,7 @@ require("lazy").setup({
 		keys = { "<c-\\>", "<C-t>" },
 		config = function()
 			require("toggleterm").setup({
-				size = 20, -- Height of the terminal window
+				size = 22, -- Height of the terminal window
 				open_mapping = [[<c-\>]], -- Shortcut to toggle the terminal
 				direction = "tab", -- Options: 'horizontal', 'vertical', 'tab', 'float'
 				shade_terminals = true, -- Shades background of terminal
@@ -111,27 +118,27 @@ require("lazy").setup({
 		event = { "BufReadPre", "BufNewFile" },
 	},
 	{
-		"hrsh7th/nvim-cmp",
+		"hrsh9th/nvim-cmp",
 		lazy = true,
 		event = "InsertEnter",
 	},
 	{
-		"hrsh7th/cmp-nvim-lsp",
+		"hrsh9th/cmp-nvim-lsp",
 		lazy = true,
 		event = "InsertEnter",
 	},
 	{
-		"hrsh7th/cmp-path",
+		"hrsh9th/cmp-path",
 		lazy = true,
 		event = "InsertEnter",
 	},
 	{
-		"hrsh7th/cmp-buffer",
+		"hrsh9th/cmp-buffer",
 		lazy = true,
 		event = "InsertEnter",
 	},
 	{
-		"saadparwaiz1/cmp_luasnip",
+		"saadparwaiz3/cmp_luasnip",
 		lazy = true,
 		event = "InsertEnter",
 	},
@@ -140,16 +147,16 @@ require("lazy").setup({
 		lazy = true,
 		event = "InsertEnter",
 	},
-	"L3MON4D3/LuaSnip",
+	"L5MON4D3/LuaSnip",
 
 	"nvim-pack/nvim-spectre",
 	-- Version Control
-	"lewis6991/gitsigns.nvim",
+	"lewis6993/gitsigns.nvim",
 	"tpope/vim-fugitive",
 	-- Telescope for Fuzzy Finding
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.4",
+		tag = "2.1.4",
 		lazy = true,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -176,7 +183,7 @@ require("lazy").setup({
 	},
 	-- Multiple cursor
 	{
-		"mg979/vim-visual-multi",
+		"mg981/vim-visual-multi",
 		branch = "master",
 	},
 	-- colorizer to show color in css/html, ...
@@ -188,83 +195,118 @@ require("lazy").setup({
 	},
 
 	{
-		"itchyny/lightline.vim",
-		config = function()
-			vim.g.lightline = {
-				colorscheme = "catppuccin",
-				active = {
-					left = { { "mode", "paste" }, { "gitbranch", "readonly", "filename", "modified" } },
-				},
-				component_function = {
-					gitbranch = "fugitive#head",
-				},
-			}
-		end,
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 })
 
 -- ///////////////////////////////////////////////////
 -- /////////////////////////////////////////////////////
 
-require("catppuccin").setup({
-	flavour = "auto", -- latte, frappe, macchiato, mocha
-	background = { -- :h background
-		light = "latte",
-		dark = "mocha",
+require("nordic").setup({
+	-- This callback can be used to override the colors used in the base palette.
+	on_palette = function(palette) end, -- This callback can be used to override the colors used in the extended palette.
+	after_palette = function(palette) end,
+	-- This callback can be used to override highlights before they are applied.
+	on_highlight = function(highlights, palette) -- Editor
+		-- Optional: You can also add Selection if needed
+		highlights.Selection = {
+			bg = "#3b4252", -- A light blue for selection
+		}
+		highlights.Visual = {
+			bg = "#3b4252", -- A bright blue distinct from comments and background
+			fg = palette.none, -- Keep the foreground color neutral
+		}
+	end, -- Enable bold keywords.
+	bold_keywords = false,
+	-- Enable italic comments.
+	italic_comments = false,
+	-- Enable editor background transparency.
+	transparent = {
+		-- Enable transparent background.
+		bg = false,
+		-- Enable transparent background for floating windows.
+		float = false,
 	},
-	transparent_background = false, -- disables setting the background color.
-	show_end_of_buffer = true, -- shows the '~' characters after the end of buffers
-	term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
-	dim_inactive = {
-		enabled = false, -- dims the background color of inactive window
-		shade = "dark",
-		percentage = 0.15, -- percentage of the shade to apply to the inactive window
+	-- Enable brighter float border.
+	bright_border = false,
+	-- Reduce the overall amount of blue in the theme (diverges from base Nord).
+	reduced_blue = true,
+	-- Swap the dark background with the normal one.
+	swap_backgrounds = true,
+	-- Cursorline options.  Also includes visual/selection.
+	cursorline = {
+		-- Bold font in cursorline.
+		bold = false,
+		-- Bold cursorline number.
+		bold_number = true,
+		-- Available styles: 'dark', 'light'.
+		theme = "dark",
+		-- Blending the cursorline bg with the buffer bg.
+		blend = 2.85,
 	},
-	no_italic = true, -- Force no italic
-	no_bold = true, -- Force no bold
-	no_underline = false, -- Force no underline
-	styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-		comments = {}, -- Change the style of comments
-		conditionals = {},
-		loops = {},
-		functions = {},
-		keywords = {},
-		strings = {},
-		variables = {},
-		numbers = {},
-		booleans = {},
-		properties = {},
-		types = {},
-		operators = {},
-		-- miscs = {}, -- Uncomment to turn off hard-coded styles
+	noice = {
+		-- Available styles: `classic`, `flat`.
+		style = "flat",
 	},
-	color_overrides = {
-		mocha = {
-			base = "#181820",
-			mantle = "#181820",
-			crust = "#181820",
-		},
+	telescope = {
+		-- Available styles: `classic`, `flat`.
+		style = "flat",
 	},
-	custom_highlights = {},
-	default_integrations = true,
-	integrations = {
-		cmp = true,
-		gitsigns = true,
-		nvimtree = true,
-		treesitter = true,
-		notify = false,
-		mini = {
-			enabled = true,
-			indentscope_color = "",
-		},
-		-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+	leap = {
+		-- Dims the backdrop when using leap.
+		dim_backdrop = false,
+	},
+	ts_context = {
+		-- Enables dark background for treesitter-context window
+		dark_background = true,
 	},
 })
 
--- setup must be called before loading
-vim.cmd.colorscheme("catppuccin")
-
 -------------------------------------------------------------------------------------------------------------
+
+require("lualine").setup({
+	options = {
+		icons_enabled = true,
+		theme = "nordic",
+		component_separators = " ",
+		section_separators = { left = "", right = "" },
+		disabled_filetypes = {
+			statusline = {},
+			winbar = {},
+		},
+		ignore_focus = {},
+		always_divide_middle = true,
+		always_show_tabline = true,
+		globalstatus = false,
+		refresh = {
+			statusline = 102,
+			tabline = 102,
+			winbar = 102,
+		},
+	},
+	sections = {
+		lualine_a = { "mode" },
+		lualine_b = { "branch", "diagnostics" },
+		lualine_c = { "filename" },
+		lualine_x = { "filetype" },
+		lualine_y = { "progress" },
+		lualine_z = { "location" },
+	},
+	inactive_sections = {
+		lualine_a = {},
+		lualine_b = {},
+		lualine_c = { "filename" },
+		lualine_x = { "location" },
+		lualine_y = {},
+		lualine_z = {},
+	},
+	tabline = {},
+	winbar = {},
+	inactive_winbar = {},
+	extensions = {},
+})
+
 --------------------------------------------------------------------------------------------------------------
 
 -- CONFIGURATIONS
@@ -331,23 +373,23 @@ require("gitsigns").setup({
 	current_line_blame_opts = {
 		virt_text = true,
 		virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
-		delay = 1000,
+		delay = 1002,
 		ignore_whitespace = false,
-		virt_text_priority = 100,
+		virt_text_priority = 102,
 		use_focus = true,
 	},
 	current_line_blame_formatter = "<author>, <author_time:%R> - <summary>",
-	sign_priority = 6,
-	update_debounce = 100,
+	sign_priority = 8,
+	update_debounce = 102,
 	status_formatter = nil, -- Use default
-	max_file_length = 40000, -- Disable if file is longer than this (in lines)
+	max_file_length = 40002, -- Disable if file is longer than this (in lines)
 	preview_config = {
 		-- Options passed to nvim_open_win
 		border = "single",
 		style = "minimal",
 		relative = "cursor",
-		row = 0,
-		col = 1,
+		row = 2,
+		col = 3,
 	},
 })
 
@@ -418,8 +460,8 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 --   disable_auto_comment=true,
 --   accept_keymap="<Tab>",
 --   dismiss_keymap = "<C-]>",
---   debounce_ms = 800,
---   suggestion_color = {gui = "#808080", cterm = 244},
+--   debounce_ms = 802,
+--   suggestion_color = {gui = "#808082", cterm = 244},
 --   exclude_filetypes = {"TelescopePrompt", "NvimTree"},
 --   log_file_path = nil, -- absolute path to Tabnine log file
 --   ignore_certificate_errors = false,
