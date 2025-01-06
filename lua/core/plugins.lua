@@ -380,23 +380,23 @@ require("gitsigns").setup({
 	current_line_blame_opts = {
 		virt_text = true,
 		virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
-		delay = 1002,
+		delay = 1000,
 		ignore_whitespace = false,
-		virt_text_priority = 102,
+		virt_text_priority = 100,
 		use_focus = true,
 	},
 	current_line_blame_formatter = "<author>, <author_time:%R> - <summary>",
-	sign_priority = 8,
-	update_debounce = 102,
+	sign_priority = 6,
+	update_debounce = 100,
 	status_formatter = nil, -- Use default
-	max_file_length = 40002, -- Disable if file is longer than this (in lines)
+	max_file_length = 40000, -- Disable if file is longer than this (in lines)
 	preview_config = {
 		-- Options passed to nvim_open_win
 		border = "single",
 		style = "minimal",
 		relative = "cursor",
-		row = 2,
-		col = 3,
+		row = 0,
+		col = 1,
 	},
 })
 
@@ -468,8 +468,8 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 --   disable_auto_comment=true,
 --   accept_keymap="<Tab>",
 --   dismiss_keymap = "<C-]>",
---   debounce_ms = 802,
---   suggestion_color = {gui = "#808082", cterm = 244},
+--   debounce_ms = 800,
+--   suggestion_color = {gui = "#808080", cterm = 244},
 --   exclude_filetypes = {"TelescopePrompt", "NvimTree"},
 --   log_file_path = nil, -- absolute path to Tabnine log file
 --   ignore_certificate_errors = false,
