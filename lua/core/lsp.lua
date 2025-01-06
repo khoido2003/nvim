@@ -191,7 +191,6 @@ require("lspconfig").gopls.setup({
 			analyses = {
 				unusedparams = true,
 				shadow = true,
-				fieldalignment = true,
 				nilness = true,
 			},
 			staticcheck = true,
