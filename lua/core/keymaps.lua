@@ -144,3 +144,15 @@ vim.api.nvim_set_keymap("n", "<Leader>ph", ":Gitsigns prev_hunk<CR>", { noremap 
 vim.api.nvim_set_keymap("n", "<F2>", ":set paste!<CR>", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap("n", "<C-m>", "V", { noremap = true, silent = true })
+
+--Normal mode mappings
+vim.api.nvim_set_keymap("n", "<Down>", "gj", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Up>", "gk", { noremap = true, silent = true })
+
+-- Insert mode mappings
+vim.api.nvim_set_keymap("i", "<Down>", "<C-o>gj", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("i", "<Up>", "<C-o>gk", { noremap = true, silent = true })
+
+-- Visual mode mappings
+vim.api.nvim_set_keymap("v", "<Down>", "gj", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<Up>", "gk", { noremap = true, silent = true })

@@ -1,22 +1,23 @@
 --  options.lua
+
+-- Disable all italics in the mellow theme
+vim.g.mellow_italic_comments = false
+vim.g.mellow_italic_keywords = false
+vim.g.mellow_italic_booleans = false
+vim.g.mellow_italic_functions = false
+vim.g.mellow_italic_variables = false
+
+-- Mellow theme
+vim.cmd([[colorscheme mellow]])
+
+----------------------------------------------------------
+
 vim.opt.guifont = "Fira Code:h13"
 
 vim.o.fileencoding = "utf-8"
 vim.o.encoding = "utf-8"
 
 vim.lsp.set_log_level("debug")
-
---Normal mode mappings
-vim.api.nvim_set_keymap("n", "<Down>", "gj", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Up>", "gk", { noremap = true, silent = true })
-
--- Insert mode mappings
-vim.api.nvim_set_keymap("i", "<Down>", "<C-o>gj", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<Up>", "<C-o>gk", { noremap = true, silent = true })
-
--- Visual mode mappings
-vim.api.nvim_set_keymap("v", "<Down>", "gj", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "<Up>", "gk", { noremap = true, silent = true })
 
 vim.o.scrolloff = 3 -- Keep 3 lines visible above and below the cursor
 
@@ -63,17 +64,6 @@ vim.cmd([[ set termguicolors ]])
 -- vim.wo.number = true
 vim.wo.relativenumber = true
 vim.opt.number = true
-
--- gruvbox_config.lua
--- vim.o.background = "dark" -- Set background to dark
--- vim.g.gruvbox_contrast_dark = "hard" -- Set the dark hard contrast
-
-vim.api.nvim_create_autocmd("User", {
-	pattern = "LazyVimStarted",
-	callback = function()
-		vim.cmd("colorscheme nordic")
-	end,
-})
 
 -- Enable line wrapping globally
 vim.o.wrap = true
@@ -130,29 +120,6 @@ vim.api.nvim_set_keymap(
 	{ noremap = true, silent = true }
 )
 
--- Disable italics in comments and diagnostics
-vim.api.nvim_set_hl(0, "Comment", { italic = false })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { italic = false })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { italic = false })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { italic = false })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { italic = false })
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { italic = false })
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { italic = false })
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { italic = false })
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { italic = false })
-
-vim.cmd([[
-  highlight clear Comment
-  highlight clear DiagnosticVirtualTextError
-  highlight clear DiagnosticVirtualTextWarn
-  highlight clear DiagnosticVirtualTextInfo
-  highlight clear DiagnosticVirtualTextHint
-  highlight clear DiagnosticUnderlineError
-  highlight clear DiagnosticUnderlineWarn
-  highlight clear DiagnosticUnderlineInfo
-  highlight clear DiagnosticUnderlineHint
-]])
-
 vim.o.termguicolors = true -- Ensure true color support
 vim.lsp.handlers["textDocument/semanticTokens/full"] =
 	vim.lsp.with(vim.lsp.handlers.semantic_tokens, { highlight = true })
@@ -163,10 +130,6 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 		vim.cmd("LspRestart") -- Automatically restart the language server
 	end,
 })
-
--- vim.api.nvim_set_hl(0, "DashboardHeader", { fg = "#8D9F8E" }) -- Soft moonlight gray
--- vim.api.nvim_set_hl(0, "DashboardShortcut", { fg = "#98BB6C" }) -- Kanagawa green
--- vim.api.nvim_set_hl(0, "DashboardFooter", { fg = "#9F8A7A" }) -- Calm warm tone
 
 -- Add Dockerfile filetype detection
 vim.cmd("autocmd BufNewFile,BufRead Dockerfile* set filetype=dockerfile")
@@ -182,15 +145,6 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
 		vim.cmd("Roslyn restart")
 	end,
 })
-
--- vim.cmd([[
---   autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
---   autocmd vimenter * hi NormalNC guibg=NONE ctermbg=NONE
---   autocmd vimenter * hi SignColumn guibg=NONE ctermbg=NONE
---   autocmd vimenter * hi VertSplit guibg=NONE ctermbg=NONE
---   autocmd vimenter * hi StatusLine guibg=NONE ctermbg=NONE
---   autocmd vimenter * hi StatusLineNC guibg=NONE ctermbg=NONE
--- ]])
 
 vim.lsp.handlers["textDocument/definition"] = function(_, result, ctx, config)
 	if not result or vim.tbl_isempty(result) then
@@ -210,17 +164,6 @@ vim.lsp.handlers["textDocument/definition"] = function(_, result, ctx, config)
 		end
 	end
 end
-
-vim.g.lightline = {
-	colorscheme = "catppuccin",
-	active = {
-		left = { { "#cdd6f4", "#1e1e2e" }, { "#cdd6f4", "#292938" } },
-		right = { { "#cdd6f4", "#181820" }, { "#cdd6f4", "#292938" } },
-	},
-	inactive = {
-		left = { { "#6c7086", "#181820" }, { "#6c7086", "#181820" } },
-	},
-}
 
 -- ////////////////////////////////////////
 

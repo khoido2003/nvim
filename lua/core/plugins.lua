@@ -4,10 +4,16 @@ require("lazy").setup({
 	{
 		"AlexvZyl/nordic.nvim",
 		lazy = false,
-		priority = 1002,
+		priority = 1000,
 		config = function()
 			require("nordic").load()
 		end,
+	},
+	{
+		"mellow-theme/mellow.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function() end,
 	},
 
 	{
@@ -23,8 +29,6 @@ require("lazy").setup({
 
 	"lewis6991/gitsigns.nvim",
 	"onsails/lspkind.nvim",
-	-- -- Kanagawa theme
-	-- "rebelot/kanagawa.nvim",
 
 	-- Icon
 	{ "kyazdani42/nvim-web-devicons", lazy = true },
@@ -275,7 +279,7 @@ require("nordic").setup({
 require("lualine").setup({
 	options = {
 		icons_enabled = true,
-		theme = "nordic",
+		theme = "mellow",
 		component_separators = " ",
 		section_separators = { left = "", right = "" },
 		disabled_filetypes = {
