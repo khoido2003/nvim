@@ -53,26 +53,26 @@ local config = {
 
 		-- ANSI colors
 		ansi = {
-			"#27272a", -- Black (Mellow)
-			"#f5a191", -- Red (Mellow)
-			"#90b99f", -- Green (Mellow)
-			"#e6b99d", -- Yellow (Mellow)
-			"#aca1cf", -- Blue (Mellow)
-			"#e29eca", -- Magenta (Mellow)
-			"#ea83a5", -- Cyan (Mellow)
-			"#c1c0d4", -- White (Mellow)
+			"#242933", -- Black (Nordic gray0)
+			"#BF616A", -- Red (Nordic red.base)
+			"#A3BE8C", -- Green (Nordic green.base)
+			"#EBCB8B", -- Yellow (Nordic yellow.base)
+			"#5E81AC", -- Blue (Nordic blue0)
+			"#B48EAD", -- Magenta (Nordic magenta.base)
+			"#8FBCBB", -- Cyan (Nordic cyan.base)
+			"#D8DEE9", -- White (Nordic white1)
 		},
 
 		-- Bright colors
 		brights = {
-			"#353539", -- Bright black (Mellow)
-			"#ffae9f", -- Bright red (Mellow)
-			"#9dc6ac", -- Bright green (Mellow)
-			"#f0c5a9", -- Bright yellow (Mellow)
-			"#b9aeda", -- Bright blue (Mellow)
-			"#ecaad6", -- Bright magenta (Mellow)
-			"#f591b2", -- Bright cyan (Mellow)
-			"#cac9dd", -- Bright white (Mellow)
+			"#3B4252", -- Bright black (Nordic gray2)
+			"#BF616A", -- Bright red (Nordic red.base)
+			"#A3BE8C", -- Bright green (Nordic green.base)
+			"#EBCB8B", -- Bright yellow (Nordic yellow.base)
+			"#81A1C1", -- Bright blue (Nordic blue1)
+			"#B48EAD", -- Bright magenta (Nordic magenta.base)
+			"#8FBCBB", -- Bright cyan (Nordic cyan.base)
+			"#ECEFF4", -- Bright white (Nordic white3)
 		},
 	},
 	-- Cursor

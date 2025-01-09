@@ -8,7 +8,7 @@ vim.g.mellow_italic_functions = false
 vim.g.mellow_italic_variables = false
 
 -- Mellow theme
-vim.cmd([[colorscheme mellow]])
+vim.cmd([[colorscheme nordic]])
 
 ----------------------------------------------------------
 
