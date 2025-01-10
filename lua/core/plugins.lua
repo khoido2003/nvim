@@ -1,6 +1,10 @@
 -- plugins.lua
 require("lazy").setup({
-
+	{
+		"dgox16/oldworld.nvim",
+		lazy = false,
+		priority = 1000,
+	},
 	{
 		"AlexvZyl/nordic.nvim",
 		lazy = false,
@@ -213,6 +217,40 @@ require("lazy").setup({
 
 -- ///////////////////////////////////////////////////
 -- /////////////////////////////////////////////////////
+require("oldworld").setup({
+	styles = {
+		booleans = { italic = false, bold = false },
+		comments = {
+			italic = false,
+			bold = false,
+		}, -- style for comments
+		keywords = { italic = false, bold = false }, -- style for keywords
+		identifiers = { italic = false, bold = false },
+		functions = { italic = false, bold = false }, -- style for functions
+		variables = { italic = false, bold = false }, -- style for variables
+	},
+	integrations = {
+		alpha = true,
+		cmp = true,
+		flash = true,
+		gitsigns = true,
+		hop = false,
+		indent_blankline = true,
+		lazy = true,
+		lsp = true,
+		markdown = true,
+		mason = true,
+		navic = false,
+		neo_tree = false,
+		neorg = false,
+		noice = true,
+		notify = true,
+		rainbow_delimiters = true,
+		telescope = true,
+		treesitter = true,
+	},
+	highlight_overrides = {},
+})
 
 require("nordic").setup({
 	-- This callback can be used to override the colors used in the base palette.
