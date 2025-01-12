@@ -206,17 +206,33 @@ vim.g.rustaceanvim = {
 	server = {
 		on_attach = function(client, bufnr)
 			-- Keymaps for LSP actions
-			vim.keymap.set("n", "<C-G> <C-D>", function()
+			print("LSP Attached!")
+
+			-- Use Space + gd to go to definition
+			vim.keymap.set("n", "<Space>gd", function()
 				vim.lsp.buf.definition()
 			end, { buffer = bufnr, silent = true })
 
 			vim.keymap.set("n", "<C-C> <C-A>", function()
 				vim.lsp.buf.code_action()
 			end, { buffer = bufnr, silent = true })
+
+			vim.keymap.set("n", "gr", function()
+				vim.lsp.buf.references()
+			end, { buffer = bufnr, silent = true })
+
+			vim.keymap.set("n", "K", function()
+				vim.lsp.buf.hover()
+			end, { buffer = bufnr, silent = true })
 		end,
 		default_settings = {
 			["rust-analyzer"] = {
-				-- Add any specific settings for rust-analyzer here if necessary
+				cargo = {
+					allFeatures = true,
+				},
+				checkOnSave = {
+					command = "clippy",
+				},
 			},
 		},
 	},
