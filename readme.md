@@ -13,6 +13,11 @@ bash
 C:\Users\Your-Name\.config
 ```
 
+If using Alacritty terminal, paste the alacritty folder to
+```
+C:\Users\<Username>\AppData\ 
+```
+
 ## Overview
 
 This configuration will make Neonvim become a full-fledged IDE like VS Code
