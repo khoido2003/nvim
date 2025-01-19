@@ -1,191 +1,48 @@
 local wezterm = require("wezterm")
 
-local act = wezterm.action
-local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
-
 local config = {
-
-	dpi = 120.0,
-	-- Window Config
+	-- Remove padding for a snappier experience
 	window_padding = {
 		left = 0,
 		right = 0,
 		top = 0,
 		bottom = 0,
 	},
-	window_close_confirmation = "NeverPrompt",
-	adjust_window_size_when_changing_font_size = false,
 
-	-- Tab config
-	use_fancy_tab_bar = false,
+	-- Font settings
+	font = wezterm.font("Fira Code"),
+	font_size = 11,
+
+	-- Tab bar settings
 	tab_bar_at_bottom = true,
-	show_new_tab_button_in_tab_bar = false,
-	-- tab_max_width = 16,
 
-	-- Font Config
+	-- GPU and performance optimization
+	enable_kitty_graphics = true,
+	enable_wayland = false,
 
-	font = wezterm.font("Fira Code", { weight = "Regular" }),
+	max_fps = 60,
+	animation_fps = 1,
+	window_close_confirmation = "NeverPrompt",
+	scrollback_lines = 1000,
 
-	font_size = 14.0,
+	front_end = "OpenGL",
 
-	-- Color Style
+	allow_square_glyphs_to_overflow_width = "Always",
 
-	colors = {
-		tab_bar = {
-			background = "rgba(0,0,0,0)", -- Transparent background for tab bar
-		},
+	harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
 
-		foreground = "#c9c7cd", -- Mellow foreground color
-		background = "#161617", -- Mellow background color
-
-		-- Cursor colors
-		cursor_bg = "#e3e2e5", -- Mellow cursor background
-		cursor_border = "#e3e2e5", -- Mellow cursor border
-		cursor_fg = "#161617", -- Mellow cursor foreground
-
-		-- Selection
-		selection_fg = "#e3e2e5", -- Mellow selection foreground
-		selection_bg = "#3c3b3e", -- Mellow selection background
-
-		-- Scrollbar
-		scrollbar_thumb = "#57575f", -- Mellow scrollbar thumb color
-		split = "#57575f", -- Mellow split color
-
-		-- ANSI colors
-		ansi = {
-			"#242933", -- Black (Nordic gray0)
-			"#BF616A", -- Red (Nordic red.base)
-			"#A3BE8C", -- Green (Nordic green.base)
-			"#EBCB8B", -- Yellow (Nordic yellow.base)
-			"#5E81AC", -- Blue (Nordic blue0)
-			"#B48EAD", -- Magenta (Nordic magenta.base)
-			"#8FBCBB", -- Cyan (Nordic cyan.base)
-			"#D8DEE9", -- White (Nordic white1)
-		},
-
-		-- Bright colors
-		brights = {
-			"#3B4252", -- Bright black (Nordic gray2)
-			"#BF616A", -- Bright red (Nordic red.base)
-			"#A3BE8C", -- Bright green (Nordic green.base)
-			"#EBCB8B", -- Bright yellow (Nordic yellow.base)
-			"#81A1C1", -- Bright blue (Nordic blue1)
-			"#B48EAD", -- Bright magenta (Nordic magenta.base)
-			"#8FBCBB", -- Bright cyan (Nordic cyan.base)
-			"#ECEFF4", -- Bright white (Nordic white3)
-		},
-	},
-	-- Cursor
-	cursor_thickness = 2,
-	default_cursor_style = "SteadyBar",
-
-	-- Keybindings
 	keys = {
-		{
-			key = "w",
-			mods = "CTRL|ALT",
-			action = act.CloseCurrentTab({ confirm = false }),
-		},
-		{
-			key = "t",
-			mods = "CTRL",
-			action = act.SpawnTab("CurrentPaneDomain"),
-		},
+		{ key = "h", mods = "CTRL|SHIFT", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+		{ key = "v", mods = "CTRL|SHIFT", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
+		{ key = "x", mods = "CTRL|SHIFT", action = wezterm.action.CloseCurrentPane({ confirm = true }) },
 	},
 }
 
-for i = 1, 8 do
-	table.insert(config.keys, {
-		key = tostring(i),
-		mods = "ALT",
-		action = act.ActivateTab(i - 1),
-	})
-end
-
-local function getTabTitle(tab_info)
-	local processName = tab_info.active_pane.foreground_process_name
-	return string.gsub(processName, "(.*[/\\])(.*)", "%2")
-end
-
-wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-	local active_background = "#1e1e22" -- Darker shade for active tab, still in line with mellow theme
-	local active_foreground = "#e3e2e5" -- Light gray text for active tab
-	local inactive_background = "#2a292f" -- Darker gray for inactive tabs, blending more into the background
-	local inactive_foreground = "#7e7e88" -- Subtle light gray text for inactive tabs
-	local transparent = "rgba(0,0,0,0)"
-	-- local title = getTabTitle(tab)
-	local index = tab.tab_index + 1
-	local isFirst = index == 1
-	local isLast = index == #tabs and #tabs ~= 0
-	-- title = wezterm.truncate_right(title, max_width - 2)
-
-	local items = {}
-
-	if tab.is_active then
-		table.insert(items, { Background = { Color = active_background } })
-		table.insert(items, { Foreground = { Color = active_foreground } })
-		table.insert(items, { Text = " " .. index .. " " })
-
-		if isFirst then
-			if #tabs > 1 then
-				table.insert(items, { Background = { Color = inactive_background } })
-				table.insert(items, { Foreground = { Color = active_background } })
-			else
-				table.insert(items, { Background = { Color = transparent } })
-				table.insert(items, { Foreground = { Color = active_background } })
-			end
-		end
-
-		if isLast then
-			table.insert(items, { Background = { Color = transparent } })
-			table.insert(items, { Foreground = { Color = active_background } })
-		else
-			table.insert(items, { Background = { Color = inactive_background } })
-			table.insert(items, { Foreground = { Color = active_background } })
-		end
-
-		table.insert(items, { Text = "" })
-	else
-		table.insert(items, { Background = { Color = active_background } })
-		table.insert(items, { Foreground = { Color = active_foreground } })
-		table.insert(items, { Background = { Color = inactive_background } })
-		table.insert(items, { Foreground = { Color = inactive_foreground } })
-		table.insert(items, { Text = " " .. index .. " " })
-
-		if isLast then
-			table.insert(items, { Background = { Color = transparent } })
-			table.insert(items, { Foreground = { Color = inactive_background } })
-		else
-			-- Check if the next tab is active
-			if index - 1 < #tabs then
-				local nextTab = tabs[index + 1]
-				if nextTab.is_active then
-					table.insert(items, { Background = { Color = active_background } })
-					table.insert(items, { Foreground = { Color = inactive_background } })
-				else
-					table.insert(items, { Background = { Color = inactive_background } })
-					table.insert(items, { Foreground = { Color = inactive_background } })
-				end
-			end
-		end
-		table.insert(items, { Text = "" })
-	end
-
-	return items
+-- Tab renaming function
+wezterm.on("format-tab-title", function(tab, _, _, _, _, _)
+	local process_name = tab.active_pane.foreground_process_name or ""
+	process_name = process_name:match("([^/\\]+)$") or process_name
+	return process_name
 end)
-
-local dimmer = { brightness = 0.1 }
-
-config.background = {
-	{
-		source = {
-			File = "C:/Users/Lenovo/OneDrive/Pictures/u14.jpg",
-
-			-- File = "C:/Users/Lenovo/OneDrive/Pictures/g7.jpg",
-		},
-
-		hsb = dimmer,
-	},
-}
 
 return config
