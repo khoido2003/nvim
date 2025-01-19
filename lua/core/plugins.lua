@@ -98,13 +98,44 @@ require("lazy").setup({
 				open_mapping = [[<c-\>]], -- Shortcut to toggle the terminal
 				direction = "tab", -- Options: 'horizontal', 'vertical', 'tab', 'float'
 				shade_terminals = true, -- Shades background of terminal
-				float_opts = {
-					border = "curved", -- Border style: 'single', 'double', 'shadow', etc.
-				},
+
+				start_in_insert = true, -- Start in insert mode for terminals
+				insert_mappings = true, -- Apply open mapping in insert mode
+				terminal_mappings = true, -- Apply open mapping in terminal mode
 			})
 
-			-- Custom keybinding to create new terminal
+			-- Custom keybinding to create a new terminal easily
 			vim.api.nvim_set_keymap("n", "<C-t>", ":ToggleTerm<CR>", { noremap = true, silent = true })
+
+			-- Move to next tab using Ctrl+Right
+			vim.api.nvim_set_keymap("n", "<C-Right>", ":tabnext<CR>", { noremap = true, silent = true })
+
+			-- Move to previous tab using Ctrl+Left
+			vim.api.nvim_set_keymap("n", "<C-Left>", ":tabprev<CR>", { noremap = true, silent = true })
+
+			-- Open terminal 1 with Ctrl+t
+			vim.api.nvim_set_keymap(
+				"n",
+				"<C-t>",
+				":lua require('toggleterm').toggle(1)<CR>",
+				{ noremap = true, silent = true }
+			)
+
+			-- Open terminal 2 with Ctrl+y
+			vim.api.nvim_set_keymap(
+				"n",
+				"<C-y>",
+				":lua require('toggleterm').toggle(2)<CR>",
+				{ noremap = true, silent = true }
+			)
+
+			-- Open terminal 3 with Ctrl+u
+			vim.api.nvim_set_keymap(
+				"n",
+				"<C-u>",
+				":lua require('toggleterm').toggle(3)<CR>",
+				{ noremap = true, silent = true }
+			)
 		end,
 	},
 	-- LSP and Autocompletion
