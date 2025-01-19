@@ -1,7 +1,7 @@
 --  options.lua
 
-vim.cmd([[colorscheme carbonfox]])
-
+-- vim.cmd([[colorscheme carbonfox]])
+vim.cmd([[colorscheme vscode]])
 ----------------------------------------------------------
 
 vim.opt.guifont = "Fira Code:h12"

@@ -1,5 +1,7 @@
 -- plugins.lua
 require("lazy").setup({
+
+	{ "Mofiqul/vscode.nvim", lazy = false, priority = 1000 },
 	{ "EdenEast/nightfox.nvim", lazy = false, priority = 1000 },
 	{
 		"AlexvZyl/nordic.nvim",
@@ -233,7 +235,33 @@ require("lazy").setup({
 
 -- ///////////////////////////////////////////////////
 
--- Default options
+-- VS code colorscheme
+require("vscode").setup({
+	-- Alternatively set style in setup
+	-- style = 'light'
+
+	-- Enable transparent background
+	transparent = false,
+
+	-- Enable italic comment
+	italic_comments = false,
+
+	-- Underline `@markup.link.*` variants
+	underline_links = true,
+
+	-- Disable nvim-tree background color
+	disable_nvimtree_bg = false,
+
+	-- Override colors (see ./lua/vscode/colors.lua)
+	color_overrides = {},
+
+	-- Override highlight groups (see ./lua/vscode/theme.lua)
+	group_overrides = {},
+})
+
+-- ////////////////////////////////////////////////////////
+
+-- nightfox colorscheme
 require("nightfox").setup({
 	options = {
 		-- Compiled file's destination location
