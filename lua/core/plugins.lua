@@ -1,10 +1,6 @@
 -- plugins.lua
 require("lazy").setup({
-	{
-		"dgox16/oldworld.nvim",
-		lazy = false,
-		priority = 1000,
-	},
+	{ "EdenEast/nightfox.nvim", lazy = false, priority = 1000 },
 	{
 		"AlexvZyl/nordic.nvim",
 		lazy = false,
@@ -12,12 +8,6 @@ require("lazy").setup({
 		config = function()
 			require("nordic").load()
 		end,
-	},
-	{
-		"mellow-theme/mellow.nvim",
-		lazy = false,
-		priority = 1000,
-		config = function() end,
 	},
 
 	{
@@ -183,12 +173,7 @@ require("lazy").setup({
 			telescope.load_extension("live_grep_args")
 		end,
 	},
-	{
-		"fatih/vim-go", -- Go development
-		run = ":GoUpdateBinaries",
-		lazy = true,
-		ft = "go",
-	},
+
 	-- Multiple cursor
 	{
 		"mg979/vim-visual-multi",
@@ -216,41 +201,53 @@ require("lazy").setup({
 })
 
 -- ///////////////////////////////////////////////////
--- /////////////////////////////////////////////////////
-require("oldworld").setup({
-	styles = {
-		booleans = { italic = false, bold = false },
-		comments = {
-			italic = false,
-			bold = false,
-		}, -- style for comments
-		keywords = { italic = false, bold = false }, -- style for keywords
-		identifiers = { italic = false, bold = false },
-		functions = { italic = false, bold = false }, -- style for functions
-		variables = { italic = false, bold = false }, -- style for variables
+
+-- Default options
+require("nightfox").setup({
+	options = {
+		-- Compiled file's destination location
+		compile_path = vim.fn.stdpath("cache") .. "/nightfox",
+		compile_file_suffix = "_compiled", -- Compiled file suffix
+		transparent = false, -- Disable setting background
+		terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
+		dim_inactive = false, -- Non focused panes set to alternative background
+		module_default = true, -- Default enable value for modules
+		colorblind = {
+			enable = false, -- Enable colorblind support
+			simulate_only = false, -- Only show simulated colorblind colors and not diff shifted
+			severity = {
+				protan = 0, -- Severity [0,1] for protan (red)
+				deutan = 0, -- Severity [0,1] for deutan (green)
+				tritan = 0, -- Severity [0,1] for tritan (blue)
+			},
+		},
+		styles = { -- Style to be applied to different syntax groups
+			comments = "NONE", -- Value is any valid attr-list value `:help attr-list`
+			conditionals = "NONE",
+			constants = "NONE",
+			functions = "NONE",
+			keywords = "NONE",
+			numbers = "NONE",
+			operators = "NONE",
+			strings = "NONE",
+			types = "NONE",
+			variables = "NONE",
+		},
+		inverse = {
+			match_paren = false,
+			visual = false,
+			search = false,
+		},
+		modules = {
+			-- ...
+		},
 	},
-	integrations = {
-		alpha = true,
-		cmp = true,
-		flash = true,
-		gitsigns = true,
-		hop = false,
-		indent_blankline = true,
-		lazy = true,
-		lsp = true,
-		markdown = true,
-		mason = true,
-		navic = false,
-		neo_tree = false,
-		neorg = false,
-		noice = true,
-		notify = true,
-		rainbow_delimiters = true,
-		telescope = true,
-		treesitter = true,
-	},
-	highlight_overrides = {},
+	palettes = {},
+	specs = {},
+	groups = {},
 })
+
+-- /////////////////////////////////////////////////////
 
 require("nordic").setup({
 	-- This callback can be used to override the colors used in the base palette.
@@ -442,10 +439,6 @@ require("gitsigns").setup({
 	},
 })
 
--- ////////////////////////////////////////////////////
-
--- LUA line
-
 -- //////////////////////////////////////
 
 require("nvim-treesitter.configs").setup({
@@ -533,6 +526,7 @@ require("nvim-web-devicons").setup({
 require("colorizer").setup()
 
 -- Auto close tag
+
 require("nvim-ts-autotag").setup({
 	filetypes = {
 		"html",
@@ -545,4 +539,8 @@ require("nvim-ts-autotag").setup({
 		"php",
 		"markdown",
 	},
+	-- Add default values for new required fields (if applicable)
+	did_setup = nil, -- Function called after setup (optional)
+	setup = nil, -- Function to customize setup behavior (optional)
+	get_opts = nil, -- Function to get options dynamically
 })

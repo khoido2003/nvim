@@ -1,51 +1,10 @@
 --  options.lua
 
--- Disable all italics in the mellow theme
-vim.g.mellow_italic_comments = false
-vim.g.mellow_italic_keywords = false
-vim.g.mellow_italic_booleans = false
-vim.g.mellow_italic_functions = false
-vim.g.mellow_italic_variables = false
-
--- Mellow theme
-vim.cmd([[colorscheme mellow]])
-
--- -- Define custom highlights for better syntax differentiation
-
-vim.api.nvim_set_hl(0, "Function", { fg = "#85c1dc", italic = false }) -- Keep the existing blue for standalone functions
-vim.api.nvim_set_hl(0, "Method", { fg = "#85c1dc", italic = false }) -- Use a slightly lighter or more vibrant blue for methods
-
-vim.api.nvim_set_hl(0, "Special", { fg = "#85c1dc", italic = false }) -- For method chaining or special methods
-
-vim.api.nvim_set_hl(0, "Keyword", { fg = "#ffae9f", bold = false }) -- Keywords
-vim.api.nvim_set_hl(0, "String", { fg = "#9dc6ac" }) -- Strings
-vim.api.nvim_set_hl(0, "Comment", { fg = "#57575f", italic = false }) -- Comments
-
-vim.api.nvim_set_hl(0, "Constant", { fg = "#c1c0d4" })
-vim.api.nvim_set_hl(0, "Field", { fg = "#c1c0d4" })
-
-vim.api.nvim_set_hl(0, "Namespace", { fg = "#ea83a5", italic = false }) -- Preprocessor
-vim.api.nvim_set_hl(0, "Type", { fg = "#b9aeda", bold = false }) -- Types
-vim.api.nvim_set_hl(0, "Constant", { fg = "#f591b2", italic = false }) -- Constants
-vim.api.nvim_set_hl(0, "Variable", { fg = "#c9c7cd", italic = false }) -- Variables
-vim.api.nvim_set_hl(0, "Number", { fg = "#ecaad6", italic = false }) -- Numbers
-vim.api.nvim_set_hl(0, "Operator", { fg = "#e6b99d", italic = false }) -- Operators
-vim.api.nvim_set_hl(0, "PreProc", { fg = "#ea83a5", italic = false }) -- Preprocessor
-vim.api.nvim_set_hl(0, "Identifier", { fg = "#aca1cf", italic = false }) -- Identifiers
-
-vim.api.nvim_set_hl(0, "Todo", { fg = "#e3e2e5", bg = "#3c3b3e", bold = true, italic = false })
-
--- Diagnostic Highlighting
-vim.api.nvim_set_hl(0, "Error", { fg = "#e64553", bold = false, italic = false }) -- Errors
-vim.api.nvim_set_hl(0, "WarningMsg", { fg = "#ea999c", bold = false, italic = false }) -- Warnings
-vim.api.nvim_set_hl(0, "DiagnosticError", { fg = "#e64553", bold = false, italic = false }) -- LSP Diagnostics - Errors
-vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = "#ea999c", italic = false }) -- LSP Diagnostics - Warnings
-vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = "#81c8be", italic = false }) -- LSP Diagnostics - Info
-vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = "#e5c890", italic = false }) -- LSP Diagnostics - Hints
+vim.cmd([[colorscheme carbonfox]])
 
 ----------------------------------------------------------
 
-vim.opt.guifont = "Fira Code:h13"
+vim.opt.guifont = "Fira Code:h12"
 
 vim.o.fileencoding = "utf-8"
 vim.o.encoding = "utf-8"
@@ -56,9 +15,6 @@ vim.o.scrolloff = 3 -- Keep 3 lines visible above and below the cursor
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-
--- Make the cursor thin/vertical in all modes(Optional)
---[[ vim.opt.guicursor = "n-v-c-i-ci-ve-r-cr-o:ver25" ]]
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -166,6 +122,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 
 -- Add Dockerfile filetype detection
 vim.cmd("autocmd BufNewFile,BufRead Dockerfile* set filetype=dockerfile")
+
 -- Set filetype for Kubernetes and Docker-related YAML files
 vim.cmd("autocmd BufNewFile,BufRead *.yaml set filetype=yaml")
 vim.cmd("autocmd BufNewFile,BufRead *.yml set filetype=yaml")
