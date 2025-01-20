@@ -202,6 +202,7 @@ a Nerd Font(v3.0 or greater) (optional, but needed to display some icons)
 lazygit (optional)
 
 ## Results
+![img](images/0.jpg)
 
 ![img](images/1.png)
 
