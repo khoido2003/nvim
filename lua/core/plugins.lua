@@ -1,11 +1,16 @@
 -- plugins.lua
 require("lazy").setup({
 
-	{ "Mofiqul/vscode.nvim", lazy = false, priority = 1000 },
-	{ "EdenEast/nightfox.nvim", lazy = false, priority = 1000 },
+	{
+		"rebelot/kanagawa.nvim",
+		lazy = true,
+		priority = 1000,
+	},
+	{ "Mofiqul/vscode.nvim", lazy = true, priority = 1000 },
+	{ "EdenEast/nightfox.nvim", lazy = true, priority = 1000 },
 	{
 		"AlexvZyl/nordic.nvim",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		config = function()
 			require("nordic").load()
@@ -14,27 +19,30 @@ require("lazy").setup({
 
 	{
 		"numToStr/Comment.nvim",
+		lazy = true,
 		config = function()
 			require("Comment").setup()
 		end,
 	},
 	{
 		"mhinz/vim-startify",
-		lazy = false,
+		lazy = true,
 	},
 
-	"lewis6991/gitsigns.nvim",
-	"onsails/lspkind.nvim",
+	{ "lewis6991/gitsigns.nvim", lazy = true },
+
+	{ "onsails/lspkind.nvim", lazy = true },
 
 	-- Icon
 	{ "kyazdani42/nvim-web-devicons", lazy = true },
 
 	-- Multiple cursor
-	"mg979/vim-visual-multi", -- Using ctrl + n to select multiple element.
+	{ "mg979/vim-visual-multi", lazy = true }, -- Using ctrl + n to select multiple element.
 
 	-- C# LSP server
 	{
 		"seblj/roslyn.nvim",
+		lazy = true,
 		ft = "cs",
 		opts = {
 			exe = {
@@ -69,13 +77,15 @@ require("lazy").setup({
 		},
 	},
 
-	"nvim-tree/nvim-tree.lua",
-	"nvim-tree/nvim-web-devicons",
+	{ "nvim-tree/nvim-tree.lua", lazy = true },
+	{ "nvim-tree/nvim-web-devicons", lazy = true },
 
 	-- Auto close {}
-	"windwp/nvim-autopairs",
+	{ "windwp/nvim-autopairs", lazy = true },
+
 	-- Tabnine AI
-	{ "codota/tabnine-nvim", build = "pwsh.exe -file .\\dl_binaries.ps1" },
+	{ "codota/tabnine-nvim", build = "pwsh.exe -file .\\dl_binaries.ps1", lazy = true },
+
 	-- Syntax Highlighting and Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -141,7 +151,7 @@ require("lazy").setup({
 		end,
 	},
 	-- LSP and Autocompletion
-	"williamboman/mason.nvim",
+	{ "williamboman/mason.nvim", lazy = true },
 	"williamboman/mason-lspconfig.nvim",
 	{
 		"neovim/nvim-lspconfig",
@@ -178,12 +188,13 @@ require("lazy").setup({
 		lazy = true,
 		event = "InsertEnter",
 	},
-	"L3MON4D3/LuaSnip",
 
-	"nvim-pack/nvim-spectre",
-	-- Version Control
-	"lewis6991/gitsigns.nvim",
-	"tpope/vim-fugitive",
+	{ "L3MON4D3/LuaSnip", lazy = true },
+
+	{ "nvim-pack/nvim-spectre", lazy = true },
+
+	{ "tpope/vim-fugitive", lazy = true },
+
 	-- Telescope for Fuzzy Finding
 	{
 		"nvim-telescope/telescope.nvim",
@@ -211,30 +222,60 @@ require("lazy").setup({
 	{
 		"mg979/vim-visual-multi",
 		branch = "master",
+		lazy = true,
 	},
 	-- colorizer to show color in css/html, ...
-	"norcalli/nvim-colorizer.lua",
+	{ "norcalli/nvim-colorizer.lua", lazy = true },
 
 	{
 		"stevearc/conform.nvim",
 		opts = {},
+		lazy = true,
 	},
 
 	{
 		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
 	},
 
 	--Rust
 	{
 		"mrcjkb/rustaceanvim",
 		version = "^5", -- Recommended
-		lazy = false, -- This plugin is already lazy
 	},
 })
 
 -- ///////////////////////////////////////////////////
 
+require("kanagawa").setup({
+	compile = false, -- enable compiling the colorscheme
+	undercurl = true, -- enable undercurls
+	commentStyle = { italic = false },
+	functionStyle = {},
+	keywordStyle = { italic = false },
+	statementStyle = { bold = false },
+	typeStyle = {},
+	transparent = false, -- do not set background color
+	dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+	terminalColors = true, -- define vim.g.terminal_color_{0,17}
+	colors = { -- add/modify theme and palette colors
+		palette = {},
+		theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+	},
+	overrides = function(colors) -- add/modify highlights
+		return {}
+	end,
+	theme = "dragon", -- Load "wave" theme when 'background' option is not set
+	background = { -- map the value of 'background' option to a theme
+		dark = "dragon", -- try "dragon" !
+		light = "lotus",
+	},
+})
+
+-- ////////////////////////////////////////
+
+-- setup must be called before loading
+vim.cmd("colorscheme kanagawa")
 -- VS code colorscheme
 require("vscode").setup({
 	-- Alternatively set style in setup
