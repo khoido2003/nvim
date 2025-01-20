@@ -1,6 +1,4 @@
 --  options.lua
-
--- vim.cmd([[colorscheme carbonfox]])
 vim.cmd([[colorscheme vscode]])
 ----------------------------------------------------------
 
