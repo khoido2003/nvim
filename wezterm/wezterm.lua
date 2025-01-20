@@ -29,11 +29,12 @@ local config = {
 
 	allow_square_glyphs_to_overflow_width = "Always",
 
+	default_prog = { "C:\\Users\\Lenovo\\AppData\\Local\\Programs\\nu\\bin\\nu.exe", "--login" },
 	harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
 
 	keys = {
 		{ key = "h", mods = "CTRL|SHIFT", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-		{ key = "v", mods = "CTRL|SHIFT", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
+		{ key = "|", mods = "CTRL|SHIFT", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
 		{ key = "x", mods = "CTRL|SHIFT", action = wezterm.action.CloseCurrentPane({ confirm = true }) },
 	},
 }

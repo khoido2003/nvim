@@ -14,3 +14,7 @@ TERM = "xterm-256color"
 bindings = [
   { key = "Slash", mods = "Control", chars = "\u001f" }
 ]
+
+[terminal.shell]
+program = "C:\\Users\\Lenovo\\AppData\\Local\\Programs\\nu\\bin\\nu.exe"  # Path to Nushell
+args = ["--login"]  
