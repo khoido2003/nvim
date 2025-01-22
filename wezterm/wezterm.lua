@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local gpus = wezterm.gui.enumerate_gpus()
 
 local config = {
 	-- Remove padding for a snappier experience
@@ -9,23 +10,35 @@ local config = {
 		bottom = 0,
 	},
 
+	-- Disable scrollbar
+	enable_scroll_bar = false,
+	color_scheme = "Vs Code Dark+ (Gogh)",
+
 	-- Font settings
+
 	font = wezterm.font("Fira Code"),
-	font_size = 11,
+
+	font_size = 10.5,
 
 	-- Tab bar settings
 	tab_bar_at_bottom = true,
 
-	-- GPU and performance optimization
-	enable_kitty_graphics = true,
-	enable_wayland = false,
-
-	max_fps = 60,
-	animation_fps = 1,
 	window_close_confirmation = "NeverPrompt",
 	scrollback_lines = 1000,
 
-	front_end = "OpenGL",
+	freetype_load_target = "Normal",
+	freetype_render_target = "HorizontalLcd",
+	-- ////////////////////////////////
+
+	front_end = "WebGpu",
+	webgpu_power_preference = "HighPerformance",
+
+	webgpu_preferred_adapter = gpus[2],
+
+	webgpu_force_fallback_adapter = false,
+
+	max_fps = 60, -- Match your monitor refresh rate
+	-- ////////////////////////////////////////
 
 	allow_square_glyphs_to_overflow_width = "Always",
 
@@ -47,3 +60,5 @@ wezterm.on("format-tab-title", function(tab, _, _, _, _, _)
 end)
 
 return config
+
+-- //////////////////////////////////////
