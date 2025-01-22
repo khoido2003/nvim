@@ -10,24 +10,19 @@ local config = {
 		bottom = 0,
 	},
 
+	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
+
 	-- Disable scrollbar
 	enable_scroll_bar = false,
 	color_scheme = "Vs Code Dark+ (Gogh)",
 
 	-- Font settings
-
 	font = wezterm.font("Fira Code"),
-
-	font_size = 10.5,
-
-	-- Tab bar settings
-	tab_bar_at_bottom = true,
+	font_size = 11,
 
 	window_close_confirmation = "NeverPrompt",
 	scrollback_lines = 1000,
 
-	freetype_load_target = "Normal",
-	freetype_render_target = "HorizontalLcd",
 	-- ////////////////////////////////
 
 	front_end = "WebGpu",
@@ -37,8 +32,7 @@ local config = {
 
 	webgpu_force_fallback_adapter = false,
 
-	max_fps = 60, -- Match your monitor refresh rate
-	-- ////////////////////////////////////////
+	max_fps = 60,
 
 	allow_square_glyphs_to_overflow_width = "Always",
 
@@ -53,12 +47,8 @@ local config = {
 }
 
 -- Tab renaming function
-wezterm.on("format-tab-title", function(tab, _, _, _, _, _)
-	local process_name = tab.active_pane.foreground_process_name or ""
-	process_name = process_name:match("([^/\\]+)$") or process_name
-	return process_name
+wezterm.on("format-tab-title", function(tab)
+	return tostring(tab.tab_index + 1)
 end)
 
 return config
-
--- //////////////////////////////////////
