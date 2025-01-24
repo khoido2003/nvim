@@ -2,15 +2,13 @@ local wezterm = require("wezterm")
 local gpus = wezterm.gui.enumerate_gpus()
 
 local config = {
-	-- Remove padding for a snappier experience
 	window_padding = {
 		left = 0,
 		right = 0,
 		top = 0,
 		bottom = 0,
 	},
-
-	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
+	window_decorations = "RESIZE",
 
 	-- Disable scrollbar
 	enable_scroll_bar = false,
@@ -33,10 +31,11 @@ local config = {
 	webgpu_force_fallback_adapter = false,
 
 	max_fps = 60,
-
+	use_fancy_tab_bar = false,
 	allow_square_glyphs_to_overflow_width = "Always",
 
-	default_prog = { "C:\\Users\\Lenovo\\AppData\\Local\\Programs\\nu\\bin\\nu.exe", "--login" },
+	default_prog = { "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-NoLogo" },
+
 	harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
 
 	keys = {
@@ -47,8 +46,10 @@ local config = {
 }
 
 -- Tab renaming function
+
+-- Tab renaming function
 wezterm.on("format-tab-title", function(tab)
-	return tostring(tab.tab_index + 1)
+	return " " .. tostring(tab.tab_index + 1) .. " "
 end)
 
 return config
