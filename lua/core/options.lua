@@ -69,7 +69,6 @@ vim.diagnostic.config({
 	float = { -- Disable floating window diagnostics
 		enabled = false, -- Ensure floating windows are not shown for diagnostics
 		max_width = 80, -- Adjust the max width of the floating diagnostic window
-		wrap = true, -- Ensure diagnostics wrap within the floating window
 	},
 })
 

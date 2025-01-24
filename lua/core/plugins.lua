@@ -1,32 +1,14 @@
 -- plugins.lua
 require("lazy").setup({
 
-	{
-		"rebelot/kanagawa.nvim",
-		lazy = true,
-		priority = 1000,
-	},
 	{ "Mofiqul/vscode.nvim", lazy = true, priority = 1000 },
 	{ "EdenEast/nightfox.nvim", lazy = true, priority = 1000 },
-	{
-		"AlexvZyl/nordic.nvim",
-		lazy = true,
-		priority = 1000,
-		config = function()
-			require("nordic").load()
-		end,
-	},
-
 	{
 		"numToStr/Comment.nvim",
 		lazy = true,
 		config = function()
 			require("Comment").setup()
 		end,
-	},
-	{
-		"mhinz/vim-startify",
-		lazy = true,
 	},
 
 	{ "lewis6991/gitsigns.nvim", lazy = true },
@@ -62,7 +44,7 @@ require("lazy").setup({
 			config = {
 				settings = {
 					["csharp|code_lens"] = {
-						dotnet_enable_references_code_lens = true,
+						dotnet_enable_references_code_lens = false,
 					},
 					["csharp|inlay_hints"] = {
 						csharp_enable_inlay_hints_for_types = true,
@@ -82,9 +64,6 @@ require("lazy").setup({
 
 	-- Auto close {}
 	{ "windwp/nvim-autopairs", lazy = true },
-
-	-- Tabnine AI
-	{ "codota/tabnine-nvim", build = "pwsh.exe -file .\\dl_binaries.ps1", lazy = true },
 
 	-- Syntax Highlighting and Treesitter
 	{
@@ -247,35 +226,6 @@ require("lazy").setup({
 
 -- ///////////////////////////////////////////////////
 
-require("kanagawa").setup({
-	compile = false, -- enable compiling the colorscheme
-	undercurl = true, -- enable undercurls
-	commentStyle = { italic = false },
-	functionStyle = {},
-	keywordStyle = { italic = false },
-	statementStyle = { bold = false },
-	typeStyle = {},
-	transparent = false, -- do not set background color
-	dimInactive = false, -- dim inactive window `:h hl-NormalNC`
-	terminalColors = true, -- define vim.g.terminal_color_{0,17}
-	colors = { -- add/modify theme and palette colors
-		palette = {},
-		theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-	},
-	overrides = function(colors) -- add/modify highlights
-		return {}
-	end,
-	theme = "dragon", -- Load "wave" theme when 'background' option is not set
-	background = { -- map the value of 'background' option to a theme
-		dark = "dragon", -- try "dragon" !
-		light = "lotus",
-	},
-})
-
--- ////////////////////////////////////////
-
--- setup must be called before loading
-vim.cmd("colorscheme kanagawa")
 -- VS code colorscheme
 require("vscode").setup({
 	-- Alternatively set style in setup
@@ -345,68 +295,6 @@ require("nightfox").setup({
 	palettes = {},
 	specs = {},
 	groups = {},
-})
-
--- /////////////////////////////////////////////////////
-
-require("nordic").setup({
-	-- This callback can be used to override the colors used in the base palette.
-	on_palette = function(palette) end, -- This callback can be used to override the colors used in the extended palette.
-	after_palette = function(palette) end,
-	-- This callback can be used to override highlights before they are applied.
-	on_highlight = function(highlights, palette) -- Editor
-		-- Optional: You can also add Selection if needed
-		highlights.Selection = {
-			bg = "#3b4252", -- A light blue for selection
-		}
-		highlights.Visual = {
-			bg = "#3b4252", -- A bright blue distinct from comments and background
-			fg = palette.none, -- Keep the foreground color neutral
-		}
-	end, -- Enable bold keywords.
-	bold_keywords = false,
-	-- Enable italic comments.
-	italic_comments = false,
-	-- Enable editor background transparency.
-	transparent = {
-		-- Enable transparent background.
-		bg = false,
-		-- Enable transparent background for floating windows.
-		float = false,
-	},
-	-- Enable brighter float border.
-	bright_border = false,
-	-- Reduce the overall amount of blue in the theme (diverges from base Nord).
-	reduced_blue = true,
-	-- Swap the dark background with the normal one.
-	swap_backgrounds = true,
-	-- Cursorline options.  Also includes visual/selection.
-	cursorline = {
-		-- Bold font in cursorline.
-		bold = false,
-		-- Bold cursorline number.
-		bold_number = true,
-		-- Available styles: 'dark', 'light'.
-		theme = "dark",
-		-- Blending the cursorline bg with the buffer bg.
-		blend = 2.85,
-	},
-	noice = {
-		-- Available styles: `classic`, `flat`.
-		style = "classic",
-	},
-	telescope = {
-		-- Available styles: `classic`, `flat`.
-		style = "flat",
-	},
-	leap = {
-		-- Dims the backdrop when using leap.
-		dim_backdrop = false,
-	},
-	ts_context = {
-		-- Enables dark background for treesitter-context window
-		dark_background = true,
-	},
 })
 
 -------------------------------------------------------------------------------------------------------------
@@ -598,17 +486,6 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- ////////////////////////////////////////////////
-
--- require('tabnine').setup({
---   disable_auto_comment=true,
---   accept_keymap="<Tab>",
---   dismiss_keymap = "<C-]>",
---   debounce_ms = 800,
---   suggestion_color = {gui = "#808080", cterm = 244},
---   exclude_filetypes = {"TelescopePrompt", "NvimTree"},
---   log_file_path = nil, -- absolute path to Tabnine log file
---   ignore_certificate_errors = false,
--- })
 
 -- nvim-autopairs setup
 require("nvim-autopairs").setup({
