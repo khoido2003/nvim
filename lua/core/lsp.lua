@@ -104,11 +104,38 @@ end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
--- ////////////////////////////////////////////////////////
-
 lspconfig.ts_ls.setup({ on_attach = on_attach, capabilities = capabilities })
 
 -- /////////////////////////////////////////////
+
+-- Rust
+lspconfig.rust_analyzer.setup({
+	on_attach = function(client, bufnr)
+		-- Keybindings for LSP actions
+
+		local opts = { noremap = true, silent = true }
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>k", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<Cmd>lua vim.lsp.buf.rename()<CR>", opts)
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gr", "<Cmd>lua vim.lsp.buf.references()<CR>", opts)
+		print("Rust Analyzer attached")
+	end,
+	settings = {
+		["rust-analyzer"] = {
+			cargo = {
+				allFeatures = true, -- Enable all features
+			},
+			checkOnSave = {
+				command = "clippy", -- Run clippy on save
+			},
+			procMacro = {
+				enable = true, -- Enable procedural macros
+			},
+		},
+	},
+})
+
+-- //////////////////////////////////////////
 
 require("lspconfig").pyright.setup({
 	on_attach = function(client, bufnr)
