@@ -2,7 +2,7 @@
 require("lazy").setup({
 
 	{ "Mofiqul/vscode.nvim", lazy = true, priority = 1000 },
-	{ "EdenEast/nightfox.nvim", lazy = true, priority = 1000 },
+
 	{
 		"numToStr/Comment.nvim",
 		lazy = true,
@@ -60,7 +60,6 @@ require("lazy").setup({
 	},
 
 	{ "nvim-tree/nvim-tree.lua", lazy = true },
-	{ "nvim-tree/nvim-web-devicons", lazy = true },
 
 	-- Auto close {}
 	{ "windwp/nvim-autopairs", lazy = true },
@@ -131,7 +130,7 @@ require("lazy").setup({
 	},
 	-- LSP and Autocompletion
 	{ "williamboman/mason.nvim", lazy = true },
-	"williamboman/mason-lspconfig.nvim",
+	{ "williamboman/mason-lspconfig.nvim", lazy = true },
 	{
 		"neovim/nvim-lspconfig",
 		lazy = true,
@@ -170,8 +169,6 @@ require("lazy").setup({
 
 	{ "L3MON4D3/LuaSnip", lazy = true },
 
-	{ "nvim-pack/nvim-spectre", lazy = true },
-
 	{ "tpope/vim-fugitive", lazy = true },
 
 	-- Telescope for Fuzzy Finding
@@ -197,12 +194,6 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Multiple cursor
-	{
-		"mg979/vim-visual-multi",
-		branch = "master",
-		lazy = true,
-	},
 	-- colorizer to show color in css/html, ...
 	{ "norcalli/nvim-colorizer.lua", lazy = true },
 
@@ -214,9 +205,63 @@ require("lazy").setup({
 
 	{
 		"nvim-lualine/lualine.nvim",
+		lazy = true,
 		dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
 	},
 })
+
+-----------------------------------------------------------------
+
+require("nvim-treesitter.configs").setup({
+	ensure_installed = {
+		"java",
+		"c_sharp",
+		"python",
+		"javascript",
+		"typescript",
+		"cpp",
+		"c",
+		"zig",
+		"rust",
+		"dockerfile",
+		"proto",
+		"http",
+		"yaml",
+		"go",
+		"sql",
+		"css",
+		"html",
+		"scss",
+		"prisma",
+		"svelte",
+		"lua",
+		"json",
+		"tsx",
+		"gitignore",
+		"toml",
+		"php",
+		"rust",
+	},
+	auto_install = true, -- Automatically install missing parsers,
+	-- Sync installation (installs parsers synchronously)
+	sync_install = false,
+
+	-- Add modules explicitly
+	modules = {},
+	-- Ignore installing specific parsers
+	ignore_install = {},
+	highlight = {
+		enable = true, -- Enable syntax highlighting
+		additional_vim_regex_highlighting = false,
+	},
+
+	indent = {
+		enable = true, -- Enable Tree-sitter indentation
+	},
+})
+
+-- USING ZIG AS COMPILER FOR TREESITTER
+require("nvim-treesitter.install").compilers = { "zig" }
 
 -- ///////////////////////////////////////////////////
 
@@ -244,54 +289,7 @@ require("vscode").setup({
 	group_overrides = {},
 })
 
--- ////////////////////////////////////////////////////////
-
--- nightfox colorscheme
-require("nightfox").setup({
-	options = {
-		-- Compiled file's destination location
-		compile_path = vim.fn.stdpath("cache") .. "/nightfox",
-		compile_file_suffix = "_compiled", -- Compiled file suffix
-		transparent = false, -- Disable setting background
-		terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
-		dim_inactive = false, -- Non focused panes set to alternative background
-		module_default = true, -- Default enable value for modules
-		colorblind = {
-			enable = false, -- Enable colorblind support
-			simulate_only = false, -- Only show simulated colorblind colors and not diff shifted
-			severity = {
-				protan = 0, -- Severity [0,1] for protan (red)
-				deutan = 0, -- Severity [0,1] for deutan (green)
-				tritan = 0, -- Severity [0,1] for tritan (blue)
-			},
-		},
-		styles = { -- Style to be applied to different syntax groups
-			comments = "NONE", -- Value is any valid attr-list value `:help attr-list`
-			conditionals = "NONE",
-			constants = "NONE",
-			functions = "NONE",
-			keywords = "NONE",
-			numbers = "NONE",
-			operators = "NONE",
-			strings = "NONE",
-			types = "NONE",
-			variables = "NONE",
-		},
-		inverse = {
-			match_paren = false,
-			visual = false,
-			search = false,
-		},
-		modules = {
-			-- ...
-		},
-	},
-	palettes = {},
-	specs = {},
-	groups = {},
-})
-
--------------------------------------------------------------------------------------------------------------
+-- //////////////////////////////////////////////////////
 
 require("lualine").setup({
 	options = {
@@ -335,7 +333,7 @@ require("lualine").setup({
 	extensions = {},
 })
 
---------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------
 
 -- CONFIGURATIONS
 
@@ -364,7 +362,7 @@ require("nvim-tree").setup({
 	filters = {
 		custom = { ".git", "node_modules", "__pycache__" }, -- Ignore heavy directories
 	},
-	diagnostics = { enable = false }, -- Disable diagnostics
+	diagnostics = { enable = false },
 })
 
 -- //////////////////////////////////////////////////////
@@ -421,59 +419,6 @@ require("gitsigns").setup({
 	},
 })
 
--- //////////////////////////////////////
-
-require("nvim-treesitter.configs").setup({
-	ensure_installed = {
-		"java",
-		"c_sharp",
-		"python",
-		"javascript",
-		"typescript",
-		"cpp",
-		"c",
-		"zig",
-		"rust",
-		"dockerfile",
-		"proto",
-		"http",
-		"yaml",
-		"go",
-		"sql",
-		"css",
-		"html",
-		"scss",
-		"prisma",
-		"svelte",
-		"lua",
-		"json",
-		"tsx",
-		"gitignore",
-		"toml",
-		"php",
-		"rust",
-	},
-	auto_install = true, -- Automatically install missing parsers,
-	-- Sync installation (installs parsers synchronously)
-	sync_install = false,
-
-	-- Add modules explicitly
-	modules = {},
-	-- Ignore installing specific parsers
-	ignore_install = {},
-	highlight = {
-		enable = true, -- Enable syntax highlighting
-		additional_vim_regex_highlighting = false,
-	},
-
-	indent = {
-		enable = true, -- Enable Tree-sitter indentation
-	},
-})
-
--- USING ZIG AS COMPILER FOR TREESITTER
-require("nvim-treesitter.install").compilers = { "zig" }
-
 -- /////////////////////////////////////////
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -491,7 +436,7 @@ require("nvim-web-devicons").setup({
 	default = true, -- Use default icons for unrecognized filetypes
 })
 
--- //////////////////////////////////////////////////////////////////////////////////////
+-- //////////////////////////////////////////////////////////
 
 -- colorizer
 require("colorizer").setup()

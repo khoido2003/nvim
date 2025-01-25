@@ -1,82 +1,62 @@
---  options.lua
 vim.cmd([[colorscheme vscode]])
-----------------------------------------------------------
 
 vim.opt.guifont = "Fira Code:h12"
-
-vim.o.fileencoding = "utf-8"
-vim.o.encoding = "utf-8"
-
+vim.opt.fileencoding = "utf-8"
+vim.opt.encoding = "utf-8"
 vim.lsp.set_log_level("debug")
 
-vim.o.scrolloff = 3 -- Keep 3 lines visible above and below the cursor
-
+vim.opt.scrolloff = 3
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- General settings
-vim.o.wrap = true -- Enable line wrapping
-vim.o.linebreak = true -- Wrap at word boundaries
-vim.o.textwidth = 80 -- Set text width for automatic wrapping
-vim.o.wrapmargin = 2 -- Set the margin for wrapping
-vim.o.breakindent = true -- Indent wrapped lines
-vim.o.sidescrolloff = 0 -- Disable horizontal scrolling
-vim.o.sidescroll = 1 -- Set minimal horizontal scroll
-
 vim.opt.wrap = true
 vim.opt.linebreak = true
-vim.opt.scrolloff = 5
-vim.opt.mouse = "a" -- Enable mouse in all modes
-
+vim.opt.textwidth = 80
+vim.opt.wrapmargin = 2
+vim.opt.breakindent = true
+vim.opt.sidescrolloff = 0
+vim.opt.sidescroll = 1
+vim.opt.mouse = "a"
 vim.opt.backspace = "2"
 vim.opt.showcmd = true
 vim.opt.laststatus = 2
 vim.opt.autowrite = true
 vim.opt.cursorline = true
 vim.opt.autoread = true
-
--- use spaces for tabs and whatnot
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.shiftround = true
 vim.opt.expandtab = true
+vim.cmd([[set noswapfile]])
+vim.cmd([[set termguicolors]])
 
-vim.cmd([[ set noswapfile ]])
-vim.cmd([[ set termguicolors ]])
-
---Line numbers
--- vim.wo.number = true
+-- Line numbers
 vim.wo.relativenumber = true
 vim.opt.number = true
-
--- Enable line wrapping globally
-vim.o.wrap = true
-vim.o.linebreak = true
 
 -- Configure LSP diagnostics
 vim.diagnostic.config({
 	virtual_text = {
-		prefix = "●", -- You can change the icon for inline diagnostics
-		spacing = 2, -- Control the spacing between text and diagnostic,
-		wrap = true,
+		prefix = "●",
+		spacing = 2,
 	},
-	signs = true, -- Enable sign column for diagnostics (icons in the gutter)
-	underline = true, -- Underline lines with diagnostics
-	update_in_insert = true, -- Update diagnostics even in insert mode
-	float = { -- Disable floating window diagnostics
-		enabled = false, -- Ensure floating windows are not shown for diagnostics
-		max_width = 80, -- Adjust the max width of the floating diagnostic window
+	signs = true,
+	underline = true,
+	update_in_insert = true,
+	float = {
+		enabled = false,
+		max_width = 80,
 	},
 })
 
--- Ensure no other floating windows are shown
-vim.lsp.handlers["textDocument/hover"] = function() end -- Disable hover floating window
-vim.lsp.handlers["textDocument/signatureHelp"] = function() end -- Disable signature help window
+-- Disable floating windows for hover and signature help
+vim.lsp.handlers["textDocument/hover"] = function() end
+vim.lsp.handlers["textDocument/signatureHelp"] = function() end
 
--- Configure diagnostic signs (optional customization)
+-- Configure diagnostic signs
 local signs = { Error = "E", Warn = "W", Hint = "H", Info = "I" }
 for type, icon in pairs(signs) do
 	vim.fn.sign_define("DiagnosticSign" .. type, { text = icon, texthl = "Diagnostic" .. type })
@@ -91,10 +71,9 @@ vim.cmd([[
 
 -- Format code automatically on save for C#
 vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*.cs", -- Only for C# files
+	pattern = "*.cs",
 	callback = function()
-		-- Request formatting from the LSP
-		vim.lsp.buf.format({ async = true }) -- Format asynchronously
+		vim.lsp.buf.format({ async = true })
 	end,
 })
 
@@ -106,14 +85,15 @@ vim.api.nvim_set_keymap(
 	{ noremap = true, silent = true }
 )
 
-vim.o.termguicolors = true -- Ensure true color support
+vim.o.termguicolors = true
 vim.lsp.handlers["textDocument/semanticTokens/full"] =
 	vim.lsp.with(vim.lsp.handlers.semantic_tokens, { highlight = true })
 
-vim.api.nvim_create_autocmd("BufWritePost", {
+-- Restart Roslyn LSP when creating a new C# file
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
 	pattern = "*.cs",
 	callback = function()
-		vim.cmd("LspRestart") -- Automatically restart the language server
+		vim.cmd("Roslyn restart")
 	end,
 })
 
@@ -121,33 +101,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 vim.cmd("autocmd BufNewFile,BufRead Dockerfile* set filetype=dockerfile")
 
 -- Set filetype for Kubernetes and Docker-related YAML files
-vim.cmd("autocmd BufNewFile,BufRead *.yaml set filetype=yaml")
-vim.cmd("autocmd BufNewFile,BufRead *.yml set filetype=yaml")
-
--- Restart Roslyn LSP when create new C# file
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
-	pattern = "*.cs",
-	callback = function()
-		-- Restart Roslyn LSP server automatically
-		vim.cmd("Roslyn restart")
-	end,
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	pattern = { "*.yaml", "*.yml" },
+	command = "set filetype=yaml",
 })
-
-vim.lsp.handlers["textDocument/definition"] = function(_, result, ctx, config)
-	if not result or vim.tbl_isempty(result) then
-		return
-	end
-	local client = vim.lsp.get_client_by_id(ctx.client_id)
-	if client and result[1] then
-		local target_uri = result[1].uri
-		local target_range = result[1].range
-		local target_bufnr = vim.uri_to_bufnr(target_uri)
-
-		if target_bufnr == vim.api.nvim_get_current_buf() then
-			-- Only jump if the target buffer is the current buffer
-			vim.api.nvim_win_set_cursor(0, { target_range.start.line + 1, target_range.start.character })
-		else
-			vim.lsp.util.jump_to_location(result[1])
-		end
-	end
-end

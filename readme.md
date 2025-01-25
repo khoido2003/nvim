@@ -22,9 +22,9 @@ C:\Users\<Username>\AppData\
 
 This configuration will make Neonvim become a full-fledged IDE like VS Code
 
-Theme: Nordic(https://github.com/AlexvZyl/nordic.nvim)
+Theme: VSCode (https://github.com/Mofiqul/vscode.nvim) 
 
-Support: C#, JS/TS, Go, Rust, Java, HTML/CSS, Python, Java, yaml, Dockerfile
+Support: C#, JS/TS, Go, Rust, Java, HTML/CSS, Python,  yaml, Dockerfile
 
 ## Tools
 
