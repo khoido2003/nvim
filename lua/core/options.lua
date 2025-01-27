@@ -88,20 +88,3 @@ vim.api.nvim_set_keymap(
 vim.o.termguicolors = true
 vim.lsp.handlers["textDocument/semanticTokens/full"] =
 	vim.lsp.with(vim.lsp.handlers.semantic_tokens, { highlight = true })
-
--- Restart Roslyn LSP when creating a new C# file
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
-	pattern = "*.cs",
-	callback = function()
-		vim.cmd("Roslyn restart")
-	end,
-})
-
--- Add Dockerfile filetype detection
-vim.cmd("autocmd BufNewFile,BufRead Dockerfile* set filetype=dockerfile")
-
--- Set filetype for Kubernetes and Docker-related YAML files
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-	pattern = { "*.yaml", "*.yml" },
-	command = "set filetype=yaml",
-})

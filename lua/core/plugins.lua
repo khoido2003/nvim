@@ -29,33 +29,14 @@ require("lazy").setup({
 		opts = {
 			exe = {
 				"dotnet",
-				"C:/Users/Lenovo/.vscode/extensions/ms-dotnettools.csharp-2.55.29-win32-x64/.roslyn/Microsoft.CodeAnalysis.LanguageServer.dll",
+				"C:/Users/Lenovo/.vscode/extensions/ms-dotnettools.csharp-2.61.28-win32-x64/.roslyn/Microsoft.CodeAnalysis.LanguageServer.dll",
 			},
 			args = {
 				"--logLevel=Information",
 				"--extensionLogDirectory=C:/Users/Lenovo/.roslyn_logs",
 			},
-			on_new_config = function(new_config, new_root_dir)
-				-- Use the dynamically created pipe name
-				new_config.cmd = { "dotnet", "\\\\.\\pipe\\f7d4a339" }
-			end,
 			filewatching = true,
 			lock_target = true,
-			config = {
-				settings = {
-					["csharp|code_lens"] = {
-						dotnet_enable_references_code_lens = false,
-					},
-					["csharp|inlay_hints"] = {
-						csharp_enable_inlay_hints_for_types = true,
-						dotnet_enable_inlay_hints_for_parameters = true,
-					},
-					["csharp|completion"] = {
-						dotnet_show_completion_items_from_unimported_namespaces = true,
-						dotnet_show_name_completion_suggestions = true,
-					},
-				},
-			},
 		},
 	},
 

@@ -16,11 +16,14 @@ require("conform").setup({
 		tsx = { "prettier" },
 		json = { "prettier" },
 		python = { "black" },
-		go = { "gofmt", "goimports" },
+		go = { "gofmt" },
 		lua = { "stylua" },
 		proto = { "buf" },
 		rust = { "rustfmt" },
 		yaml = { "yamlfmt" },
+		java = { "astyle" },
+		c = { "astyle" },
+		cpp = { "astyle" },
 	},
 	debug = true,
 	timeout = 5000,
@@ -99,7 +102,10 @@ lspconfig.lua_ls.setup({
 })
 
 -- Typescript
-lspconfig.ts_ls.setup({ on_attach = on_attach, capabilities = capabilities })
+lspconfig.ts_ls.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
 
 -- Rust
 lspconfig.rust_analyzer.setup({
@@ -132,21 +138,21 @@ lspconfig.pyright.setup({
 })
 
 -- C/C++
-lspconfig.clangd.setup({ on_attach = on_attach, capabilities = capabilities })
+lspconfig.clangd.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
 
 -- Docker
-lspconfig.dockerls.setup({ cmd = { "docker-langserver", "--stdio" } })
+lspconfig.dockerls.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
 
 -- Yaml
 lspconfig.yamlls.setup({
-	settings = {
-		yaml = {
-			codelenses = { generate = false },
-			schemas = {
-				["https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json"] = "*.yaml",
-			},
-		},
-	},
+	on_attach = on_attach,
+	capabilities = capabilities,
 })
 
 -- Go
@@ -165,59 +171,39 @@ lspconfig.gopls.setup({
 		},
 	},
 	flags = { debounce_text_changes = 150 },
+
 	on_attach = on_attach,
+	capabilities = capabilities,
 })
 
 -- Html
 lspconfig.html.setup({
-	cmd = { "C:\\Users\\Lenovo\\AppData\\Local\\nvim-data\\mason\\bin\\vscode-html-language-server.cmd", "--stdio" },
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 -- Css
 lspconfig.cssls.setup({
-	cmd = { "C:\\Users\\Lenovo\\AppData\\Local\\nvim-data\\mason\\bin\\vscode-css-language-server.cmd", "--stdio" },
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 -- Tailwind
 lspconfig.tailwindcss.setup({
-	cmd = { "tailwindcss-language-server", "--stdio" },
 	filetypes = { "html", "css", "javascript", "typescript", "javascriptreact", "typescriptreact", "vue", "svelte" },
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- Java
 lspconfig.jdtls.setup({
-	cmd = { "jdtls" },
+
 	root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
 	settings = {
 		java = {
 			codelenses = { generate = false },
-			format = {
-				enabled = true,
-				settings = {
-					url = "C:/java-formatter/google-java-format.jar",
-				},
-			},
 		},
 	},
 	on_attach = on_attach,
+	capabilities = capabilities,
 })
-
--- Function to format Java files
-function FormatJavaFile()
-	vim.cmd("write")
-	local filename = vim.fn.expand("%:p")
-	vim.fn.system("C:/java-formatter/google-java-format.exe --replace " .. filename)
-	vim.cmd("e!")
-end
-
--- Auto format on save for Java files
-vim.cmd([[
-  augroup LspFormatting
-    autocmd! * <buffer>
-    autocmd BufWritePre *.java lua FormatJavaFile()
-  augroup END
-]])
