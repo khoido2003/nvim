@@ -29,6 +29,9 @@ for _, mapping in ipairs(lsp_mappings) do
 	vim.keymap.set("n", mapping[1], "<Cmd>lua " .. mapping[2] .. "<CR>", { noremap = true, silent = true })
 end
 
+-- Keybinding to open diagnostics in a floating window
+vim.api.nvim_set_keymap("n", "<Leader>d", ":lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true })
+
 -- Trigger Completion
 vim.keymap.set("i", "<C-Space>", function()
 	require("cmp").complete()
