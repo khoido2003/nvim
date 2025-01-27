@@ -107,18 +107,6 @@ lspconfig.ts_ls.setup({
 	capabilities = capabilities,
 })
 
--- Rust
-lspconfig.rust_analyzer.setup({
-	on_attach = on_attach,
-	settings = {
-		["rust-analyzer"] = {
-			cargo = { allFeatures = true },
-			checkOnSave = { command = "clippy" },
-			procMacro = { enable = true },
-		},
-	},
-})
-
 -- Python
 lspconfig.pyright.setup({
 	on_attach = function(client, bufnr)
@@ -207,3 +195,56 @@ lspconfig.jdtls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
+
+-- Rust
+vim.g.rustaceanvim = {
+	tools = {
+		autoSetHints = true,
+		inlay_hints = {
+			only_current_line = false,
+			show_parameter_hints = true,
+			parameter_hints_prefix = "<- ",
+			other_hints_prefix = "=> ",
+		},
+	},
+	-- LSP configuration
+	server = {
+		on_attach = function(client, bufnr)
+			-- LSP Keymaps
+			local opts = { noremap = true, silent = true }
+			vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+			vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+			vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+			vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+			vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", ":lua vim.lsp.buf.format({ async = true })<CR>", opts)
+
+			-- Print a message when the LSP is attached
+			print("LSP attached for buffer: " .. bufnr)
+		end,
+		default_settings = {
+
+			["rust-analyzer"] = {
+				cargo = {
+					allFeatures = true,
+				},
+				checkOnSave = {
+					command = "clippy",
+				},
+				procMacro = {
+					enable = true,
+				},
+				completion = {
+					autoimport = {
+						enable = true,
+					},
+				},
+				assist = {
+					importMergeBehavior = "last",
+					importPrefix = "by_crate",
+				},
+			},
+		},
+	},
+
+	dap = {},
+}

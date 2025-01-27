@@ -2,7 +2,11 @@
 require("lazy").setup({
 
 	{ "Mofiqul/vscode.nvim", lazy = true, priority = 1000 },
-
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^5", -- Recommended
+		lazy = false, -- This plugin is already lazy
+	},
 	{
 		"numToStr/Comment.nvim",
 		lazy = true,
