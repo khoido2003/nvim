@@ -193,6 +193,15 @@ require("lazy").setup({
 		lazy = true,
 		dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
 	},
+
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "VeryLazy",
+		opts = {},
+		config = function(_, opts)
+			require("lsp_signature").setup(opts)
+		end,
+	},
 })
 
 -----------------------------------------------------------------
