@@ -66,9 +66,6 @@ vim.keymap.set("n", "<Leader>f", "/", { noremap = true, silent = false })
 vim.keymap.set("n", "<Tab>", ":bnext<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<S-Tab>", ":bprev<CR>", { noremap = true, silent = true })
 
--- Terminal mode escape
-vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
-
 -- User command to restart Neovim
 vim.api.nvim_create_user_command("R", function()
 	vim.cmd("wa") -- Save all files

@@ -3,11 +3,6 @@ require("lazy").setup({
 
 	{ "Mofiqul/vscode.nvim", lazy = true, priority = 1000 },
 	{
-		"mrcjkb/rustaceanvim",
-		version = "^5", -- Recommended
-		lazy = false, -- This plugin is already lazy
-	},
-	{
 		"numToStr/Comment.nvim",
 		lazy = true,
 		config = function()
@@ -23,8 +18,10 @@ require("lazy").setup({
 	{ "kyazdani42/nvim-web-devicons", lazy = true },
 
 	-- Multiple cursor
-	{ "mg979/vim-visual-multi", lazy = true }, -- Using ctrl + n to select multiple element.
-
+	{
+		"mg979/vim-visual-multi",
+		lazy = false,
+	},
 	-- C# LSP server
 	{
 		"seblj/roslyn.nvim",
