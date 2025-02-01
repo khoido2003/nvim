@@ -1,10 +1,6 @@
 -- plugins.lua
 require("lazy").setup({
-	{
-		"sainnhe/sonokai",
-		lazy = false,
-		priority = 1000,
-	},
+
 	{ "Mofiqul/vscode.nvim", lazy = true, priority = 1000 },
 	{
 		"numToStr/Comment.nvim",
