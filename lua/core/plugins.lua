@@ -1,10 +1,8 @@
 -- plugins.lua
 require("lazy").setup({
-	{
-		"sainnhe/sonokai",
-		lazy = false,
-		priority = 1000,
-	},
+
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+
 	{
 		"numToStr/Comment.nvim",
 		lazy = true,
@@ -263,6 +261,73 @@ require("nvim-treesitter.configs").setup({
 require("nvim-treesitter.install").compilers = { "zig" }
 
 -- ///////////////////////////////////////////////////
+
+require("catppuccin").setup({
+	flavour = "auto", -- latte, frappe, macchiato, mocha
+	background = { -- :h background
+		light = "latte",
+		dark = "frappe",
+	},
+	transparent_background = false, -- disables setting the background color.
+	show_end_of_buffer = true, -- shows the '~' characters after the end of buffers
+	term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+	dim_inactive = {
+		enabled = false,
+		shade = "dark",
+		percentage = 0.15,
+	},
+	no_italic = true,
+	no_bold = false,
+	no_underline = false,
+	styles = {
+		comments = {},
+		conditionals = {},
+		loops = {},
+		functions = {},
+		keywords = {},
+		strings = {},
+		variables = {},
+		numbers = {},
+		booleans = {},
+		properties = {},
+		types = {},
+		operators = {},
+	},
+	color_overrides = {
+		mocha = {
+			base = "#20202a", -- Set a custom background color
+			mantle = "#20202a", -- Ensures consistency in UI elements
+			crust = "#20202a", -- Deepest background layer
+		},
+
+		frappe = {
+			base = "#1a1a24", -- Set a custom background color
+			mantle = "#1a1a24", -- Ensures consistency in UI elements
+			crust = "#1a1a24", -- Deepest background layer
+		},
+
+		macchiato = {
+			base = "#20202a", -- Set a custom background color
+			mantle = "#20202a", -- Ensures consistency in UI elements
+			crust = "#20202a", -- Deepest background layer
+		},
+	},
+	custom_highlights = {},
+	default_integrations = true,
+	integrations = {
+		cmp = true,
+		gitsigns = true,
+		nvimtree = true,
+		treesitter = true,
+		notify = false,
+		mini = {
+			enabled = true,
+			indentscope_color = "",
+		},
+	},
+})
+
+-- ////////////////////////////////////////////////
 
 -- Lualine
 require("lualine").setup({
