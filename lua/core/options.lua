@@ -1,5 +1,11 @@
 vim.opt.termguicolors = true
-vim.cmd([[colorscheme vscode]])
+
+vim.g.sonokai_style = "shusia"
+vim.g.sonokai_enable_italic = false
+vim.g.sonokai_better_performance = 1
+vim.cmd([[colorscheme sonokai]])
+
+-- /////////////////////////////////////////////
 
 vim.opt.guifont = "Fira Code:h12"
 vim.opt.fileencoding = "utf-8"

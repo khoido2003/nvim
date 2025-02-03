@@ -1,7 +1,10 @@
 -- plugins.lua
 require("lazy").setup({
-
-	{ "Mofiqul/vscode.nvim", lazy = true, priority = 1000 },
+	{
+		"sainnhe/sonokai",
+		lazy = false,
+		priority = 1000,
+	},
 	{
 		"numToStr/Comment.nvim",
 		lazy = true,
@@ -203,6 +206,11 @@ require("lazy").setup({
 
 -----------------------------------------------------------------
 
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+-- /////////////////////////////////
+
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {
 		"java",
@@ -256,32 +264,7 @@ require("nvim-treesitter.install").compilers = { "zig" }
 
 -- ///////////////////////////////////////////////////
 
--- VS code colorscheme
-require("vscode").setup({
-	-- Alternatively set style in setup
-	-- style = 'light'
-
-	-- Enable transparent background
-	transparent = false,
-
-	-- Enable italic comment
-	italic_comments = false,
-
-	-- Underline `@markup.link.*` variants
-	underline_links = true,
-
-	-- Disable nvim-tree background color
-	disable_nvimtree_bg = false,
-
-	-- Override colors (see ./lua/vscode/colors.lua)
-	color_overrides = {},
-
-	-- Override highlight groups (see ./lua/vscode/theme.lua)
-	group_overrides = {},
-})
-
--- //////////////////////////////////////////////////////
-
+-- Lualine
 require("lualine").setup({
 	options = {
 		icons_enabled = true,
@@ -409,11 +392,6 @@ require("gitsigns").setup({
 		col = 1,
 	},
 })
-
--- /////////////////////////////////////////
-
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- ////////////////////////////////////////////////
 
