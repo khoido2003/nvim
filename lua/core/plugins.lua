@@ -294,22 +294,11 @@ require("catppuccin").setup({
 		operators = {},
 	},
 	color_overrides = {
-		mocha = {
-			base = "#20202a", -- Set a custom background color
-			mantle = "#20202a", -- Ensures consistency in UI elements
-			crust = "#20202a", -- Deepest background layer
-		},
 
 		frappe = {
-			base = "#1a1a24", -- Set a custom background color
-			mantle = "#1a1a24", -- Ensures consistency in UI elements
-			crust = "#1a1a24", -- Deepest background layer
-		},
-
-		macchiato = {
-			base = "#20202a", -- Set a custom background color
-			mantle = "#20202a", -- Ensures consistency in UI elements
-			crust = "#20202a", -- Deepest background layer
+			base = "#1e1e1e", -- Set a custom background color
+			mantle = "#1e1e1e", -- Ensures consistency in UI elements
+			crust = "#1e1e1e", -- Deepest background layer
 		},
 	},
 	custom_highlights = {},
