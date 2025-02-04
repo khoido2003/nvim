@@ -22,9 +22,9 @@ C:\Users\<Username>\AppData\
 
 This configuration will make Neonvim become a full-fledged IDE like VS Code
 
-Theme: VSCode (https://github.com/Mofiqul/vscode.nvim) 
+Theme: One_Monokai (https://github.com/cpea2506/one_monokai.nvim) 
 
-Support: C#, JS/TS, Go, Rust, Java, HTML/CSS, Python,  yaml, Dockerfile
+Mason Support: C/C++, C#, JS/TS, Go, Rust, Java, HTML/CSS, Python,yaml, Dockerfile
 
 ## Tools
 
@@ -32,11 +32,20 @@ This Neovim configuration will use LazyVim to manage all Neovim plugins and Maso
 
 ## Prerequesites
 
-Below is some dependencies needed to make sure all the code reccommendation and linting work for some specific language
+- Autoformat code with Conform.nvim: https://github.com/stevearc/conform.nvim
+
+    + To have Conform.nvim auto format for each programming language, on local machine
+    need to dowload the relevant formatter
+
+    + For example: JS/TS -> Prettier
+
+- LSP server will be dowload automatically by Mason.nvim
+
 
 ### GUI: Neovide
 
 Written in Rust so it is super fast and have some built in features with icon support
+
 Dowload: https://neovide.dev/
 
 ### Using built in terminal
@@ -112,85 +121,9 @@ Dowload: https://github.com/equalsraf/win32yank/releases
 
 ### LSP for C# and .NET:
 
-Dowload Omnisharp and Visual Studio Build Tools
-
-Omnisharp: https://github.com/OmniSharp/omnisharp-roslyn/releases/
-
-Visual Studio Build Tools: https://visualstudio.microsoft.com/downloads/
-
-New Update: since the omnisharp support is so horrible so I will use another approach which is using the C# dev kit Roslyn from Vs code as the LSP server so I will use "seblj/roslyn.nvim", this will execute the extension from vs code to do the LSP
+Since the omnisharp support is so horrible so I will use another approach which is using the C# dev kit Roslyn from Vs code as the LSP server so I will use "seblj/roslyn.nvim", this will execute the extension from vs code to do the LSP
 
 Find the Roslyn, something similar to this: C:/Users/Lenovo/.vscode/extensions/ms-dotnettools.csharp-2.55.29-win32-x64/.roslyn/Microsoft.CodeAnalysis.LanguageServer.dll
-
-### LSP for HTML, CSS
-
-Using adminstrator access in CMD or Powershell to dowload by Nodejs:
-
-- Language server
-  bash
-
-```
-npm install -g vscode-langservers-extracted
-```
-
-- Prettier
-  bash
-
-```
-npm install -g prettier
-```
-
-### LSP for Javascript/Typescript
-
-bash
-
-```
-npm install -g typescript typescript-language-server
-
-
-npm install -g eslint
-
-```
-
-### LSP for Java
-
-Require using JDTLS but currently I can not set it up for some reason, will try to fix it in the future
-
-UPDATE:
-Dowload jdtls from this: https://download.eclipse.org/jdtls/snapshots/?d  
-
-After dowload, extract it to a folder then find the /bin and add it to the global environment variables
-
-Check if jdtls in cmd:
-bash
-```
-jdtls --version
-```
-NOTE: without jdtls, the LSP can not work so make sure this have to be installed
-and added to the global variables.
-
-Add formatter for java:
-
-Dowload it here and put the path to the formatter in lsp.lua:
-https://github.com/google/google-java-format/releases
-
-
-### LSP for TailwindCSS
-
-Open cmd and install tailwind server to global
-bash
-
-```
-npm install -g @tailwindcss/language-server
-```
-
-### Tabnine AI
-
-On Window, require dowload pswh - Powershell 7
-
-Dowload here: https://github.com/PowerShell/PowerShell/releases/tag/v7.4.6
-
-Then follow the guide from official Tabnine github: https://github.com/codota/tabnine-nvim
 
 ## Requirements
 
@@ -199,6 +132,7 @@ Neovim >= 0.9.0 (needs to be built with LuaJIT)
 Git >= 2.19.0 (for partial clones support)
 
 a Nerd Font(v3.0 or greater) (optional, but needed to display some icons)
+
 lazygit (optional)
 
 ## Results
