@@ -2,6 +2,7 @@
 require("lazy").setup({
 	{
 		"cpea2506/one_monokai.nvim",
+		lazy = true,
 	},
 	{
 		"numToStr/Comment.nvim",
