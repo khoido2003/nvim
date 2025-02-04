@@ -1,8 +1,8 @@
 -- plugins.lua
 require("lazy").setup({
-
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-
+	{
+		"cpea2506/one_monokai.nvim",
+	},
 	{
 		"numToStr/Comment.nvim",
 		lazy = true,
@@ -262,58 +262,13 @@ require("nvim-treesitter.install").compilers = { "zig" }
 
 -- ///////////////////////////////////////////////////
 
-require("catppuccin").setup({
-	flavour = "auto", -- latte, frappe, macchiato, mocha
-	background = { -- :h background
-		light = "latte",
-		dark = "frappe",
-	},
-	transparent_background = false, -- disables setting the background color.
-	show_end_of_buffer = true, -- shows the '~' characters after the end of buffers
-	term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
-	dim_inactive = {
-		enabled = false,
-		shade = "dark",
-		percentage = 0.15,
-	},
-	no_italic = true,
-	no_bold = false,
-	no_underline = false,
-	styles = {
-		comments = {},
-		conditionals = {},
-		loops = {},
-		functions = {},
-		keywords = {},
-		strings = {},
-		variables = {},
-		numbers = {},
-		booleans = {},
-		properties = {},
-		types = {},
-		operators = {},
-	},
-	color_overrides = {
-
-		frappe = {
-			base = "#1e1e1e", -- Set a custom background color
-			mantle = "#1e1e1e", -- Ensures consistency in UI elements
-			crust = "#1e1e1e", -- Deepest background layer
-		},
-	},
-	custom_highlights = {},
-	default_integrations = true,
-	integrations = {
-		cmp = true,
-		gitsigns = true,
-		nvimtree = true,
-		treesitter = true,
-		notify = false,
-		mini = {
-			enabled = true,
-			indentscope_color = "",
-		},
-	},
+require("one_monokai").setup({
+	transparent = false,
+	colors = {},
+	themes = function(colors)
+		return {}
+	end,
+	italics = false,
 })
 
 -- ////////////////////////////////////////////////
@@ -393,7 +348,7 @@ require("nvim-tree").setup({
 	diagnostics = { enable = false },
 })
 
--- //////////////////////////////////////////////////////
+-- /////////////////////////////////////////////////////
 
 -- GIT Support
 require("gitsigns").setup({

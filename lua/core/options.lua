@@ -1,5 +1,5 @@
 vim.opt.termguicolors = true
-vim.cmd([[colorscheme catppuccin]])
+vim.cmd([[colorscheme one_monokai]])
 
 -- /////////////////////////////////////////////
 
