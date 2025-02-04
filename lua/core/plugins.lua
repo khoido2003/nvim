@@ -1,8 +1,10 @@
 -- plugins.lua
 require("lazy").setup({
+
 	{
-		"cpea2506/one_monokai.nvim",
-		lazy = true,
+		"sainnhe/sonokai",
+		lazy = false,
+		priority = 1000,
 	},
 	{
 		"numToStr/Comment.nvim",
@@ -260,17 +262,6 @@ require("nvim-treesitter.configs").setup({
 
 -- USING ZIG AS COMPILER FOR TREESITTER
 require("nvim-treesitter.install").compilers = { "zig" }
-
--- ///////////////////////////////////////////////////
-
-require("one_monokai").setup({
-	transparent = false,
-	colors = {},
-	themes = function(colors)
-		return {}
-	end,
-	italics = false,
-})
 
 -- ////////////////////////////////////////////////
 
