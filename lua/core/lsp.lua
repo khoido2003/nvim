@@ -64,6 +64,7 @@ mason_lspconfig.setup({
 
 -- Common capabilities
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Common on_attach function
 local on_attach = function(client, bufnr)

@@ -114,3 +114,6 @@ vim.keymap.set("v", "<Up>", "gk", { noremap = true, silent = true })
 
 -- Select the current line with Enter
 vim.keymap.set("n", "<CR>", "V", { noremap = true, silent = true })
+
+-- Custom keybinding to create a new terminal easily
+vim.api.nvim_set_keymap("n", "<C-t>", ":ToggleTerm<CR>", { noremap = true, silent = true })

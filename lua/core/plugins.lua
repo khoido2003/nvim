@@ -1,11 +1,11 @@
 -- plugins.lua
 require("lazy").setup({
-
 	{
-		"sainnhe/sonokai",
+		"polirritmico/monokai-nightasty.nvim",
 		lazy = false,
 		priority = 1000,
 	},
+
 	{
 		"numToStr/Comment.nvim",
 		lazy = true,
@@ -26,6 +26,7 @@ require("lazy").setup({
 		"mg979/vim-visual-multi",
 		lazy = false,
 	},
+
 	-- C# LSP server
 	{
 		"seblj/roslyn.nvim",
@@ -68,52 +69,8 @@ require("lazy").setup({
 		lazy = true,
 		autostart = true,
 		keys = { "<c-\\>", "<C-t>" },
-		config = function()
-			require("toggleterm").setup({
-				size = 20, -- Height of the terminal window
-				open_mapping = [[<c-\>]], -- Shortcut to toggle the terminal
-				direction = "tab", -- Options: 'horizontal', 'vertical', 'tab', 'float'
-				shade_terminals = true, -- Shades background of terminal
-
-				start_in_insert = true, -- Start in insert mode for terminals
-				insert_mappings = true, -- Apply open mapping in insert mode
-				terminal_mappings = true, -- Apply open mapping in terminal mode
-			})
-
-			-- Custom keybinding to create a new terminal easily
-			vim.api.nvim_set_keymap("n", "<C-t>", ":ToggleTerm<CR>", { noremap = true, silent = true })
-
-			-- Move to next tab using Ctrl+Right
-			vim.api.nvim_set_keymap("n", "<C-Right>", ":tabnext<CR>", { noremap = true, silent = true })
-
-			-- Move to previous tab using Ctrl+Left
-			vim.api.nvim_set_keymap("n", "<C-Left>", ":tabprev<CR>", { noremap = true, silent = true })
-
-			-- Open terminal 1 with Ctrl+t
-			vim.api.nvim_set_keymap(
-				"n",
-				"<C-t>",
-				":lua require('toggleterm').toggle(1)<CR>",
-				{ noremap = true, silent = true }
-			)
-
-			-- Open terminal 2 with Ctrl+y
-			vim.api.nvim_set_keymap(
-				"n",
-				"<C-y>",
-				":lua require('toggleterm').toggle(2)<CR>",
-				{ noremap = true, silent = true }
-			)
-
-			-- Open terminal 3 with Ctrl+u
-			vim.api.nvim_set_keymap(
-				"n",
-				"<C-u>",
-				":lua require('toggleterm').toggle(3)<CR>",
-				{ noremap = true, silent = true }
-			)
-		end,
 	},
+
 	-- LSP and Autocompletion
 	{ "williamboman/mason.nvim", lazy = true },
 	{ "williamboman/mason-lspconfig.nvim", lazy = true },
@@ -164,7 +121,7 @@ require("lazy").setup({
 		lazy = true,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope-live-grep-args.nvim", -- Add this line to install the live_grep_args extension
+			"nvim-telescope/telescope-live-grep-args.nvim",
 		},
 		cmd = { "Telescope" },
 		config = function()
@@ -206,11 +163,6 @@ require("lazy").setup({
 })
 
 -----------------------------------------------------------------
-
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
--- /////////////////////////////////
 
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {
@@ -265,6 +217,48 @@ require("nvim-treesitter.install").compilers = { "zig" }
 
 -- ////////////////////////////////////////////////
 
+-- Monokai colorscheme
+local opts = {
+	dark_style_background = "default", -- default, dark, transparent, #RRGGBB
+	light_style_background = "default", -- default, dark, transparent, #RRGGBB
+	hl_styles = {
+		comments = { italic = false },
+		keywords = { italic = false },
+		functions = { italic = false },
+		variables = { italic = false },
+
+		floats = "default", -- default, dark, transparent
+		sidebars = "default", -- default, dark, transparent
+	},
+
+	on_highlights = function(highlights, _)
+		-- Disable bold and italic for various elements
+		for _, group in pairs(highlights) do
+			if group.italic then
+				group.italic = false
+			end
+			if group.bold then
+				group.bold = false
+			end
+		end
+	end,
+	color_headers = true, -- Enable header colors for each header level (h1, h2, etc.)
+	dim_inactive = false,
+	lualine_bold = true,
+	lualine_style = "default", -- "dark", "light" or "default" (default follows dark/light style)
+
+	markdown_header_marks = true,
+	terminal_colors = true,
+	cache = true,
+	auto_enable_plugins = true,
+}
+
+require("monokai-nightasty").setup(opts)
+require("monokai-nightasty").load()
+vim.cmd([[colorscheme monokai-nightasty]])
+
+-- ////////////////////////////////////////////////
+
 -- Lualine
 require("lualine").setup({
 	options = {
@@ -315,7 +309,7 @@ require("lualine").setup({
 -- telescope.nvim setup
 require("telescope").setup({
 	defaults = {
-		file_ignore_patterns = { "node_modules", ".git/*", "*.log" }, -- Ignore specific files or directories
+		file_ignore_patterns = { "node_modules", ".git/*", "*.log" },
 	},
 	extensions = {
 		lsp_handlers = {
@@ -396,6 +390,20 @@ require("gitsigns").setup({
 
 -- ////////////////////////////////////////////////
 
+-- Toggle terminal
+require("toggleterm").setup({
+	size = 20, -- Height of the terminal window
+	open_mapping = [[<c-\>]], -- Shortcut to toggle the terminal
+	direction = "tab", -- Options: 'horizontal', 'vertical', 'tab', 'float'
+	shade_terminals = true, -- Shades background of terminal
+
+	start_in_insert = true, -- Start in insert mode for terminals
+	insert_mappings = true, -- Apply open mapping in insert mode
+	terminal_mappings = true, -- Apply open mapping in terminal mode
+})
+
+-- ////////////////////////////////////////////////
+
 -- nvim-autopairs setup
 require("nvim-autopairs").setup({
 	check_ts = true, -- Enable treesitter support
@@ -425,7 +433,7 @@ require("nvim-ts-autotag").setup({
 		"php",
 		"markdown",
 	},
-	-- Add default values for new required fields (if applicable)
+
 	did_setup = nil, -- Function called after setup (optional)
 	setup = nil, -- Function to customize setup behavior (optional)
 	get_opts = nil, -- Function to get options dynamically
