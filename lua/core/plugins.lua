@@ -46,7 +46,7 @@ require("lazy").setup({
 		},
 	},
 
-	{ "nvim-tree/nvim-tree.lua", lazy = true },
+	{ "nvim-tree/nvim-tree.lua", lazy = false },
 
 	-- Auto close {}
 	{ "windwp/nvim-autopairs", lazy = true },
@@ -54,10 +54,8 @@ require("lazy").setup({
 	-- Syntax Highlighting and Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate",
 		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
-
 		dependencies = {
 			"windwp/nvim-ts-autotag",
 		},
@@ -180,10 +178,8 @@ require("nvim-treesitter.configs").setup({
 		"lua",
 		"json",
 		"tsx",
-		"gitignore",
 		"toml",
 		"php",
-		"rust",
 	},
 	auto_install = true, -- Automatically install missing parsers,
 	-- Sync installation (installs parsers synchronously)
@@ -197,7 +193,6 @@ require("nvim-treesitter.configs").setup({
 		enable = true, -- Enable syntax highlighting
 		additional_vim_regex_highlighting = false,
 	},
-
 	indent = {
 		enable = true, -- Enable Tree-sitter indentation
 	},
@@ -246,7 +241,7 @@ local opts = {
 
 require("monokai-nightasty").setup(opts)
 require("monokai-nightasty").load()
-vim.cmd([[colorscheme monokai-nightasty]])
+vim.cmd.colorscheme("monokai-nightasty")
 
 -- ////////////////////////////////////////////////
 
@@ -274,7 +269,7 @@ require("lualine").setup({
 	sections = {
 		lualine_a = { "mode" },
 		lualine_b = { "branch", "diagnostics" },
-		lualine_c = { { "filename", path = 1 } },
+		lualine_c = { { "filename", path = 0 } },
 		lualine_x = { "filetype" },
 		lualine_y = { "progress" },
 		lualine_z = { "location" },
@@ -411,7 +406,6 @@ require("nvim-web-devicons").setup({
 require("colorizer").setup()
 
 -- Auto close tag
-
 require("nvim-ts-autotag").setup({
 	filetypes = {
 		"html",

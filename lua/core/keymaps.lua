@@ -21,7 +21,6 @@ local lsp_mappings = {
 	{ "<leader>gr", "vim.lsp.buf.references()" },
 	{ "<leader>gt", "vim.lsp.buf.type_definition()" },
 	{ "<leader>sh", "vim.lsp.buf.signature_help()" },
-	{ "<leader>lf", "vim.lsp.buf.formatting()" },
 	{ "<leader>ca", "vim.lsp.buf.code_action()" },
 }
 
@@ -31,11 +30,6 @@ end
 
 -- Keybinding to open diagnostics in a floating window
 vim.api.nvim_set_keymap("n", "<Leader>d", ":lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true })
-
--- Trigger Completion
-vim.keymap.set("i", "<C-Space>", function()
-	require("cmp").complete()
-end, { noremap = true, silent = true })
 
 -- Telescope Mappings
 vim.keymap.set("n", "<A-f>", ":Telescope live_grep_args<CR>", { noremap = true, silent = true })
@@ -66,12 +60,6 @@ vim.keymap.set("n", "<Leader>f", "/", { noremap = true, silent = false })
 vim.keymap.set("n", "<Tab>", ":bnext<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<S-Tab>", ":bprev<CR>", { noremap = true, silent = true })
 
--- User command to restart Neovim
-vim.api.nvim_create_user_command("R", function()
-	vim.cmd("wa") -- Save all files
-	vim.cmd('silent! exec "!kill -USR1 $(pgrep -f nvim)"')
-end, { desc = "Restart Neovim" })
-
 -- Move line up/down
 vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true })
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true })
@@ -96,9 +84,6 @@ local gitsigns_mappings = {
 for _, mapping in ipairs(gitsigns_mappings) do
 	vim.keymap.set("n", mapping[1], mapping[2], { noremap = true, silent = true })
 end
-
--- Toggle paste/no paste mode with F2
-vim.keymap.set("n", "<F2>", ":set paste!<CR>", { noremap = true, silent = true })
 
 -- Normal mode mappings for line navigation
 vim.keymap.set("n", "<Down>", "gj", { noremap = true, silent = true })
