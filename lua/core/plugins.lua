@@ -27,25 +27,6 @@ require("lazy").setup({
 		lazy = false,
 	},
 
-	-- C# LSP server
-	{
-		"seblj/roslyn.nvim",
-		lazy = true,
-		ft = "cs",
-		opts = {
-			exe = {
-				"dotnet",
-				"C:/Users/Lenovo/.vscode/extensions/ms-dotnettools.csharp-2.61.28-win32-x64/.roslyn/Microsoft.CodeAnalysis.LanguageServer.dll",
-			},
-			args = {
-				"--logLevel=Information",
-				"--extensionLogDirectory=C:/Users/Lenovo/.roslyn_logs",
-			},
-			filewatching = true,
-			lock_target = true,
-		},
-	},
-
 	{ "nvim-tree/nvim-tree.lua", lazy = false },
 
 	-- Auto close {}
@@ -63,7 +44,7 @@ require("lazy").setup({
 	-- Terminal management
 	{
 		"akinsho/toggleterm.nvim",
-		version = "*", -- Optional: use the latest version,
+		version = "*",
 		lazy = true,
 		autostart = true,
 		keys = { "<c-\\>", "<C-t>" },

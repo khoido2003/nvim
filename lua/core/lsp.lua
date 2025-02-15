@@ -24,6 +24,7 @@ require("conform").setup({
 		java = { "astyle" },
 		c = { "astyle" },
 		cpp = { "astyle" },
+		cs = { "csharpier" },
 	},
 	debug = true,
 	timeout = 5000,
@@ -55,6 +56,7 @@ mason_lspconfig.setup({
 		"tailwindcss",
 		"lua_ls",
 		"rust_analyzer",
+		"omnisharp",
 	},
 	automatic_installation = true,
 })
@@ -180,6 +182,12 @@ lspconfig.cssls.setup({
 -- Tailwind
 lspconfig.tailwindcss.setup({
 	filetypes = { "html", "css", "javascript", "typescript", "javascriptreact", "typescriptreact", "vue", "svelte" },
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
+-- C#
+lspconfig.omnisharp.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })

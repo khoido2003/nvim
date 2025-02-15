@@ -1,16 +1,16 @@
 # Neovim Config
 
 ## How to use this repo (Guide for Window user)
-Clone this repo to nvim folder
+Install
 bash
 ```
-C:\Users\Your-Name\AppData\Local\nvim
+git clone https://github.com/khoido2003/Neovim_Config ~/.config/nvim && nvim
 ```
 
 If using Wezterm terminal, paste the wezterm folder to .config folder
 bash
 ```
-C:\Users\Your-Name\.config
+C:\Users\<Username>\.config
 ```
 
 If using Alacritty terminal, paste the alacritty folder to
@@ -22,7 +22,7 @@ C:\Users\<Username>\AppData\
 
 This configuration will make Neonvim become a full-fledged IDE like VS Code
 
-Theme: One_Monokai (https://github.com/cpea2506/one_monokai.nvim) 
+Theme: Monokai NighTasty (https://github.com/polirritmico/monokai-nightasty.nvim) 
 
 Mason Support: C/C++, C#, JS/TS, Go, Rust, Java, HTML/CSS, Python,yaml, Dockerfile
 
@@ -119,11 +119,6 @@ scoop install buf
 This is important to enable copy and paste inside Neovim since it does not support it
 Dowload: https://github.com/equalsraf/win32yank/releases
 
-### LSP for C# and .NET:
-
-Since the omnisharp support is so horrible so I will use another approach which is using the C# dev kit Roslyn from Vs code as the LSP server so I will use "seblj/roslyn.nvim", this will execute the extension from vs code to do the LSP
-
-Find the Roslyn, something similar to this: C:/Users/Lenovo/.vscode/extensions/ms-dotnettools.csharp-2.55.29-win32-x64/.roslyn/Microsoft.CodeAnalysis.LanguageServer.dll
 
 ## Requirements
 
