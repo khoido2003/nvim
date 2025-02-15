@@ -3,7 +3,8 @@ vim.opt.termguicolors = true
 vim.opt.guifont = "Fira Code:h12"
 vim.opt.fileencoding = "utf-8"
 vim.opt.encoding = "utf-8"
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")
+vim.lsp.set_log_level("off")
 
 vim.opt.scrolloff = 3
 vim.g.loaded_netrw = 1
@@ -51,10 +52,6 @@ vim.diagnostic.config({
 		max_width = 80,
 	},
 })
-
--- Disable floating windows for hover and signature help
-vim.lsp.handlers["textDocument/hover"] = function() end
-vim.lsp.handlers["textDocument/signatureHelp"] = function() end
 
 -- Configure diagnostic signs
 local signs = { Error = "E", Warn = "W", Hint = "H", Info = "I" }
