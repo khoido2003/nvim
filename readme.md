@@ -1,10 +1,10 @@
-# Neovim Config
+# Neovim Configuration
 
 ## How to use this repo (Guide for Window user)
 Install
 bash
 ```
-git clone https://github.com/khoido2003/Neovim_Config ~/.config/nvim && nvim
+git clone https://github.com/khoido2003/.nvim ~/.config/nvim && nvim
 ```
 
 If using Wezterm terminal, paste the wezterm folder to .config folder
