@@ -5,7 +5,10 @@ require("lazy").setup({
 		lazy = false,
 		priority = 1000,
 	},
-
+	{
+		"HiPhish/rainbow-delimiters.nvim",
+		lazy = false,
+	},
 	{
 		"sindrets/diffview.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -132,7 +135,6 @@ require("lazy").setup({
 		opts = {},
 		lazy = true,
 	},
-
 	{
 		"nvim-lualine/lualine.nvim",
 		lazy = true,
