@@ -36,6 +36,18 @@ vim.opt.swapfile = false
 vim.opt.relativenumber = true
 vim.opt.number = true
 
+--------------------------------------------
+
+-- Rainbow delimiter - monokai
+vim.api.nvim_set_hl(0, "RainbowDelimiterRed", { fg = "#f92672" }) -- Slightly lighter pink-red
+vim.api.nvim_set_hl(0, "RainbowDelimiterOrange", { fg = "#ff9955" }) -- Softer orange
+vim.api.nvim_set_hl(0, "RainbowDelimiterYellow", { fg = "#ffd700" }) -- Muted yellow
+vim.api.nvim_set_hl(0, "RainbowDelimiterGreen", { fg = "#c3e88d" }) -- Softer lime-green
+vim.api.nvim_set_hl(0, "RainbowDelimiterBlue", { fg = "#179fff" }) -- Light cyan-blue
+vim.api.nvim_set_hl(0, "RainbowDelimiterViolet", { fg = "#da70d6" }) -- Softer purple
+
+-------------------------------------------
+
 -- Configure LSP diagnostics
 vim.diagnostic.config({
 	virtual_text = {
