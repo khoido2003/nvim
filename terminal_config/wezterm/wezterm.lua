@@ -14,7 +14,7 @@ local config = {
 	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
 
 	enable_scroll_bar = false,
-	color_scheme = "MaterialDarker",
+	color_scheme = "Hardcore (base16)",
 
 	-- Font settings
 	font = wezterm.font("Fira Code"),
