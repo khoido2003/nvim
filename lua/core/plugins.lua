@@ -7,6 +7,14 @@ require("lazy").setup({
 	},
 
 	{
+		"sindrets/diffview.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		lazy = false,
+		config = function()
+			require("diffview").setup()
+		end,
+	},
+	{
 		"numToStr/Comment.nvim",
 		lazy = true,
 		config = function()

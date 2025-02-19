@@ -18,8 +18,7 @@ If using Alacritty terminal, paste the alacritty folder to
 C:\Users\<Username>\AppData\ 
 ```
 
-## Overview - Test 4
-Test merge conflict 4 plugins
+## Overview
 
 This configuration will make Neonvim become a full-fledged IDE like VS Code
 
