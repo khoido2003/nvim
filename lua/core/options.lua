@@ -7,8 +7,8 @@ vim.opt.encoding = "utf-8"
 vim.lsp.set_log_level("off") -- off/debug
 
 vim.opt.scrolloff = 3
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = nil
+vim.g.loaded_netrwPlugin = nil
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -56,22 +56,31 @@ vim.diagnostic.config({
 	},
 	signs = true,
 	underline = true,
-	update_in_insert = true,
+	update_in_insert = false,
 })
 
 -- Configure diagnostic signs
-local signs = { Error = "E", Warn = "W", Hint = "H", Info = "I" }
-for type, icon in pairs(signs) do
-	vim.fn.sign_define("DiagnosticSign" .. type, { text = icon, texthl = "Diagnostic" .. type })
+local signs = {
+	{ name = "Error", text = "E" },
+	{ name = "Warn", text = "W" },
+	{ name = "Hint", text = "H" },
+	{ name = "Info", text = "I" },
+}
+
+for _, sign in ipairs(signs) do
+	vim.fn.sign_define("DiagnosticSign" .. sign.name, {
+		text = sign.text,
+		texthl = "Diagnostic" .. sign.name,
+	})
 end
 
--- Keybinding for commenting a line with Ctrl + /
-vim.api.nvim_set_keymap(
-	"n",
-	"<C-/>",
-	":lua require('Comment.api').toggle.linewise.current()<CR>",
-	{ noremap = true, silent = true }
-)
+--///////////////////////////////////
 
-vim.lsp.handlers["textDocument/semanticTokens/full"] =
-	vim.lsp.with(vim.lsp.handlers.semantic_tokens, { highlight = true })
+-- Disable indention in large file
+vim.api.nvim_create_autocmd("BufEnter", {
+	callback = function()
+		if vim.fn.line("$") > 10000 then -- Disable if file has more than 10,000 lines
+			vim.b.miniindentscope_disable = true
+		end
+	end,
+})

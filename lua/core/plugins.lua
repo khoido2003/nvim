@@ -17,13 +17,6 @@ require("lazy").setup({
 			require("diffview").setup()
 		end,
 	},
-	{
-		"numToStr/Comment.nvim",
-		lazy = true,
-		config = function()
-			require("Comment").setup()
-		end,
-	},
 
 	{ "lewis6991/gitsigns.nvim", lazy = true },
 
@@ -37,8 +30,11 @@ require("lazy").setup({
 		"mg979/vim-visual-multi",
 		lazy = false,
 	},
-
-	{ "nvim-tree/nvim-tree.lua", lazy = false },
+	{
+		"nvim-tree/nvim-tree.lua",
+		cmd = "NvimTreeToggle",
+		event = "BufWinEnter",
+	},
 
 	-- Auto close {}
 	{ "windwp/nvim-autopairs", lazy = true },
@@ -140,6 +136,7 @@ require("lazy").setup({
 		lazy = true,
 		dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
 	},
+	{ "echasnovski/mini.indentscope", version = "*" },
 })
 
 -----------------------------------------------------------------
@@ -157,7 +154,6 @@ require("nvim-treesitter.configs").setup({
 		"rust",
 		"dockerfile",
 		"proto",
-		"http",
 		"yaml",
 		"go",
 		"sql",
@@ -170,7 +166,6 @@ require("nvim-treesitter.configs").setup({
 		"json",
 		"tsx",
 		"toml",
-		"php",
 	},
 	auto_install = true, -- Automatically install missing parsers,
 	-- Sync installation (installs parsers synchronously)
@@ -301,12 +296,13 @@ require("telescope").setup({
 
 -- nvim-tree setup
 require("nvim-tree").setup({
-	sync_root_with_cwd = true, -- Sync the tree with the current working directory
-	update_cwd = true, -- Update the tree when you change directories
-	hijack_netrw = true,
+	sync_root_with_cwd = false, -- Sync the tree with the current working directory
+	update_cwd = false, -- Update the tree when you change directories
+	hijack_netrw = false,
 	reload_on_bufenter = true,
 	filters = {
 		custom = { ".git", "node_modules", "__pycache__" }, -- Ignore heavy directories
+		git_ignored = false,
 	},
 	diagnostics = { enable = false },
 })
@@ -413,4 +409,16 @@ require("nvim-ts-autotag").setup({
 	did_setup = nil, -- Function called after setup (optional)
 	setup = nil, -- Function to customize setup behavior (optional)
 	get_opts = nil, -- Function to get options dynamically
+})
+
+-- //////////////////////////////
+
+require("mini.indentscope").setup({
+	draw = {
+		delay = 0, -- No delay when showing indent guides
+		animation = require("mini.indentscope").gen_animation.none(), -- Disable animations for max speed
+	},
+	options = {
+		try_as_border = true,
+	},
 })
