@@ -1,6 +1,5 @@
 vim.opt.termguicolors = true
 
-vim.opt.guifont = "Fira Code:h12"
 vim.opt.fileencoding = "utf-8"
 vim.opt.encoding = "utf-8"
 

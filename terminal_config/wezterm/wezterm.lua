@@ -1,9 +1,8 @@
 local wezterm = require("wezterm")
-local gpus = wezterm.gui.enumerate_gpus()
+-- local gpus = wezterm.gui.enumerate_gpus()
 
 local config = {
 	show_close_tab_button_in_tabs = false,
-
 	window_padding = {
 		left = 0,
 		right = 0,
@@ -17,7 +16,7 @@ local config = {
 	color_scheme = "Hardcore (base16)",
 
 	-- Font settings
-	font = wezterm.font("Fira Code"),
+	font = wezterm.font("FiraCode Nerd Font", { weight = "Regular" }), -- font = wezterm.font("Cascadia Mono"),
 
 	font_size = 11,
 
@@ -25,19 +24,6 @@ local config = {
 	scrollback_lines = 500,
 
 	-- ////////////////////////////////
-
-	front_end = "WebGpu",
-	webgpu_power_preference = "HighPerformance",
-
-	webgpu_preferred_adapter = gpus[2],
-
-	webgpu_force_fallback_adapter = false,
-
-	max_fps = 60,
-
-	allow_square_glyphs_to_overflow_width = "Always",
-
-	-- default_prog = { "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-NoLogo" },
 
 	harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
 
