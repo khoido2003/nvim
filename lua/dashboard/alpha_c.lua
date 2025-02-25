@@ -111,14 +111,14 @@ local alpha_c = function()
 		position = "center",
 	}
 
-  dashboard.section.buttons.val = {
-    dashboard.button("SPC e e", "  New file", "<Cmd>ene <CR>"),
-    dashboard.button("SPC f f", "  Find file"),
-    dashboard.button("SPC s s", "  Neobin config", "<Cmd>NvimTreeOpen C:/Users/Lenovo/AppData/Local/nvim<CR>"),
-    dashboard.button("SPC q q", "  Quit", "<Cmd>qa<CR>"),
-  }
+	dashboard.section.buttons.val = {
+		dashboard.button("SPC e e", "  New file", "<Cmd>ene <CR>"),
+		dashboard.button("SPC f f", "  Find file"),
+		dashboard.button("SPC s s", "  Neobin config", "<Cmd>NvimTreeOpen C:/Users/Lenovo/AppData/Local/nvim<CR>"),
+		dashboard.button("SPC q q", "  Quit", "<Cmd>qa<CR>"),
+	}
 
-  for _, a in ipairs(dashboard.section.buttons.val) do
+	for _, a in ipairs(dashboard.section.buttons.val) do
 		a.opts.width = 49
 		a.opts.cursor = -2
 	end
