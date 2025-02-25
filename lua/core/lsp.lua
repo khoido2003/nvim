@@ -25,9 +25,10 @@ require("conform").setup({
 		c = { "astyle" },
 		cpp = { "astyle" },
 		cs = { "csharpier" },
+		gdscript = { "gdformat" },
 	},
 	debug = true,
-	timeout = 5000,
+	timeout = 10000,
 })
 
 -- Autoformat on save
@@ -217,3 +218,16 @@ lspconfig.rust_analyzer.setup({
 		},
 	},
 })
+
+-- GDScript (Must dowload ncat)
+local gdscript_config = {
+	capabilities = capabilities,
+	on_attach = on_attach,
+	settings = {},
+}
+
+if vim.fn.has("win32") == 1 then
+	-- Windows specific. Requires nmap installed (`winget install nmap`)
+	gdscript_config["cmd"] = { "ncat", "localhost", "6005" }
+end
+lspconfig.gdscript.setup(gdscript_config)

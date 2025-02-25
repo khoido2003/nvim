@@ -166,8 +166,9 @@ require("nvim-treesitter.configs").setup({
 		"json",
 		"tsx",
 		"toml",
+		"gdscript",
 	},
-	auto_install = true, -- Automatically install missing parsers,
+	auto_install = false, -- Automatically install missing parsers,
 	-- Sync installation (installs parsers synchronously)
 	sync_install = false,
 
@@ -415,8 +416,8 @@ require("nvim-ts-autotag").setup({
 
 require("mini.indentscope").setup({
 	draw = {
-		delay = 0, -- No delay when showing indent guides
-		animation = require("mini.indentscope").gen_animation.none(), -- Disable animations for max speed
+		delay = 0,
+		animation = require("mini.indentscope").gen_animation.none(),
 	},
 	options = {
 		try_as_border = true,
