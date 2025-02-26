@@ -31,203 +31,153 @@ require("conform").setup({
 	timeout = 10000,
 })
 
--- Autoformat on save
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
 	callback = function(args)
-		require("conform").format({ bufnr = args.buf })
+		require("conform").format({ bufnr = args.buf, async = true })
 	end,
 })
 
-------------------------------------------------------------
--- LSP MANAGE INSTALLER
-
--- Ensure the LSP servers are installed
+-- Mason setup
 mason.setup()
 mason_lspconfig.setup({
 	ensure_installed = {
-		"pyright",
-		"ts_ls",
-		"gopls",
-		"clangd",
-		"jdtls",
-		"html",
-		"cssls",
-		"yamlls",
-		"tailwindcss",
-		"lua_ls",
-		"rust_analyzer",
-		"omnisharp",
+		-- "lua_ls",
+		-- "ts_ls",
+		-- "pyright",
+		-- "clangd",
+		-- "jdtls",
+		-- "html",
+		-- "cssls",
+		-- "yamlls",
+		-- "tailwindcss",
+		-- "omnisharp",
+		-- "rust_analyzer",
+		-- "gopls",
 	},
-	automatic_installation = true,
+	automatic_installation = false, -- Run :MasonInstall manually if needed
 })
 
------------------------------------------------------------
--- LSP SETUP
-
--- Common capabilities
+-- Common LSP config
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- Common on_attach function
 local on_attach = function(client, bufnr)
-	if client.server_capabilities.codeLensProvider then
-		client.server_capabilities.codeLensProvider = false
-	end
+	-- Disable LSP formatting (conform handles it)
+	client.server_capabilities.documentFormattingProvider = false
+	client.server_capabilities.documentRangeFormattingProvider = false
+
+	-- Keymaps
 	local opts = { noremap = true, silent = true }
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", ":lua vim.lsp.buf.format({ async = true })<CR>", opts)
-
-	-- Print a message when the LSP is attached
-	print("LSP attached for buffer: " .. bufnr)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", "<cmd>lua require('conform').format({async=true})<CR>", opts)
+	print("LSP started successfully!")
 end
 
--- Lua
-lspconfig.lua_ls.setup({
-	settings = {
-		Lua = {
-			runtime = {
-				version = "LuaJIT",
-			},
-			diagnostics = {
-				globals = { "vim" },
-			},
-			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
-				checkthirdparty = false,
-			},
-			telemetry = { enable = false },
-		},
-	},
-	on_attach = on_attach,
-})
-
--- Typescript
-lspconfig.ts_ls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
-
--- Python
-lspconfig.pyright.setup({
-	on_attach = function(client, bufnr)
-		on_attach(client, bufnr)
-		-- Additional settings for Python
-	end,
-	settings = {
-		python = {
-			codelenses = { generate = false },
-			analysis = {
-				typeCheckingMode = "basic",
-				autoSearchPaths = true,
-				useLibraryCodeForTypes = true,
+-- Server configs (minimal)
+local servers = {
+	lua_ls = {
+		settings = {
+			Lua = {
+				runtime = {
+					version = "LuaJIT",
+				},
+				diagnostics = {
+					globals = { "vim" },
+				},
+				workspace = {
+					library = vim.api.nvim_get_runtime_file("", true),
+					checkthirdparty = false,
+				},
+				telemetry = { enable = false },
 			},
 		},
 	},
-})
-
--- C/C++
-lspconfig.clangd.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
-
--- Docker
-lspconfig.dockerls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
-
--- Yaml
-lspconfig.yamlls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
-
--- Go
-lspconfig.gopls.setup({
-	settings = {
-		gopls = {
-			directoryFilters = { "-node_modules", "-vendor", "-.git" },
-			analyses = {
-				unusedparams = true,
-				shadow = true,
-				nilness = true,
-			},
-			staticcheck = true,
-			semanticTokens = true,
-			codelenses = { generate = false },
-		},
+	ts_ls = { init_options = { maxTsServerMemory = 3072 } },
+	pyright = { settings = { python = { analysis = { typeCheckingMode = "basic", autoSearchPaths = true } } } },
+	clangd = {},
+	dockerls = {},
+	yamlls = {},
+	gopls = {
+		settings = { gopls = { analyses = { unusedparams = true }, staticcheck = false } },
+		flags = { debounce_text_changes = 150 },
 	},
-	flags = { debounce_text_changes = 150 },
-
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
-
--- Html
-lspconfig.html.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
--- Css
-lspconfig.cssls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
--- Tailwind
-lspconfig.tailwindcss.setup({
-	filetypes = { "html", "css", "javascript", "typescript", "javascriptreact", "typescriptreact", "vue", "svelte" },
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
--- C#
-lspconfig.omnisharp.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
--- Java
-lspconfig.jdtls.setup({
-
-	root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
-	settings = {
-		java = {
-			codelenses = { generate = false },
-		},
+	html = {},
+	cssls = {},
+	tailwindcss = {
+		filetypes = { "html", "css", "javascript", "typescript", "javascriptreact", "typescriptreact", "vue", "svelte" },
 	},
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
-
--- Rust
-lspconfig.rust_analyzer.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	settings = {
-		["rust-analyzer"] = {
-			cargo = {
-				allFeatures = true,
-			},
-		},
-	},
-})
-
--- GDScript (Must dowload ncat)
-local gdscript_config = {
-	capabilities = capabilities,
-	on_attach = on_attach,
-	settings = {},
+	omnisharp = {},
+	jdtls = { root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle") },
+	rust_analyzer = { settings = { ["rust-analyzer"] = { cargo = { features = "all" } } } },
+	gdscript = vim.fn.has("win32") == 1 and { cmd = { "ncat", "localhost", "6005" } } or {},
 }
 
-if vim.fn.has("win32") == 1 then
-	-- Windows specific. Requires nmap installed (`winget install nmap`)
-	gdscript_config["cmd"] = { "ncat", "localhost", "6005" }
-end
-lspconfig.gdscript.setup(gdscript_config)
+-- -- Setup servers
+-- for server, config in pairs(servers) do
+-- 	config.on_attach = on_attach
+-- 	config.capabilities = capabilities
+-- 	lspconfig[server].setup(config)
+-- end
+
+-- Defer others
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufEnter" }, {
+	pattern = {
+		"*.lua",
+		"*.ts",
+		"*.js",
+		"*.py",
+		"*.c",
+		"*.cpp",
+		"*.dockerfile",
+		"*.yaml",
+		"*.go",
+		"*.html",
+		"*.css",
+		"*.scss",
+		"*.jsx",
+		"*.tsx",
+		"*.cs",
+		"*.java",
+		"*.gd",
+		"*.rs",
+	},
+	callback = function(ev)
+		vim.cmd("filetype detect")
+		local ft = vim.bo[ev.buf].filetype
+		local filetype_to_server = {
+			lua = "lua_ls",
+			typescript = "ts_ls",
+			javascript = "ts_ls",
+			python = "pyright",
+			c = "clangd",
+			cpp = "clangd",
+			dockerfile = "dockerls",
+			yaml = "yamlls",
+			go = "gopls",
+			html = "html",
+			css = "cssls",
+			scss = "tailwindcss",
+			javascriptreact = "ts_ls",
+			typescriptreact = "ts_ls",
+			cs = "omnisharp",
+			java = "jdtls",
+			gdscript = "gdscript",
+			rust = "rust_analyzer",
+		}
+		local server = filetype_to_server[ft]
+		if server and servers[server] and server ~= core_server and not lspconfig[server].manager then
+			local config = servers[server]
+			if server ~= "gdscript" or (server == "gdscript" and vim.fn.executable("ncat") == 1) then
+				config.on_attach = on_attach
+				config.capabilities = capabilities
+				lspconfig[server].setup(config)
+			elseif server == "gdscript" then
+				print("Warning: gdscript not setup - ncat missing (install via 'winget install nmap')")
+			end
+		end
+	end,
+})

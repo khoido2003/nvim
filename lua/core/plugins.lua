@@ -7,18 +7,17 @@ require("lazy").setup({
 	},
 	{
 		"HiPhish/rainbow-delimiters.nvim",
-		lazy = false,
+		event = "BufReadPost",
 	},
 	{
 		"sindrets/diffview.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		lazy = false,
+		cmd = { "DiffviewOpen", "DiffviewFileHistory" },
 		config = function()
 			require("diffview").setup()
 		end,
 	},
-
-	{ "lewis6991/gitsigns.nvim", lazy = true },
+	{ "lewis6991/gitsigns.nvim", lazy = true, event = "BufReadPost" },
 
 	{ "onsails/lspkind.nvim", lazy = true },
 
@@ -28,16 +27,14 @@ require("lazy").setup({
 	-- Multiple cursor
 	{
 		"mg979/vim-visual-multi",
-		lazy = false,
+		event = "BufReadPost",
 	},
 	{
 		"nvim-tree/nvim-tree.lua",
 		cmd = "NvimTreeToggle",
-		event = "BufWinEnter",
 	},
-
 	-- Auto close {}
-	{ "windwp/nvim-autopairs", lazy = true },
+	{ "windwp/nvim-autopairs", lazy = true, event = "InsertEnter" },
 
 	-- Syntax Highlighting and Treesitter
 	{
@@ -53,13 +50,12 @@ require("lazy").setup({
 		"akinsho/toggleterm.nvim",
 		version = "*",
 		lazy = true,
-		autostart = true,
 		keys = { "<c-\\>", "<C-t>" },
 	},
 
 	-- LSP and Autocompletion
-	{ "williamboman/mason.nvim", lazy = true },
-	{ "williamboman/mason-lspconfig.nvim", lazy = true },
+	{ "williamboman/mason.nvim", lazy = true, event = "BufReadPre" },
+	{ "williamboman/mason-lspconfig.nvim", lazy = true, event = "BufReadPre" },
 	{
 		"neovim/nvim-lspconfig",
 		lazy = true,
@@ -98,18 +94,18 @@ require("lazy").setup({
 
 	{ "L3MON4D3/LuaSnip", lazy = true },
 
-	{ "tpope/vim-fugitive", lazy = true },
+	{ "tpope/vim-fugitive", cmd = { "Git", "G" } },
 
 	-- Telescope for Fuzzy Finding
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.4",
-		lazy = true,
+		cmd = "Telescope",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-live-grep-args.nvim",
 		},
-		cmd = { "Telescope" },
+
 		config = function()
 			local telescope = require("telescope")
 
@@ -124,7 +120,7 @@ require("lazy").setup({
 	},
 
 	-- colorizer to show color in css/html, ...
-	{ "norcalli/nvim-colorizer.lua", lazy = true },
+	{ "norcalli/nvim-colorizer.lua", event = "BufReadPost" },
 
 	{
 		"stevearc/conform.nvim",
@@ -133,40 +129,39 @@ require("lazy").setup({
 	},
 	{
 		"nvim-lualine/lualine.nvim",
-		lazy = true,
+		event = "VimEnter",
 		dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
 	},
-	{ "echasnovski/mini.indentscope", version = "*" },
 })
 
 -----------------------------------------------------------------
 
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {
-		"java",
-		"c_sharp",
-		"python",
-		"javascript",
-		"typescript",
-		"cpp",
-		"c",
-		"zig",
-		"rust",
-		"dockerfile",
-		"proto",
-		"yaml",
-		"go",
-		"sql",
-		"css",
-		"html",
-		"scss",
-		"prisma",
-		"svelte",
-		"lua",
-		"json",
-		"tsx",
-		"toml",
-		"gdscript",
+		-- "java",
+		-- "c_sharp",
+		-- "python",
+		-- "javascript",
+		-- "typescript",
+		-- "cpp",
+		-- "c",
+		-- "zig",
+		-- "rust",
+		-- "dockerfile",
+		-- "proto",
+		-- "yaml",
+		-- "go",
+		-- "sql",
+		-- "css",
+		-- "html",
+		-- "scss",
+		-- "prisma",
+		-- "svelte",
+		-- "lua",
+		-- "json",
+		-- "tsx",
+		-- "toml",
+		-- "gdscript",
 	},
 	auto_install = false, -- Automatically install missing parsers,
 	-- Sync installation (installs parsers synchronously)
@@ -176,12 +171,9 @@ require("nvim-treesitter.configs").setup({
 	modules = {},
 	-- Ignore installing specific parsers
 	ignore_install = {},
-	highlight = {
-		enable = true, -- Enable syntax highlighting
-		additional_vim_regex_highlighting = false,
-	},
+	highlight = { enable = true, additional_vim_regex_highlighting = false, debounce = 100 },
 	indent = {
-		enable = true, -- Enable Tree-sitter indentation
+		enable = false, -- Enable Tree-sitter indentation
 	},
 })
 
@@ -410,16 +402,4 @@ require("nvim-ts-autotag").setup({
 	did_setup = nil, -- Function called after setup (optional)
 	setup = nil, -- Function to customize setup behavior (optional)
 	get_opts = nil, -- Function to get options dynamically
-})
-
--- //////////////////////////////
-
-require("mini.indentscope").setup({
-	draw = {
-		delay = 0,
-		animation = require("mini.indentscope").gen_animation.none(),
-	},
-	options = {
-		try_as_border = true,
-	},
 })
