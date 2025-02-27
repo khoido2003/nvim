@@ -1,6 +1,8 @@
--- init.lua
-vim.opt.termguicolors = true
+-- Minimal immediate setup
+vim.loader.enable()
+vim.opt.shada = "'10,:10,s1"
 
+-- init.lua
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -14,8 +16,15 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("core.plugins")
-require("core.options")
-require("core.keymaps")
-require("core.lsp")
-require("core.cmp")
+pcall(require, "core.options")
+pcall(require, "core.keymaps")
+require("lazy").setup("core.configs", {
+	performance = {
+		rtp = {
+			disabled_plugins = { "netrw", "netrwPlugin", "tohtml", "tutor" },
+		},
+	},
+})
+
+vim.opt.updatetime = 250
+vim.opt.redrawtime = 1500

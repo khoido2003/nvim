@@ -11,8 +11,6 @@ vim.opt.sidescroll = 1
 vim.opt.mouse = "a" -- Unchanged, minimal cost
 
 -- Disable netrw (unchanged)
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -42,8 +40,6 @@ vim.opt.number = true
 
 -- Performance tweaks
 vim.opt.cursorline = false -- Disable by default, enable selectively
-vim.opt.updatetime = 250 -- Faster updates (default 4000ms), balances responsiveness
-vim.opt.redrawtime = 1500 -- Give WezTerm breathing room for redraws (default 2000ms)
 
 -- Rainbow delimiters (unchanged, minimal cost)
 vim.api.nvim_set_hl(0, "RainbowDelimiterRed", { fg = "#f92672" })
