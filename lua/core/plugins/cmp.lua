@@ -63,9 +63,9 @@ return {
 					max_item_count = 10, -- Fewer items, faster rendering
 				},
 				performance = {
-					debounce = 50, -- Delay before showing completions (ms)
-					throttle = 30, -- Delay between updates (ms)
-					max_view_entries = 10, -- Cap visible entries
+					debounce = 30, -- Delay before showing completions (ms)
+					throttle = 20, -- Delay between updates (ms)
+					max_view_entries = 15, -- Cap visible entries
 				},
 			})
 
