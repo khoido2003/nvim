@@ -73,8 +73,16 @@ return {
 					},
 				},
 				omnisharp = {},
-				jdtls = { root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle") },
-				rust_analyzer = { settings = { ["rust-analyzer"] = { cargo = { features = "all" } } } },
+				jdtls = {
+					root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
+				},
+				rust_analyzer = {
+					settings = {
+						["rust-analyzer"] = {
+							cargo = { features = "default" },
+						},
+					},
+				},
 				gdscript = vim.fn.has("win32") == 1 and { cmd = { "ncat", "localhost", "6005" } } or {},
 			}
 
