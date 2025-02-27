@@ -32,7 +32,7 @@ return {
 				timeout = 10000,
 			})
 
-			vim.api.nvim_create_autocmd("BufWritePre", {
+			vim.api.nvim_create_autocmd("BufWritePost", {
 				pattern = "*",
 				callback = function(args)
 					require("conform").format({ bufnr = args.buf, async = true })
