@@ -1,7 +1,3 @@
--- Core settings
-vim.opt.termguicolors = true
-vim.opt.fileencoding = "utf-8"
-vim.opt.encoding = "utf-8"
 vim.lsp.set_log_level("off") -- Keep off unless debugging
 
 -- Scrolling and navigation
@@ -9,10 +5,6 @@ vim.opt.scrolloff = 5 -- More context, less jittery redraws
 vim.opt.sidescrolloff = 5 -- Consistent with scrolloff
 vim.opt.sidescroll = 1
 vim.opt.mouse = "a" -- Unchanged, minimal cost
-
--- Disable netrw (unchanged)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 
 -- Text and wrapping
 vim.opt.wrap = true
@@ -77,31 +69,4 @@ for _, sign in ipairs(signs) do
 	})
 end
 
--- Large file optimizations
-vim.api.nvim_create_autocmd("BufEnter", {
-	callback = function()
-		local lines = vim.fn.line("$")
-		if lines > 10000 then
-			vim.b.miniindentscope_disable = true -- Unchanged
-			vim.opt_local.syntax = "off" -- Disable Vim syntax (Treesitter still works)
-			vim.opt_local.foldmethod = "manual" -- Avoid costly folding
-			vim.opt_local.swapfile = false -- No swap for big files
-			vim.opt_local.undofile = false -- No undo file
-			-- Optional: disable Treesitter/LSP for huge files
-			-- vim.cmd("TSBufDisable highlight")
-			-- vim.lsp.buf_detach_client(0, vim.lsp.get_active_clients()[1].id)
-		end
-	end,
-})
 
--- Enable cursorline only in active buffer
-vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
-	callback = function()
-		vim.opt_local.cursorline = true
-	end,
-})
-vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave" }, {
-	callback = function()
-		vim.opt_local.cursorline = false
-	end,
-})
