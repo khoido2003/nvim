@@ -11,6 +11,7 @@ return {
 		},
 		config = function()
 			local cmp = require("cmp")
+
 			cmp.setup({
 				snippet = {
 					expand = function(args)
@@ -18,28 +19,25 @@ return {
 					end,
 				},
 				mapping = cmp.mapping.preset.insert({
-					["<C-Space>"] = cmp.mapping.complete(),
-					["<C-e>"] = cmp.mapping.close(),
-					["<CR>"] = cmp.mapping.confirm({ select = true }),
-					["<Tab>"] = cmp.mapping.select_next_item(),
-					["<S-Tab>"] = cmp.mapping.select_prev_item(),
+					["<C-b>"] = cmp.mapping.scroll_docs(-4), -- Scroll documentation
+					["<C-f>"] = cmp.mapping.scroll_docs(4), -- Scroll documentation
+					["<C-Space>"] = cmp.mapping.complete(), -- Trigger completion
+					["<C-e>"] = cmp.mapping.close(), -- Close completion menu
+					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Confirm selection
+					["<Tab>"] = cmp.mapping.select_next_item(), -- Select next item
+					["<S-Tab>"] = cmp.mapping.select_prev_item(), -- Select previous item
 				}),
 				sources = {
-					{ name = "nvim_lsp" }, -- LSP for types and paths
-					{ name = "buffer" }, -- Buffer recommendations
-					{ name = "path" }, -- Filesystem paths
-					{ name = "luasnip" }, -- Snippets
+					{ name = "nvim_lsp" }, -- LSP completion source
+					{ name = "luasnip" }, -- Snippet source
+					{ name = "path" }, -- Path completion source
+					{ name = "buffer" }, -- Buffer completion source
 				},
-				formatting = {
-					fields = { "kind", "abbr", "menu" }, -- Add "menu" for path details
-					format = function(entry, vim_item)
-						vim_item.menu = entry:get_completion_item().detail or vim_item.kind
-						return vim_item
-					end,
-				},
+
 				completion = {
 					completeopt = "menu,menuone,noinsert",
-					keyword_length = 2,
+					keyword_length = 1, -- Start completion after typing 1 character
+					max_item_count = 15, -- Limit the number of items in the completion menu
 				},
 			})
 		end,
