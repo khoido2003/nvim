@@ -3,49 +3,43 @@ return {
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
 		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-buffer",
-			"saadparwaiz1/cmp_luasnip",
-			"L3MON4D3/LuaSnip",
-			"rafamadriz/friendly-snippets",
-			"onsails/lspkind.nvim",
+			"hrsh7th/cmp-nvim-lsp", -- LSP completions with path info
+			"hrsh7th/cmp-buffer", -- Buffer completions
+			"hrsh7th/cmp-path", -- Path completions (filesystem)
+			"L3MON4D3/LuaSnip", -- Snippet engine
+			"saadparwaiz1/cmp_luasnip", -- Bridge between cmp and LuaSnip
 		},
 		config = function()
 			local cmp = require("cmp")
-			local lspkind = require("lspkind")
-
 			cmp.setup({
 				snippet = {
 					expand = function(args)
-						require("luasnip").lsp_expand(args.body) -- Expand snippets using LuaSnip
+						require("luasnip").lsp_expand(args.body)
 					end,
 				},
 				mapping = cmp.mapping.preset.insert({
-					["<C-b>"] = cmp.mapping.scroll_docs(-4), -- Scroll documentation
-					["<C-f>"] = cmp.mapping.scroll_docs(4), -- Scroll documentation
-					["<C-Space>"] = cmp.mapping.complete(), -- Trigger completion
-					["<C-e>"] = cmp.mapping.close(), -- Close completion menu
-					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Confirm selection
-					["<Tab>"] = cmp.mapping.select_next_item(), -- Select next item
-					["<S-Tab>"] = cmp.mapping.select_prev_item(), -- Select previous item
+					["<C-Space>"] = cmp.mapping.complete(),
+					["<C-e>"] = cmp.mapping.close(),
+					["<CR>"] = cmp.mapping.confirm({ select = true }),
+					["<Tab>"] = cmp.mapping.select_next_item(),
+					["<S-Tab>"] = cmp.mapping.select_prev_item(),
 				}),
 				sources = {
-					{ name = "nvim_lsp" }, -- LSP completion source
-					{ name = "luasnip" }, -- Snippet source
-					{ name = "path" }, -- Path completion source
-					{ name = "buffer" }, -- Buffer completion source
+					{ name = "nvim_lsp" }, -- LSP for types and paths
+					{ name = "buffer" }, -- Buffer recommendations
+					{ name = "path" }, -- Filesystem paths
+					{ name = "luasnip" }, -- Snippets
 				},
 				formatting = {
-					format = lspkind.cmp_format({
-						with_text = true,
-						maxwidth = 50,
-					}),
+					fields = { "kind", "abbr", "menu" }, -- Add "menu" for path details
+					format = function(entry, vim_item)
+						vim_item.menu = entry:get_completion_item().detail or vim_item.kind
+						return vim_item
+					end,
 				},
 				completion = {
 					completeopt = "menu,menuone,noinsert",
-					keyword_length = 1, -- Start completion after typing 1 character
-					max_item_count = 20, -- Limit the number of items in the completion menu
+					keyword_length = 2,
 				},
 			})
 		end,

@@ -1,6 +1,4 @@
 return {
-
-	{ "onsails/lspkind.nvim", lazy = true },
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
@@ -89,6 +87,11 @@ return {
 					settings = {
 						["rust-analyzer"] = {
 							cargo = { features = "default" },
+							checkOnSave = { command = "clippy" },
+							diagnostics = {
+								enable = true,
+								experimental = { enable = true },
+							},
 						},
 					},
 				},
