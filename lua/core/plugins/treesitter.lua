@@ -15,7 +15,7 @@ return {
 					-- "cpp",
 					-- "c",
 					-- "zig",
-					-- "rust",
+					"rust",
 					-- "dockerfile",
 					-- "proto",
 					-- "yaml",
@@ -32,20 +32,24 @@ return {
 					-- "toml",
 					-- "gdscript",
 				},
-				auto_install = false, -- Automatically install missing parsers,
+				auto_install = true, -- Automatically install missing parsers,
 				-- Sync installation (installs parsers synchronously)
-				sync_install = false,
+				sync_install = true,
 
 				-- Add modules explicitly
 				modules = {},
 				-- Ignore installing specific parsers
 				ignore_install = {},
-				highlight = { enable = true, additional_vim_regex_highlighting = false, debounce = 100 },
+				highlight = {
+					enable = true, -- Enable syntax highlighting
+					additional_vim_regex_highlighting = false,
+				},
 				indent = {
-					enable = false, -- Enable Tree-sitter indentation
+					enable = true, -- Enable Tree-sitter indentation
 				},
 			})
 
+			-- USING ZIG AS COMPILER FOR TREESITTER
 			require("nvim-treesitter.install").compilers = { "zig" }
 		end,
 		dependencies = {

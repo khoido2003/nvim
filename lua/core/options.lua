@@ -68,5 +68,3 @@ for _, sign in ipairs(signs) do
 		texthl = "Diagnostic" .. sign.name,
 	})
 end
-
-

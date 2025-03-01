@@ -1,10 +1,9 @@
 return {
 
 	{ "onsails/lspkind.nvim", lazy = true },
-
 	{
 		"neovim/nvim-lspconfig",
-		event = "BufReadPre",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = { "hrsh7th/cmp-nvim-lsp" },
 		config = function()
 			local lspconfig = require("lspconfig")
@@ -54,9 +53,9 @@ return {
 						},
 					},
 				},
-				clangd = {},
-				dockerls = {},
-				yamlls = {},
+				-- clangd = {},
+				-- dockerls = {},
+				-- yamlls = {},
 				gopls = {
 					settings = {
 						gopls = {
@@ -82,10 +81,10 @@ return {
 						"svelte",
 					},
 				},
-				omnisharp = {},
-				jdtls = {
-					root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
-				},
+				-- omnisharp = {},
+				-- jdtls = {
+				-- 	root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
+				-- },
 				rust_analyzer = {
 					settings = {
 						["rust-analyzer"] = {
@@ -95,65 +94,11 @@ return {
 				},
 				gdscript = vim.fn.has("win32") == 1 and { cmd = { "ncat", "localhost", "6005" } } or {},
 			}
-
-			local filetype_to_server = {
-				lua = "lua_ls",
-				typescript = "ts_ls",
-				javascript = "ts_ls",
-				python = "pyright",
-				c = "clangd",
-				cpp = "clangd",
-				dockerfile = "dockerls",
-				yaml = "yamlls",
-				go = "gopls",
-				html = "html",
-				css = "cssls",
-				scss = "tailwindcss",
-				javascriptreact = "ts_ls",
-				typescriptreact = "ts_ls",
-				cs = "omnisharp",
-				java = "jdtls",
-				gdscript = "gdscript",
-				rust = "rust_analyzer",
-			}
-
-			vim.api.nvim_create_autocmd("BufReadPre", {
-				pattern = {
-					"*.lua",
-					"*.ts",
-					"*.js",
-					"*.py",
-					"*.c",
-					"*.cpp",
-					"*.dockerfile",
-					"*.yaml",
-					"*.go",
-					"*.html",
-					"*.css",
-					"*.scss",
-					"*.jsx",
-					"*.tsx",
-					"*.cs",
-					"*.java",
-					"*.gd",
-					"*.rs",
-				},
-				callback = function(ev)
-					vim.cmd("filetype detect")
-					local ft = vim.bo[ev.buf].filetype
-					local server = filetype_to_server[ft]
-					if server and servers[server] and not lspconfig[server].manager then
-						local config = servers[server]
-						if server ~= "gdscript" or (server == "gdscript" and vim.fn.executable("ncat") == 1) then
-							config.on_attach = on_attach
-							config.capabilities = capabilities
-							lspconfig[server].setup(config)
-						elseif server == "gdscript" then
-							print("Warning: gdscript not setup - ncat missing (install via 'winget install nmap')")
-						end
-					end
-				end,
-			})
+			for server, config in pairs(servers) do
+				config.on_attach = on_attach
+				config.capabilities = capabilities
+				lspconfig[server].setup(config)
+			end
 		end,
 	},
 }

@@ -22,11 +22,10 @@ vim.g.maplocalleader = " "
 vim.opt.termguicolors = true
 vim.opt.fileencoding = "utf-8"
 vim.opt.encoding = "utf-8"
-vim.opt.swapfile = false -- Reduce I/O
-vim.opt.updatetime = 500
+vim.opt.swapfile = false
+vim.opt.updatetime = 250
 vim.opt.redrawtime = 1500
 
--- Defer all non-critical setup
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
 		pcall(require, "core.options")
@@ -41,27 +40,21 @@ require("lazy").setup("core.configs", {
 			disabled_plugins = { "netrw", "netrwPlugin", "tohtml", "tutor" },
 		},
 	},
-	defaults = {
-		lazy = true,
-	},
 })
 
 -- Large file optimizations
 vim.api.nvim_create_autocmd("BufEnter", {
 	callback = function()
 		local lines = vim.fn.line("$")
-		if lines > 10000 then
-			vim.b.miniindentscope_disable = true -- Unchanged
-			vim.opt_local.syntax = "off" -- Disable Vim syntax (Treesitter still works)
-			vim.opt_local.foldmethod = "manual" -- Avoid costly folding
-			vim.opt_local.swapfile = false -- No swap for big files
-			vim.opt_local.undofile = false -- No undo file
-			-- Optional: disable Treesitter/LSP for huge files
-			-- vim.cmd("TSBufDisable highlight")
-			-- vim.lsp.buf_detach_client(0, vim.lsp.get_active_clients()[1].id)
+		if lines > 15000 then
+			vim.opt_local.syntax = "off"
+			vim.opt_local.foldmethod = "manual"
+			vim.opt_local.swapfile = false
+			vim.opt_local.undofile = false
 		end
 	end,
 })
+
 -- Enable cursorline only in active buffer
 vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
 	callback = function()

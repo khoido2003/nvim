@@ -1,7 +1,7 @@
 return {
 	"polirritmico/monokai-nightasty.nvim",
 	lazy = true,
-	event = "UIEnter",
+	event = "VimEnter",
 	priority = 1000,
 	config = function()
 		require("monokai-nightasty").setup({
