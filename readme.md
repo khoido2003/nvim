@@ -1,36 +1,105 @@
-# Neovim Configuration
+# Welcome to My Neovim Setup!
 
-## How to use this repo (Guide for Window user)
-Install
-bash
-```
+This is a **super fast** Neovim configuration that starts up in **50 ms or less**! It’s designed to be simple yet powerful, with a cool **Monokai** colorscheme to make coding look great.
+
+---
+
+## Get Started in One Step
+
+To try it out, just run this command in your terminal:
+
+```bash
 git clone https://github.com/khoido2003/.nvim ~/.config/nvim && nvim
 ```
 
-If using Wezterm terminal, paste the wezterm folder to .config folder
-bash
-```
-C:\Users\<Username>\.config
-```
+## What's this all about
+- Speed: Starts up blazingly fast (≤50 ms).
+- Look: Uses the Monokai theme for a sleek, modern vibe. (https://github.com/polirritmico/monokai-nightasty.nvim)
+- Tools: Manages plugins with LazyVim and LSP servers with Mason.nvim.
+- Keybindings: Easy-to-use shortcuts for editing, navigation, and more (check them out below!).
 
-If using Alacritty terminal, paste the alacritty folder to
-```
-C:\Users\<Username>\AppData\ 
-```
+## Keymappings
 
-## Overview
+This configuration includes ergonomic keybindings for navigation, editing, and Git/LSP workflows. Below is a summary:
 
-This configuration will make Neonvim become a full-fledged IDE like VS Code
+### Window Navigation
+| Key         | Action             |
+|-------------|--------------------|
+| `Ctrl + h`  | Move to left pane  |
+| `Ctrl + j`  | Move to down pane  |
+| `Ctrl + k`  | Move to up pane    |
+| `Ctrl + l`  | Move to right pane |
 
-Theme: Monokai NighTasty (https://github.com/polirritmico/monokai-nightasty.nvim) 
+### Editing
+| Key         | Action                |
+|-------------|-----------------------|
+| `Ctrl + s`  | Save file             |
+| `Ctrl + z`  | Undo                  |
+| `Ctrl + c`  | Copy to clipboard     |
+| `Ctrl + v`  | Paste from clipboard  |
+| `Ctrl + a`  | Select all text       |
+| `Del`       | Delete (visual mode)  |
+| `Alt + j`   | Move line down        |
+| `Alt + k`   | Move line up          |
+| `Ctrl + /`  | Toggle comment        |
 
-Mason Support: C/C++, C#, JS/TS, Go, Rust, Java, HTML/CSS, Python,yaml, Dockerfile
+### Search and Navigation
+| Key         | Action                     |
+|-------------|----------------------------|
+| `Leader + f` | Start search              |
+| `Leader + ff`| Find files (Telescope)    |
+| `Alt + f`   | Live grep (Telescope)     |
+| `Alt + Shift + f` | Fuzzy find in buffer |
+| `Tab`       | Next buffer               |
+| `Shift + Tab` | Previous buffer         |
+| `Up`/`Down` | Navigate wrapped lines    |
+| `Enter`     | Select current line       |
 
-## Tools
+### File Explorer
+| Key         | Action                |
+|-------------|-----------------------|
+| `Leader + e`| Toggle NvimTree       |
 
-This Neovim configuration will use LazyVim to manage all Neovim plugins and Mason to control the LSP server
+### LSP (Language Server Protocol)
+| Key         | Action                  |
+|-------------|-------------------------|
+| `Leader + gd`| Go to definition       |
+| `Leader + gr`| Go to references       |
+| `Leader + gt`| Go to type definition  |
+| `Leader + rn`| Rename symbol          |
+| `Leader + k` | Hover documentation    |
+| `Leader + sh`| Signature help         |
+| `Leader + ca`| Code action            |
+| `Leader + d` | Show diagnostics (float)|
 
-## Prerequesites
+### Git (via Gitsigns)
+| Key         | Action                  |
+|-------------|-------------------------|
+| `Leader + nh`| Next hunk              |
+| `Leader + ph`| Previous hunk          |
+| `Leader + rh`| Reset hunk             |
+| `Leader + rb`| Reset buffer           |
+| `Leader + df`| Show diff              |
+| `Leader + bl`| Blame line             |
+| `Leader + gs`| Toggle Git signs       |
+
+### Diffview
+| Key         | Action                  |
+|-------------|-------------------------|
+| `Leader + do`| Open Diffview          |
+| `Leader + dc`| Close Diffview         |
+| `Leader + dr`| Refresh Diffview       |
+| `Leader + dh`| File history (all)     |
+| `Leader + dhf`| File history (current)|
+
+### Terminal
+| Key         | Action                  |
+|-------------|-------------------------|
+| `Ctrl + t`  | Toggle terminal         |
+
+
+
+## Prequesites
 
 - Autoformat code with Conform.nvim: https://github.com/stevearc/conform.nvim
 
@@ -39,26 +108,15 @@ This Neovim configuration will use LazyVim to manage all Neovim plugins and Maso
 
     + For example: JS/TS -> Prettier
 
-- LSP server will be dowload automatically by Mason.nvim
+- LSP server will be dowloaded automatically by Mason.nvim
 
 
-### GUI: Neovide
-
-Written in Rust so it is super fast and have some built in features with icon support
-
-Dowload: https://neovide.dev/
-
-### Using built in terminal
-
-I am currently using Wezterm as my terminal and it is amazing, you should try it
-out
-
+## Nerd font
 Recommend dowload FiraCode for better font and syntax support
 
 Dowload: https://github.com/tonsky/FiraCode
 
-### If using Window, dowload Zig as compiler for Nvim-Tree-sitter since C have some problem when compile
-
+### Dowload Zig as compiler for Nvim-Tree-sitter
 Using chocolatey
 bash
 
@@ -69,7 +127,6 @@ or visit Zig website for more guide: https://ziglang.org/learn/getting-started/#
 
 ### Install Lazygit to use Git in terminal
 
-On Window
 bash
 ```
 choco install lazygit
@@ -78,43 +135,7 @@ choco install lazygit
 ![img](images/7.png)
 
 
-### Add diff to global varibles(Require to use proto format)
-
-Add this to the edit global varible
-bash
-```
-C:\Program Files\Git\usr\bin
-```
-### LSP for Rust
-
-Step 1: Dowload MinGW-w64 and add it to the global path
-Step 2: Configure Rust to use MinGW 
-bash 
-```
-rustup install stable-x86_64-pc-windows-gnu
-
-rustup default stable-x86_64-pc-windows-gnu
-
-rustc --version --verbose
-
-```
-
-Step 3: Dowload rust-analyzer for the LSP
-bash
-```
-rustup component add rust-analyzer
-```
-
-NOTE: Default Rust will use MSVC instead of MinGW-w64 so in order to use that
-you have to install Visual Studio Installer and install MSVC from there
-
-### Install buf for proto file format
-bash
-```
-scoop install buf
-```
-
-### Win32Yank: Only on Window
+### Win32Yank(Window)
 
 This is important to enable copy and paste inside Neovim since it does not support it
 Dowload: https://github.com/equalsraf/win32yank/releases
@@ -122,15 +143,16 @@ Dowload: https://github.com/equalsraf/win32yank/releases
 
 ## Requirements
 
-Neovim >= 0.9.0 (needs to be built with LuaJIT)
+- Neovim >= 0.10.0 
 
-Git >= 2.19.0 (for partial clones support)
+- Git >= 2.19.0 
 
-a Nerd Font(v3.0 or greater) (optional, but needed to display some icons)
+- Nerd Font(v3.0 or greater) (optional, but needed to display some icons)
 
-lazygit (optional)
+- lazygit (optional)
 
 ## Results
+
 ![img](images/0.jpg)
 
 ![img](images/1.png)
