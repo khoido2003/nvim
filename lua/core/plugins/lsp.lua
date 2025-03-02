@@ -8,6 +8,34 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+			-- LSP diagnostics
+			vim.diagnostic.config({
+				virtual_text = {
+					prefix = "●",
+					spacing = 2,
+					source = "if_many", -- Only show if multiple diagnostics, reduces clutter
+					update_in_insert = false, -- Unchanged, avoids insert-mode redraws
+				},
+				signs = true,
+				underline = true,
+				update_in_insert = false,
+				float = { border = "rounded" }, -- Optional: cleaner popup look
+			})
+
+			-- Diagnostic signs (unchanged, lightweight)
+			local signs = {
+				{ name = "Error", text = "E" },
+				{ name = "Warn", text = "W" },
+				{ name = "Hint", text = "H" },
+				{ name = "Info", text = "I" },
+			}
+			for _, sign in ipairs(signs) do
+				vim.fn.sign_define("DiagnosticSign" .. sign.name, {
+					text = sign.text,
+					texthl = "Diagnostic" .. sign.name,
+				})
+			end
+
 			local on_attach = function(client, bufnr)
 				client.server_capabilities.documentFormattingProvider = false
 				client.server_capabilities.documentRangeFormattingProvider = false
@@ -41,16 +69,18 @@ return {
 					},
 				},
 				ts_ls = { init_options = { maxTsServerMemory = 3072 } },
-				pyright = {
-					settings = {
-						python = {
-							analysis = {
-								typeCheckingMode = "basic",
-								autoSearchPaths = true,
-							},
-						},
-					},
-				},
+
+				-- pyright = {
+				-- 	settings = {
+				-- 		python = {
+				-- 			analysis = {
+				-- 				typeCheckingMode = "basic",
+				-- 				autoSearchPaths = true,
+				-- 			},
+				-- 		},
+				-- 	},
+				-- },
+				--
 				-- clangd = {},
 				-- dockerls = {},
 				-- yamlls = {},

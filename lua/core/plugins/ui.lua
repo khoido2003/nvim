@@ -3,6 +3,14 @@ return {
 		"HiPhish/rainbow-delimiters.nvim",
 		lazy = true,
 		event = "BufReadPost",
+		config = function()
+			vim.api.nvim_set_hl(0, "RainbowDelimiterRed", { fg = "#f92672" })
+			vim.api.nvim_set_hl(0, "RainbowDelimiterOrange", { fg = "#ff9955" })
+			vim.api.nvim_set_hl(0, "RainbowDelimiterYellow", { fg = "#ffd700" })
+			vim.api.nvim_set_hl(0, "RainbowDelimiterGreen", { fg = "#c3e88d" })
+			vim.api.nvim_set_hl(0, "RainbowDelimiterBlue", { fg = "#179fff" })
+			vim.api.nvim_set_hl(0, "RainbowDelimiterViolet", { fg = "#da70d6" })
+		end,
 	},
 	{
 		"akinsho/toggleterm.nvim",

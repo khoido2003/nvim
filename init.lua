@@ -1,6 +1,14 @@
--- Minimal immediate setup
 vim.loader.enable()
 vim.opt.shada = ""
+
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+vim.opt.termguicolors = true
+vim.opt.fileencoding = "utf-8"
+vim.opt.encoding = "utf-8"
+vim.opt.swapfile = false
+vim.opt.updatetime = 250
+vim.opt.redrawtime = 1500
 
 -- init.lua
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -10,21 +18,11 @@ if not vim.loop.fs_stat(lazypath) then
 		"clone",
 		"--filter=blob:none",
 		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
+		"--branch=stable",
 		lazypath,
 	})
 end
 vim.opt.rtp:prepend(lazypath)
-
--- Core settings (minimal)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-vim.opt.termguicolors = true
-vim.opt.fileencoding = "utf-8"
-vim.opt.encoding = "utf-8"
-vim.opt.swapfile = false
-vim.opt.updatetime = 250
-vim.opt.redrawtime = 1500
 
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
