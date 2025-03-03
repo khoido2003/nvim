@@ -11,13 +11,11 @@ return {
 			local function custom_active()
 				-- Default sections
 				local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
-				local git = MiniStatusline.section_git({ trunc_width = 75 })
-				local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+				local git = MiniStatusline.section_git({ trunc_width = 50 })
+				local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 40 })
 				local diff = MiniStatusline.section_diff({ trunc_width = 75 })
-				local lsp = MiniStatusline.section_lsp({ trunc_width = 75 })
-				local searchcount = MiniStatusline.section_searchcount({ trunc_width = 75 })
+				local lsp = MiniStatusline.section_lsp({ trunc_width = 40 })
 
-				-- Custom location: show only line info (no column)
 				local line_num = vim.api.nvim_win_get_cursor(0)[1] -- Current line number
 				local total_lines = vim.api.nvim_buf_line_count(0) -- Total lines
 				local location = string.format("%d|%d", line_num, total_lines)
@@ -38,7 +36,7 @@ return {
 					"%=", -- Right-align
 
 					{ hl = "MiniStatuslineDevinfo", strings = { lsp } }, -- LSP info
-					{ hl = mode_hl, strings = { searchcount, location } },
+					{ hl = mode_hl, strings = { location } },
 				})
 			end
 

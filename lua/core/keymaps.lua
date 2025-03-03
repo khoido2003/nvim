@@ -13,29 +13,11 @@ vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
 -- Search for files with Telescope
 vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", { silent = true })
 
--- LSP Mappings
-local lsp_mappings = {
-	{ "<leader>gd", "vim.lsp.buf.definition()" },
-	{ "<leader>k", "vim.lsp.buf.hover()" },
-	{ "<leader>rn", "vim.lsp.buf.rename()" },
-	{ "<leader>gr", "vim.lsp.buf.references()" },
-	{ "<leader>gt", "vim.lsp.buf.type_definition()" },
-	{ "<leader>sh", "vim.lsp.buf.signature_help()" },
-	{ "<leader>ca", "vim.lsp.buf.code_action()" },
-}
-
-for _, mapping in ipairs(lsp_mappings) do
-	vim.keymap.set("n", mapping[1], "<Cmd>lua " .. mapping[2] .. "<CR>", { noremap = true, silent = true })
-end
-
--- Keybinding to open diagnostics in a floating window
-vim.api.nvim_set_keymap("n", "<Leader>d", ":lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true })
-
 -- Telescope Mappings
 vim.keymap.set("n", "<A-f>", ":Telescope live_grep_args<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<A-F>", ":Telescope current_buffer_fuzzy_find<CR>", { noremap = true, silent = true })
 
--- VS Code-style shortcuts
+-- Copy/paste
 vim.keymap.set("n", "<C-c>", '"+y', { noremap = true, silent = true }) -- Copy
 vim.keymap.set("v", "<C-c>", '"+y', { noremap = true, silent = true }) -- Copy in visual mode
 vim.keymap.set("n", "<C-v>", '"+p', { noremap = true, silent = true }) -- Paste
@@ -103,22 +85,7 @@ vim.keymap.set("n", "<CR>", "V", { noremap = true, silent = true })
 -- Custom keybinding to create a new terminal easily
 vim.api.nvim_set_keymap("n", "<C-t>", ":ToggleTerm<CR>", { noremap = true, silent = true })
 
--- ////////////////////////////////////////////////////////////////////////////////////////////////////
-
 -- Git diff view keymap
--- Undo changes in the working tree type :e!
-
---       { "n", "<leader>co",  actions.conflict_choose("ours"),        { desc = "Choose the OURS version of a conflict" } },
---       { "n", "<leader>ct",  actions.conflict_choose("theirs"),      { desc = "Choose the THEIRS version of a conflict" } },
---       { "n", "<leader>cb",  actions.conflict_choose("base"),        { desc = "Choose the BASE version of a conflict" } },
---       { "n", "<leader>ca",  actions.conflict_choose("all"),         { desc = "Choose all the versions of a conflict" } },
---       { "n", "dx",          actions.conflict_choose("none"),        { desc = "Delete the conflict region" } },
---       { "n", "<leader>cO",  actions.conflict_choose_all("ours"),    { desc = "Choose the OURS version of a conflict for the whole file" } },
---       { "n", "<leader>cT",  actions.conflict_choose_all("theirs"),  { desc = "Choose the THEIRS version of a conflict for the whole file" } },
---       { "n", "<leader>cB",  actions.conflict_choose_all("base"),    { desc = "Choose the BASE version of a conflict for the whole file" } },
---       { "n", "<leader>cA",  actions.conflict_choose_all("all"),     { desc = "Choose all the versions of a conflict for the whole file" } },
---       { "n", "dX",          actions.conflict_choose_all("none"),    { desc = "Delete the conflict region for the whole file" } },
-
 local opts = { noremap = true, silent = true }
 
 -- Open Diffview to review changes
@@ -135,3 +102,16 @@ vim.api.nvim_set_keymap("n", "<leader>dh", ":DiffviewFileHistory<CR>", opts)
 
 -- Open File History for current file
 vim.api.nvim_set_keymap("n", "<leader>dhf", ":DiffviewFileHistory %<CR>", opts)
+
+-- Undo changes in the working tree type :e!
+
+--       { "n", "<leader>co",  actions.conflict_choose("ours"),        { desc = "Choose the OURS version of a conflict" } },
+--       { "n", "<leader>ct",  actions.conflict_choose("theirs"),      { desc = "Choose the THEIRS version of a conflict" } },
+--       { "n", "<leader>cb",  actions.conflict_choose("base"),        { desc = "Choose the BASE version of a conflict" } },
+--       { "n", "<leader>ca",  actions.conflict_choose("all"),         { desc = "Choose all the versions of a conflict" } },
+--       { "n", "dx",          actions.conflict_choose("none"),        { desc = "Delete the conflict region" } },
+--       { "n", "<leader>cO",  actions.conflict_choose_all("ours"),    { desc = "Choose the OURS version of a conflict for the whole file" } },
+--       { "n", "<leader>cT",  actions.conflict_choose_all("theirs"),  { desc = "Choose the THEIRS version of a conflict for the whole file" } },
+--       { "n", "<leader>cB",  actions.conflict_choose_all("base"),    { desc = "Choose the BASE version of a conflict for the whole file" } },
+--       { "n", "<leader>cA",  actions.conflict_choose_all("all"),     { desc = "Choose all the versions of a conflict for the whole file" } },
+--       { "n", "dX",          actions.conflict_choose_all("none"),    { desc = "Delete the conflict region for the whole file" } },

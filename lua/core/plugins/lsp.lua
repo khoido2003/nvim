@@ -36,18 +36,39 @@ return {
 				})
 			end
 
-			local on_attach = function(client, bufnr)
+			local on_attach = function(client, _)
 				client.server_capabilities.documentFormattingProvider = false
 				client.server_capabilities.documentRangeFormattingProvider = false
-				local opts = { noremap = true, silent = true }
-				vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-				vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-				vim.keymap.set("n", "<leader>f", function()
-					require("conform").format({ async = true })
-				end, opts)
-				print("LSP started successfully!")
+
+				-- LSP Mappings
+				local lsp_mappings = {
+					{ "<leader>gd", "vim.lsp.buf.definition()" },
+					{ "<leader>k", "vim.lsp.buf.hover()" },
+					{ "<leader>rn", "vim.lsp.buf.rename()" },
+					{ "<leader>gr", "vim.lsp.buf.references()" },
+					{ "<leader>gt", "vim.lsp.buf.type_definition()" },
+					{ "<leader>sh", "vim.lsp.buf.signature_help()" },
+					{ "<leader>ca", "vim.lsp.buf.code_action()" },
+				}
+
+				for _, mapping in ipairs(lsp_mappings) do
+					vim.keymap.set(
+						"n",
+						mapping[1],
+						"<Cmd>lua " .. mapping[2] .. "<CR>",
+						{ noremap = true, silent = true }
+					)
+				end
+
+				-- Keybinding to open diagnostics in a floating window
+				vim.api.nvim_set_keymap(
+					"n",
+					"<Leader>d",
+					":lua vim.diagnostic.open_float()<CR>",
+					{ noremap = true, silent = true }
+				)
+
+				print("LSP server '" .. client.name .. "' started successfully!")
 			end
 
 			local servers = {
