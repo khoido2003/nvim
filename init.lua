@@ -35,7 +35,16 @@ require("lazy").setup("core.configs", {
 	performance = {
 		cache = { enabled = true },
 		rtp = {
-			disabled_plugins = { "netrw", "netrwPlugin", "tohtml", "tutor" },
+			disabled_plugins = {
+				"netrw",
+				"netrwPlugin",
+				"tohtml",
+				"tutor",
+				"gzip",
+				"zipPlugin",
+				"tarPlugin",
+				"matchit",
+			},
 		},
 	},
 })
