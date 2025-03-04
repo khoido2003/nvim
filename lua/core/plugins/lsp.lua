@@ -146,7 +146,11 @@ return {
 						},
 					},
 				},
-				gdscript = vim.fn.has("win32") == 1 and { cmd = { "ncat", "localhost", "6005" } } or {},
+				gdscript = {
+					cmd = vim.fn.has("win32") == 1 and { "ncat", "localhost", "6005" }
+						or { "ncat", "localhost", "6005" },
+					flags = { debounce_text_changes = 200 },
+				},
 			}
 			for server, config in pairs(servers) do
 				config.on_attach = on_attach

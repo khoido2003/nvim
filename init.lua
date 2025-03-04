@@ -7,7 +7,7 @@ vim.opt.termguicolors = true
 vim.opt.fileencoding = "utf-8"
 vim.opt.encoding = "utf-8"
 vim.opt.swapfile = false
-vim.opt.updatetime = 250
+vim.opt.updatetime = 500
 vim.opt.redrawtime = 1500
 
 -- init.lua
