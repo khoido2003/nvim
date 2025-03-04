@@ -9,7 +9,7 @@ This is a **super fast** Neovim configuration that starts up in **50 ms or less*
 To try it out, just run this command in your terminal:
 
 ```bash
-git clone https://github.com/khoido2003/.nvim ~/.config/nvim && nvim
+git clone https://github.com/khoido2003/neovim_config ~/.config/nvim && nvim
 ```
 
 ## What's this all about
