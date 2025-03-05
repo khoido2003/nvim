@@ -1,6 +1,6 @@
-<a href="https://dotfyle.com/khoido2003/neovimconfig"><img src="https://dotfyle.com/khoido2003/neovimconfig/badges/plugins?style=flat" /></a>
-<a href="https://dotfyle.com/khoido2003/neovimconfig"><img src="https://dotfyle.com/khoido2003/neovimconfig/badges/leaderkey?style=flat" /></a>
-<a href="https://dotfyle.com/khoido2003/neovimconfig"><img src="https://dotfyle.com/khoido2003/neovimconfig/badges/plugin-manager?style=flat" /></a>
+<a href="https://dotfyle.com/khoido2003/neovimconfig"><img src="https://dotfyle.com/khoido2003/neovimconfig/badges/plugins?style=for-the-badge" /></a>
+<a href="https://dotfyle.com/khoido2003/neovimconfig"><img src="https://dotfyle.com/khoido2003/neovimconfig/badges/leaderkey?style=for-the-badge" /></a>
+<a href="https://dotfyle.com/khoido2003/neovimconfig"><img src="https://dotfyle.com/khoido2003/neovimconfig/badges/plugin-manager?style=for-the-badge" /></a>
 
 # Welcome to My Neovim Setup!
 
