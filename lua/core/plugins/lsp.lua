@@ -1,44 +1,42 @@
 return {
 	{
 		"neovim/nvim-lspconfig",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = { "hrsh7th/cmp-nvim-lsp" },
+		event = { "LspAttach" },
+		dependencies = { { "hrsh7th/cmp-nvim-lsp", lazy = true } },
 		config = function()
 			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-			-- LSP diagnostics
-			vim.diagnostic.config({
-				virtual_text = {
-					prefix = "●",
-					spacing = 2,
-					source = "if_many", -- Only show if multiple diagnostics, reduces clutter
-					update_in_insert = false, -- Unchanged, avoids insert-mode redraws
-				},
-				signs = true,
-				underline = true,
-				update_in_insert = false,
-				float = { border = "rounded" }, -- Optional: cleaner popup look
-			})
-
-			-- Diagnostic signs (unchanged, lightweight)
-			local signs = {
-				{ name = "Error", text = "E" },
-				{ name = "Warn", text = "W" },
-				{ name = "Hint", text = "H" },
-				{ name = "Info", text = "I" },
-			}
-			for _, sign in ipairs(signs) do
-				vim.fn.sign_define("DiagnosticSign" .. sign.name, {
-					text = sign.text,
-					texthl = "Diagnostic" .. sign.name,
-				})
-			end
-
 			local on_attach = function(client, _)
 				client.server_capabilities.documentFormattingProvider = false
 				client.server_capabilities.documentRangeFormattingProvider = false
+
+				-- LSP diagnostics
+				vim.diagnostic.config({
+					virtual_text = {
+						prefix = "󰊠 ",
+						source = "if_many",
+						update_in_insert = false,
+					},
+					signs = true,
+					underline = true,
+					update_in_insert = false,
+				})
+
+				-- Diagnostic signs (unchanged, lightweight)
+				local signs = {
+					{ name = "Error", text = "E" },
+					{ name = "Warn", text = "W" },
+					{ name = "Hint", text = "H" },
+					{ name = "Info", text = "I" },
+				}
+				for _, sign in ipairs(signs) do
+					vim.fn.sign_define("DiagnosticSign" .. sign.name, {
+						text = sign.text,
+						texthl = "Diagnostic" .. sign.name,
+					})
+				end
 
 				-- LSP Mappings
 				local lsp_mappings = {

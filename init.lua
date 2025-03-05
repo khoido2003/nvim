@@ -10,6 +10,11 @@ vim.opt.swapfile = false
 vim.opt.updatetime = 500
 vim.opt.redrawtime = 1500
 
+vim.g.loaded_matchparen = 1
+vim.g.loaded_rplugin = 1
+vim.g.loaded_shada = 1
+vim.g.loaded_spellfile = 1
+
 -- init.lua
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

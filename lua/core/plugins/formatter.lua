@@ -2,6 +2,7 @@ return {
 	{
 		"stevearc/conform.nvim",
 		event = "BufWritePre",
+		lazy = true,
 		config = function()
 			-- Formatter setup
 			require("conform").setup({

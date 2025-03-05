@@ -15,6 +15,7 @@ return {
 	{
 		"akinsho/toggleterm.nvim",
 		version = "*",
+		lazy = true,
 		keys = { "<c-\\>", "<C-t>" },
 		config = function()
 			require("toggleterm").setup({
@@ -31,6 +32,7 @@ return {
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
+		lazy = true,
 		config = function()
 			require("nvim-autopairs").setup({ check_ts = true })
 		end,
@@ -38,6 +40,7 @@ return {
 	{
 		"norcalli/nvim-colorizer.lua",
 		event = "BufReadPost",
+		lazy = true,
 		config = function()
 			require("colorizer").setup()
 		end,
@@ -55,5 +58,6 @@ return {
 	{
 		"mg979/vim-visual-multi",
 		event = "BufReadPost",
+		lazy = true,
 	},
 }

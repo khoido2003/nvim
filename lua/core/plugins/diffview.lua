@@ -2,15 +2,17 @@ return {
 
 	{
 		"sindrets/diffview.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = { { "nvim-lua/plenary.nvim", lazy = true } },
 		cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+		lazy = true,
 		config = function()
 			require("diffview").setup()
 		end,
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-		event = "VeryLazy", -- Even better than BufReadPost
+		event = "VeryLazy",
+		lazy = true,
 		config = function()
 			require("gitsigns").setup({
 				signs = {
