@@ -1,15 +1,27 @@
+<a href="https://dotfyle.com/khoido2003/neovimconfig"><img src="https://dotfyle.com/khoido2003/neovimconfig/badges/plugins?style=flat" /></a>
+<a href="https://dotfyle.com/khoido2003/neovimconfig"><img src="https://dotfyle.com/khoido2003/neovimconfig/badges/leaderkey?style=flat" /></a>
+<a href="https://dotfyle.com/khoido2003/neovimconfig"><img src="https://dotfyle.com/khoido2003/neovimconfig/badges/plugin-manager?style=flat" /></a>
+
 # Welcome to My Neovim Setup!
 
 This is a **super fast** Neovim configuration that starts up in **50 ms or less**! It’s designed to be simple yet powerful, with a cool **Monokai** colorscheme to make coding look great.
 
 ---
 
-## Get Started in One Step
+## Install Instructions
 
-To try it out, just run this command in your terminal:
+ > Install requires Neovim 0.10+. Always review the code before installing a configuration.
 
-```bash
-git clone https://github.com/khoido2003/neovim_config ~/.config/nvim && nvim
+Clone the repository and install the plugins:
+
+```sh
+git clone git@github.com:khoido2003/neovim_config ~/.config/khoido2003/neovim_config
+```
+
+Open Neovim with this config:
+
+```sh
+NVIM_APPNAME=khoido2003/neovim_config/ nvim
 ```
 
 ## What's this all about
@@ -17,6 +29,77 @@ git clone https://github.com/khoido2003/neovim_config ~/.config/nvim && nvim
 - Look: Uses the Monokai theme for a sleek, modern vibe. (https://github.com/polirritmico/monokai-nightasty.nvim)
 - Tools: Manages plugins with LazyVim and LSP servers with Mason.nvim.
 - Keybindings: Easy-to-use shortcuts for editing, navigation, and more (check them out below!).
+
+
+## Plugins
+
+### colorscheme
+
++ [polirritmico/monokai-nightasty.nvim](https://dotfyle.com/plugins/polirritmico/monokai-nightasty.nvim)
+### completion
+
++ [hrsh7th/nvim-cmp](https://dotfyle.com/plugins/hrsh7th/nvim-cmp)
+### editing-support
+
++ [windwp/nvim-autopairs](https://dotfyle.com/plugins/windwp/nvim-autopairs)
++ [windwp/nvim-ts-autotag](https://dotfyle.com/plugins/windwp/nvim-ts-autotag)
++ [HiPhish/rainbow-delimiters.nvim](https://dotfyle.com/plugins/HiPhish/rainbow-delimiters.nvim)
+### file-explorer
+
++ [nvim-tree/nvim-tree.lua](https://dotfyle.com/plugins/nvim-tree/nvim-tree.lua)
+### formatting
+
++ [stevearc/conform.nvim](https://dotfyle.com/plugins/stevearc/conform.nvim)
+### fuzzy-finder
+
++ [nvim-telescope/telescope.nvim](https://dotfyle.com/plugins/nvim-telescope/telescope.nvim)
+### git
+
++ [lewis6991/gitsigns.nvim](https://dotfyle.com/plugins/lewis6991/gitsigns.nvim)
++ [sindrets/diffview.nvim](https://dotfyle.com/plugins/sindrets/diffview.nvim)
+### icon
+
++ [kyazdani42/nvim-web-devicons](https://dotfyle.com/plugins/kyazdani42/nvim-web-devicons)
+### lsp
+
++ [neovim/nvim-lspconfig](https://dotfyle.com/plugins/neovim/nvim-lspconfig)
+### lsp-installer
+
++ [williamboman/mason.nvim](https://dotfyle.com/plugins/williamboman/mason.nvim)
+### nvim-dev
+
++ [nvim-lua/plenary.nvim](https://dotfyle.com/plugins/nvim-lua/plenary.nvim)
+### plugin-manager
+
++ [folke/lazy.nvim](https://dotfyle.com/plugins/folke/lazy.nvim)
+### snippet
+
++ [L3MON4D3/LuaSnip](https://dotfyle.com/plugins/L3MON4D3/LuaSnip)
+### statusline
+
++ [echasnovski/mini.statusline](https://dotfyle.com/plugins/echasnovski/mini.statusline)
+### syntax
+
++ [nvim-treesitter/nvim-treesitter](https://dotfyle.com/plugins/nvim-treesitter/nvim-treesitter)
+### terminal-integration
+
++ [akinsho/toggleterm.nvim](https://dotfyle.com/plugins/akinsho/toggleterm.nvim)
+
+## Language Servers
+
++ clangd
++ cssls
++ gdscript
++ gopls
++ html
++ jdtls
++ lua_ls
++ omnisharp
++ pyright
++ rust_analyzer
++ svelte
++ tailwindcss
++ yamlls
 
 ## Keymappings
 
