@@ -104,15 +104,7 @@ return {
 				-- dockerls = {},
 				-- yamlls = {},
 				gopls = {
-					settings = {
-						gopls = {
-							analyses = {
-								unusedparams = true,
-							},
-							staticcheck = false,
-						},
-					},
-					flags = { debounce_text_changes = 150 },
+					settings = {},
 				},
 				html = {},
 				cssls = {},
