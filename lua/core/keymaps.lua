@@ -18,25 +18,19 @@ vim.keymap.set("n", "<A-f>", ":Telescope live_grep_args<CR>", { noremap = true, 
 vim.keymap.set("n", "<A-F>", ":Telescope current_buffer_fuzzy_find<CR>", { noremap = true, silent = true })
 
 -- Copy/paste
-vim.keymap.set("n", "<C-c>", '"+y', { noremap = true, silent = true }) -- Copy
-vim.keymap.set("v", "<C-c>", '"+y', { noremap = true, silent = true }) -- Copy in visual mode
-vim.keymap.set("n", "<C-v>", '"+p', { noremap = true, silent = true }) -- Paste
-vim.keymap.set("v", "<C-v>", '"+p', { noremap = true, silent = true }) -- Paste in visual mode
-vim.keymap.set("i", "<C-v>", "<C-r>+", { noremap = true, silent = true }) -- Paste in insert mode
-vim.keymap.set("n", "<C-z>", "u", { noremap = true, silent = true }) -- Undo
-vim.keymap.set("i", "<C-z>", "<C-o>u", { noremap = true, silent = true }) -- Undo in insert mode
+vim.keymap.set("n", "<C-c>", '"+y', { noremap = true, silent = true })
+vim.keymap.set("v", "<C-c>", '"+y', { noremap = true, silent = true })
+vim.keymap.set("n", "<C-v>", '"+p', { noremap = true, silent = true })
+vim.keymap.set("v", "<C-v>", '"+p', { noremap = true, silent = true })
+vim.keymap.set("i", "<C-v>", "<C-r>+", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-z>", "u", { noremap = true, silent = true })
+vim.keymap.set("i", "<C-z>", "<C-o>u", { noremap = true, silent = true })
 
 -- Save the current file
 vim.keymap.set("n", "<C-s>", ":w<CR>", { noremap = true, silent = true })
 
--- Delete selected text in Visual Mode
-vim.keymap.set("v", "<Del>", '"_d', { noremap = true, silent = true })
-
 -- Select all text in the file
 vim.keymap.set("n", "<C-a>", "ggVG", { noremap = true, silent = true })
-
--- Start search
-vim.keymap.set("n", "<Leader>f", "/", { noremap = true, silent = false })
 
 -- Buffer navigation
 vim.keymap.set("n", "<Tab>", ":bnext<CR>", { noremap = true, silent = true })
@@ -82,9 +76,6 @@ vim.keymap.set("v", "<Up>", "gk", { noremap = true, silent = true })
 -- Select the current line with Enter
 vim.keymap.set("n", "<CR>", "V", { noremap = true, silent = true })
 
--- Custom keybinding to create a new terminal easily
-vim.api.nvim_set_keymap("n", "<C-t>", ":ToggleTerm<CR>", { noremap = true, silent = true })
-
 -- Git diff view keymap
 local opts = { noremap = true, silent = true }
 
@@ -104,14 +95,3 @@ vim.api.nvim_set_keymap("n", "<leader>dh", ":DiffviewFileHistory<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>dhf", ":DiffviewFileHistory %<CR>", opts)
 
 -- Undo changes in the working tree type :e!
-
---       { "n", "<leader>co",  actions.conflict_choose("ours"),        { desc = "Choose the OURS version of a conflict" } },
---       { "n", "<leader>ct",  actions.conflict_choose("theirs"),      { desc = "Choose the THEIRS version of a conflict" } },
---       { "n", "<leader>cb",  actions.conflict_choose("base"),        { desc = "Choose the BASE version of a conflict" } },
---       { "n", "<leader>ca",  actions.conflict_choose("all"),         { desc = "Choose all the versions of a conflict" } },
---       { "n", "dx",          actions.conflict_choose("none"),        { desc = "Delete the conflict region" } },
---       { "n", "<leader>cO",  actions.conflict_choose_all("ours"),    { desc = "Choose the OURS version of a conflict for the whole file" } },
---       { "n", "<leader>cT",  actions.conflict_choose_all("theirs"),  { desc = "Choose the THEIRS version of a conflict for the whole file" } },
---       { "n", "<leader>cB",  actions.conflict_choose_all("base"),    { desc = "Choose the BASE version of a conflict for the whole file" } },
---       { "n", "<leader>cA",  actions.conflict_choose_all("all"),     { desc = "Choose all the versions of a conflict for the whole file" } },
---       { "n", "dX",          actions.conflict_choose_all("none"),    { desc = "Delete the conflict region for the whole file" } },

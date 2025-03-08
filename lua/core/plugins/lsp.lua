@@ -12,32 +12,6 @@ return {
 				client.server_capabilities.documentFormattingProvider = false
 				client.server_capabilities.documentRangeFormattingProvider = false
 
-				-- LSP diagnostics
-				vim.diagnostic.config({
-					virtual_text = {
-						prefix = "󰊠 ",
-						source = "if_many",
-						update_in_insert = false,
-					},
-					signs = true,
-					underline = true,
-					update_in_insert = false,
-				})
-
-				-- Diagnostic signs (unchanged, lightweight)
-				local signs = {
-					{ name = "Error", text = "E" },
-					{ name = "Warn", text = "W" },
-					{ name = "Hint", text = "H" },
-					{ name = "Info", text = "I" },
-				}
-				for _, sign in ipairs(signs) do
-					vim.fn.sign_define("DiagnosticSign" .. sign.name, {
-						text = sign.text,
-						texthl = "Diagnostic" .. sign.name,
-					})
-				end
-
 				-- LSP Mappings
 				local lsp_mappings = {
 					{ "<leader>gd", "vim.lsp.buf.definition()" },
