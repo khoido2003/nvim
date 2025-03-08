@@ -2,7 +2,7 @@ return {
 	{
 		"williamboman/mason.nvim",
 		event = "VeryLazy",
-		lazy = true,
+		cmd = "Mason",
 		dependencies = { "williamboman/mason-lspconfig.nvim" },
 		config = function()
 			local mason = require("mason")

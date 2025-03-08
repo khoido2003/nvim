@@ -2,7 +2,16 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		event = { "LspAttach" },
-		dependencies = { { "hrsh7th/cmp-nvim-lsp", lazy = true } },
+		dependencies = {
+			{
+				"hrsh7th/cmp-nvim-lsp",
+				lazy = true,
+			},
+			{
+				"Hoffs/omnisharp-extended-lsp.nvim",
+				lazy = true,
+			},
+		},
 		config = function()
 			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -32,7 +41,6 @@ return {
 					)
 				end
 
-				-- Keybinding to open diagnostics in a floating window
 				vim.api.nvim_set_keymap(
 					"n",
 					"<Leader>d",
@@ -61,28 +69,26 @@ return {
 						},
 					},
 				},
-				ts_ls = { init_options = { maxTsServerMemory = 3072 } },
-
-				gopls = {
-					settings = {},
+				ts_ls = {
+					init_options = {
+						maxTsServerMemory = 3072,
+						single_file_support = true,
+					},
 				},
-				-- html = {},
-				-- cssls = {},
-				-- tailwindcss = {
-				-- 	filetypes = {
-				-- 		"html",
-				-- 		"css",
-				-- 		"javascript",
-				-- 		"typescript",
-				-- 		"javascriptreact",
-				-- 		"typescriptreact",
-				-- 		"vue",
-				-- 		"svelte",
-				-- 	},
-				-- },
+				gopls = {
+					settings = {
+						gopls = { staticcheck = true },
+					},
+				},
 				omnisharp = {
 					cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
 					filetypes = { "cs" },
+					handlers = {
+						["textDocument/definition"] = require("omnisharp_extended").definition_handler,
+						["textDocument/typeDefinition"] = require("omnisharp_extended").type_definition_handler,
+						["textDocument/references"] = require("omnisharp_extended").references_handler,
+						["textDocument/implementation"] = require("omnisharp_extended").implementation_handler,
+					},
 					root_dir = function(fname)
 						local root = require("lspconfig.util").root_pattern("*.sln", "*.csproj")(fname)
 						if root then
@@ -131,6 +137,21 @@ return {
 					flags = { debounce_text_changes = 200 },
 				},
 
+				-- html = {},
+				-- cssls = {},
+				-- tailwindcss = {
+				-- 	filetypes = {
+				-- 		"html",
+				-- 		"css",
+				-- 		"javascript",
+				-- 		"typescript",
+				-- 		"javascriptreact",
+				-- 		"typescriptreact",
+				-- 		"vue",
+				-- 		"svelte",
+				-- 	},
+				-- },
+
 				-- jdtls = {
 				-- 	root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
 				-- },
@@ -145,10 +166,8 @@ return {
 				-- 		},
 				-- 	},
 				-- },
-				--
+
 				-- clangd = {},
-				-- dockerls = {},
-				-- yamlls = {},
 			}
 			for server, config in pairs(servers) do
 				config.on_attach = on_attach
