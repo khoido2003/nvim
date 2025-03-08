@@ -63,41 +63,56 @@ return {
 				},
 				ts_ls = { init_options = { maxTsServerMemory = 3072 } },
 
-				-- pyright = {
-				-- 	settings = {
-				-- 		python = {
-				-- 			analysis = {
-				-- 				typeCheckingMode = "basic",
-				-- 				autoSearchPaths = true,
-				-- 			},
-				-- 		},
-				-- 	},
-				-- },
-				--
-				-- clangd = {},
-				-- dockerls = {},
-				-- yamlls = {},
 				gopls = {
 					settings = {},
 				},
-				html = {},
-				cssls = {},
-				tailwindcss = {
-					filetypes = {
-						"html",
-						"css",
-						"javascript",
-						"typescript",
-						"javascriptreact",
-						"typescriptreact",
-						"vue",
-						"svelte",
+				-- html = {},
+				-- cssls = {},
+				-- tailwindcss = {
+				-- 	filetypes = {
+				-- 		"html",
+				-- 		"css",
+				-- 		"javascript",
+				-- 		"typescript",
+				-- 		"javascriptreact",
+				-- 		"typescriptreact",
+				-- 		"vue",
+				-- 		"svelte",
+				-- 	},
+				-- },
+				omnisharp = {
+					cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+					filetypes = { "cs" },
+					root_dir = function(fname)
+						local root = require("lspconfig.util").root_pattern("*.sln", "*.csproj")(fname)
+						if root then
+							print("OmniSharp root detected: " .. root)
+						else
+							print("OmniSharp root not found, falling back to cwd: " .. vim.fn.getcwd())
+							root = vim.fn.getcwd()
+						end
+						return root
+					end,
+					settings = {
+						omnisharp = {
+							useModernNet = true,
+							enableEditorConfigSupport = true,
+							enableMsBuildLoadProjectsOnDemand = true,
+							enableImportCompletion = true,
+							analyzeOpenDocumentsOnly = true,
+							sdkIncludePrereleases = false,
+							maxProjectFileCount = 100,
+						},
+						FormattingOptions = {
+							EnableEditorConfigSupport = true,
+							OrganizeImports = true,
+						},
+						RoslynExtensionsOptions = {
+							EnableAnalyzersSupport = true,
+							EnableImportCompletion = true,
+						},
 					},
 				},
-				-- omnisharp = {},
-				-- jdtls = {
-				-- 	root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
-				-- },
 				rust_analyzer = {
 					settings = {
 						["rust-analyzer"] = {
@@ -115,6 +130,25 @@ return {
 						or { "ncat", "localhost", "6005" },
 					flags = { debounce_text_changes = 200 },
 				},
+
+				-- jdtls = {
+				-- 	root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
+				-- },
+
+				-- pyright = {
+				-- 	settings = {
+				-- 		python = {
+				-- 			analysis = {
+				-- 				typeCheckingMode = "basic",
+				-- 				autoSearchPaths = true,
+				-- 			},
+				-- 		},
+				-- 	},
+				-- },
+				--
+				-- clangd = {},
+				-- dockerls = {},
+				-- yamlls = {},
 			}
 			for server, config in pairs(servers) do
 				config.on_attach = on_attach
