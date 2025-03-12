@@ -91,12 +91,6 @@ return {
 					},
 					root_dir = function(fname)
 						local root = require("lspconfig.util").root_pattern("*.sln", "*.csproj")(fname)
-						if root then
-							print("OmniSharp root detected: " .. root)
-						else
-							print("OmniSharp root not found, falling back to cwd: " .. vim.fn.getcwd())
-							root = vim.fn.getcwd()
-						end
 						return root
 					end,
 					settings = {
@@ -131,43 +125,60 @@ return {
 						},
 					},
 				},
-				gdscript = {
-					cmd = vim.fn.has("win32") == 1 and { "ncat", "localhost", "6005" }
-						or { "ncat", "localhost", "6005" },
-					flags = { debounce_text_changes = 200 },
-				},
-
-				-- html = {},
-				-- cssls = {},
-				-- tailwindcss = {
-				-- 	filetypes = {
-				-- 		"html",
-				-- 		"css",
-				-- 		"javascript",
-				-- 		"typescript",
-				-- 		"javascriptreact",
-				-- 		"typescriptreact",
-				-- 		"vue",
-				-- 		"svelte",
-				-- 	},
+				-- gdscript = {
+				-- 	cmd = vim.fn.has("win32") == 1 and { "ncat", "localhost", "6005" }
+				-- 		or { "ncat", "localhost", "6005" },
+				-- 	flags = { debounce_text_changes = 200 },
 				-- },
+
+				html = {},
+				cssls = {},
+				tailwindcss = {
+					filetypes = {
+						"html",
+						"css",
+						"javascript",
+						"typescript",
+						"javascriptreact",
+						"typescriptreact",
+						"vue",
+						"svelte",
+					},
+				},
 
 				-- jdtls = {
 				-- 	root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
 				-- },
 
-				-- pyright = {
-				-- 	settings = {
-				-- 		python = {
-				-- 			analysis = {
-				-- 				typeCheckingMode = "basic",
-				-- 				autoSearchPaths = true,
-				-- 			},
-				-- 		},
-				-- 	},
-				-- },
+				pyright = {
+					settings = {
+						python = {
+							analysis = {
+								typeCheckingMode = "basic",
+								autoSearchPaths = true,
+							},
+						},
+					},
+				},
 
-				-- clangd = {},
+				clangd = {
+					cmd = {
+						"clangd",
+						"--background-index",
+						"--clang-tidy",
+						"--completion-style=detailed",
+						"--header-insertion=never",
+					},
+					init_options = {
+						clangdFileStatus = true,
+					},
+					settings = {
+						clangd = {
+							checkUpdates = true,
+							fallbackFlags = { "-std=c++20" },
+						},
+					},
+				},
 			}
 			for server, config in pairs(servers) do
 				config.on_attach = on_attach
