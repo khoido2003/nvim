@@ -48,7 +48,7 @@ return {
 					{ noremap = true, silent = true }
 				)
 
-				print("LSP server '" .. client.name .. "' started successfully!")
+				-- print("LSP server '" .. client.name .. "' started successfully!")
 			end
 
 			local servers = {
@@ -131,6 +131,10 @@ return {
 				-- 	flags = { debounce_text_changes = 200 },
 				-- },
 
+				svelte = {
+					cmd = { "svelteserver", "--stdio" },
+					filetypes = { "svelte" },
+				},
 				html = {
 					filetypes = {
 						"html",
@@ -144,16 +148,7 @@ return {
 					},
 				},
 				cssls = {
-					filetypes = {
-						"html",
-						"css",
-						"javascript",
-						"typescript",
-						"javascriptreact",
-						"typescriptreact",
-						"vue",
-						"svelte",
-					},
+					filetypes = { "css", "scss", "less", "svelte" },
 				},
 				tailwindcss = {
 					filetypes = {
@@ -172,17 +167,17 @@ return {
 				-- 	root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
 				-- },
 
-				pyright = {
-					settings = {
-						python = {
-							analysis = {
-								typeCheckingMode = "basic",
-								autoSearchPaths = true,
-							},
-						},
-					},
-				},
-
+				-- pyright = {
+				-- 	settings = {
+				-- 		python = {
+				-- 			analysis = {
+				-- 				typeCheckingMode = "basic",
+				-- 				autoSearchPaths = true,
+				-- 			},
+				-- 		},
+				-- 	},
+				-- },
+				--
 				clangd = {
 					cmd = {
 						"clangd",
