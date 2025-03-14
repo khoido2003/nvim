@@ -14,6 +14,7 @@ return {
 					typescriptreact = { "prettier" },
 					javascriptreact = { "prettier" },
 					scss = { "prettier" },
+                    svelte = {"prettier"},
 					jsx = { "prettier" },
 					tsx = { "prettier" },
 					json = { "prettier" },
