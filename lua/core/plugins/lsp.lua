@@ -131,8 +131,30 @@ return {
 				-- 	flags = { debounce_text_changes = 200 },
 				-- },
 
-				html = {},
-				cssls = {},
+				html = {
+					filetypes = {
+						"html",
+						"css",
+						"javascript",
+						"typescript",
+						"javascriptreact",
+						"typescriptreact",
+						"vue",
+						"svelte",
+					},
+				},
+				cssls = {
+					filetypes = {
+						"html",
+						"css",
+						"javascript",
+						"typescript",
+						"javascriptreact",
+						"typescriptreact",
+						"vue",
+						"svelte",
+					},
+				},
 				tailwindcss = {
 					filetypes = {
 						"html",
