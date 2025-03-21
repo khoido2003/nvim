@@ -50,7 +50,7 @@ return {
 			})
 
 			-- USING ZIG AS COMPILER FOR TREESITTER
-			require("nvim-treesitter.install").compilers = { "zig" }
+			require("nvim-treesitter.install").compilers = { "gcc", "zig" }
 		end,
 		dependencies = {
 			{
