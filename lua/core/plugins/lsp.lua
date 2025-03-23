@@ -163,9 +163,54 @@ return {
 					},
 				},
 
-				-- jdtls = {
-				-- 	root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
-				-- },
+				jdtls = {
+					root_dir = function(fname)
+						return require("lspconfig.util").root_pattern("pom.xml", "build.gradle", ".git")(fname)
+							or vim.fn.getcwd()
+					end,
+					settings = {
+						java = {
+							signatureHelp = { enabled = true },
+							completion = {
+								favoriteStaticMembers = {
+									"org.junit.Assert.*",
+									"org.hamcrest.Matchers.*",
+									"org.hamcrest.CoreMatchers.*",
+									"java.util.Objects.requireNonNull",
+									"java.util.Objects.requireNonNullElse",
+									"java.util.Collections.emptyList",
+								},
+								filteredTypes = {
+									"com.sun.*",
+									"io.micrometer.shaded.*",
+									"java.awt.*",
+									"jdk.*",
+									"sun.*",
+								},
+							},
+							contentProvider = { preferred = "fernflower" },
+							sources = {
+								organizeImports = {
+									starThreshold = 3,
+									staticStarThreshold = 3,
+								},
+							},
+							codeGeneration = {
+								toString = {
+									template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
+								},
+								useBlocks = true,
+							},
+							eclipse = { downloadSources = true },
+							format = {
+								enabled = true,
+								settings = {
+									profile = "GoogleStyle",
+								},
+							},
+						},
+					},
+				},
 
 				-- pyright = {
 				-- 	settings = {
