@@ -1,97 +1,100 @@
--- Navigate vim panes better
-vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", { silent = true })
-vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", { silent = true })
-vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { silent = true })
-vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { silent = true })
+local M = {}
 
--- Clear search highlight
-vim.keymap.set("n", "<leader>h", ":nohlsearch<CR>", { silent = true })
+-- Common options
+local opts = { noremap = true, silent = true }
+local no_remap_opts = { noremap = false, silent = true } -- For commands like commenting
 
--- Toggle file tree
-vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
-
--- Search for files with Telescope
-vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", { silent = true })
-
--- Telescope Mappings
-vim.keymap.set("n", "<A-f>", ":Telescope live_grep_args<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<A-F>", ":Telescope current_buffer_fuzzy_find<CR>", { noremap = true, silent = true })
-
--- Copy/paste
-vim.keymap.set("n", "<C-c>", '"+y', { noremap = true, silent = true })
-vim.keymap.set("v", "<C-c>", '"+y', { noremap = true, silent = true })
-vim.keymap.set("n", "<C-v>", '"+p', { noremap = true, silent = true })
-vim.keymap.set("v", "<C-v>", '"+p', { noremap = true, silent = true })
-vim.keymap.set("i", "<C-v>", "<C-r>+", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-z>", "u", { noremap = true, silent = true })
-vim.keymap.set("i", "<C-z>", "<C-o>u", { noremap = true, silent = true })
-
--- Save the current file
-vim.keymap.set("n", "<C-s>", ":w<CR>", { noremap = true, silent = true })
-
--- Select all text in the file
-vim.keymap.set("n", "<C-a>", "ggVG", { noremap = true, silent = true })
-
--- Buffer navigation
-vim.keymap.set("n", "<Tab>", ":bnext<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<S-Tab>", ":bprev<CR>", { noremap = true, silent = true })
-
--- Move line up/down
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true })
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true })
-
--- Comment
-vim.api.nvim_set_keymap("n", "<C-_>", "gcc", { noremap = false, silent = true })
-vim.api.nvim_set_keymap("v", "<C-_>", "gc", { noremap = false, silent = true })
-
--- GitSigns mappings
-local gitsigns_mappings = {
-	{ "<Leader>rh", ":Gitsigns reset_hunk<CR>" },
-	{ "<Leader>rb", ":Gitsigns reset_buffer<CR>" },
-	{ "<Leader>ph", ":Gitsigns preview_hunk<CR>" },
-	{ "<Leader>df", ":Gitsigns diffthis<CR>" },
-	{ "<Leader>bl", ":Gitsigns blame_line<CR>" },
-	{ "<Leader>gs", ":Gitsigns toggle_signs<CR>" },
-	{ "<Leader>bl", ":Gitsigns toggle_current_line_blame<CR>" },
-	{ "<Leader>nh", ":Gitsigns next_hunk<CR>" },
-	{ "<Leader>ph", ":Gitsigns prev_hunk<CR>" },
-}
-
-for _, mapping in ipairs(gitsigns_mappings) do
-	vim.keymap.set("n", mapping[1], mapping[2], { noremap = true, silent = true })
+-- Helper function to set keymaps
+local function map(mode, lhs, rhs, options)
+	vim.keymap.set(mode, lhs, rhs, options or opts)
 end
 
--- Normal mode mappings for line navigation
-vim.keymap.set("n", "<Down>", "gj", { noremap = true, silent = true })
-vim.keymap.set("n", "<Up>", "gk", { noremap = true, silent = true })
+-- Setup function to be called lazily
+function M.setup()
+	-- Pane navigation
+	local pane_mappings = {
+		["<C-h>"] = ":wincmd h<CR>",
+		["<C-j>"] = ":wincmd j<CR>",
+		["<C-k>"] = ":wincmd k<CR>",
+		["<C-l>"] = ":wincmd l<CR>",
+	}
+	for lhs, rhs in pairs(pane_mappings) do
+		map("n", lhs, rhs)
+	end
 
--- Insert mode mappings for line navigation
-vim.keymap.set("i", "<Down>", "<C-o>gj", { noremap = true, silent = true })
-vim.keymap.set("i", "<Up>", "<C-o>gk", { noremap = true, silent = true })
+	-- General editing
+	map("n", "<leader>h", ":nohlsearch<CR>") -- Clear search highlight
+	map("n", "<C-s>", ":w<CR>") -- Save file
+	map("n", "<C-a>", "ggVG") -- Select all
 
--- Visual mode mappings for line navigation
-vim.keymap.set("v", "<Down>", "gj", { noremap = true, silent = true })
-vim.keymap.set("v", "<Up>", "gk", { noremap = true, silent = true })
+	-- Copy/paste with system clipboard
+	map("n", "<C-c>", '"+y')
+	map("v", "<C-c>", '"+y')
+	map("n", "<C-v>", '"+p')
+	map("v", "<C-v>", '"+p')
+	map("i", "<C-v>", "<C-r>+")
+	map("n", "<C-z>", "u") -- Undo in normal mode
+	map("i", "<C-z>", "<C-o>u") -- Undo in insert mode
 
--- Select the current line with Enter
-vim.keymap.set("n", "<CR>", "V", { noremap = true, silent = true })
+	-- Buffer navigation
+	map("n", "<Tab>", ":bnext<CR>")
+	map("n", "<S-Tab>", ":bprev<CR>")
 
--- Git diff view keymap
-local opts = { noremap = true, silent = true }
+	-- Move lines
+	map("n", "<A-k>", ":m .-2<CR>==")
+	map("n", "<A-j>", ":m .+1<CR>==")
 
--- Open Diffview to review changes
-vim.api.nvim_set_keymap("n", "<leader>do", ":DiffviewOpen<CR>", opts)
+	-- Line navigation (wrapped lines)
+	for _, mode in ipairs({ "n", "v" }) do
+		map(mode, "<Down>", "gj")
+		map(mode, "<Up>", "gk")
+	end
+	map("i", "<Down>", "<C-o>gj")
+	map("i", "<Up>", "<C-o>gk")
 
--- Close Diffview
-vim.api.nvim_set_keymap("n", "<leader>dc", ":DiffviewClose<CR>", opts)
+	-- Select current line
+	map("n", "<CR>", "V")
 
--- Refresh Diffview
-vim.api.nvim_set_keymap("n", "<leader>dr", ":DiffviewRefresh<CR>", opts)
+	-- Commenting
+	map("n", "<C-_>", "gcc", no_remap_opts)
+	map("v", "<C-_>", "gc", no_remap_opts)
 
--- Open File History
-vim.api.nvim_set_keymap("n", "<leader>dh", ":DiffviewFileHistory<CR>", opts)
+	-- Plugin-specific keymaps
+	-- NvimTree
+	map("n", "<leader>e", ":NvimTreeToggle<CR>")
 
--- Open File History for current file
-vim.api.nvim_set_keymap("n", "<leader>dhf", ":DiffviewFileHistory %<CR>", opts)
+	-- Telescope
+	map("n", "<leader>ff", ":Telescope find_files<CR>")
+	map("n", "<A-f>", ":Telescope live_grep_args<CR>")
+	map("n", "<A-F>", ":Telescope current_buffer_fuzzy_find<CR>")
 
--- Undo changes in the working tree type :e!
+	-- Gitsigns
+	local gitsigns_mappings = {
+		["<Leader>rh"] = ":Gitsigns reset_hunk<CR>",
+		["<Leader>rb"] = ":Gitsigns reset_buffer<CR>",
+		["<Leader>ph"] = ":Gitsigns preview_hunk<CR>",
+		["<Leader>df"] = ":Gitsigns diffthis<CR>",
+		["<Leader>bl"] = ":Gitsigns blame_line<CR>",
+		["<Leader>gs"] = ":Gitsigns toggle_signs<CR>",
+		["<Leader>tl"] = ":Gitsigns toggle_current_line_blame<CR>",
+		["<Leader>nh"] = ":Gitsigns next_hunk<CR>",
+		["<Leader>pv"] = ":Gitsigns prev_hunk<CR>",
+	}
+	for lhs, rhs in pairs(gitsigns_mappings) do
+		map("n", lhs, rhs)
+	end
+
+	-- Diffview
+	local diffview_mappings = {
+		["<leader>do"] = ":DiffviewOpen<CR>",
+		["<leader>dc"] = ":DiffviewClose<CR>",
+		["<leader>dr"] = ":DiffviewRefresh<CR>",
+		["<leader>dh"] = ":DiffviewFileHistory<CR>",
+		["<leader>dhf"] = ":DiffviewFileHistory %<CR>",
+	}
+	for lhs, rhs in pairs(diffview_mappings) do
+		map("n", lhs, rhs)
+	end
+end
+
+return M

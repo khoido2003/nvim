@@ -125,16 +125,12 @@ return {
 						},
 					},
 				},
-				-- gdscript = {
-				-- 	cmd = vim.fn.has("win32") == 1 and { "ncat", "localhost", "6005" }
-				-- 		or { "ncat", "localhost", "6005" },
-				-- 	flags = { debounce_text_changes = 200 },
-				-- },
 
 				svelte = {
 					cmd = { "svelteserver", "--stdio" },
 					filetypes = { "svelte" },
 				},
+
 				html = {
 					filetypes = {
 						"html",
@@ -147,9 +143,11 @@ return {
 						"svelte",
 					},
 				},
+
 				cssls = {
 					filetypes = { "css", "scss", "less", "svelte" },
 				},
+
 				tailwindcss = {
 					filetypes = {
 						"html",
@@ -163,54 +161,54 @@ return {
 					},
 				},
 
-				jdtls = {
-					root_dir = function(fname)
-						return require("lspconfig.util").root_pattern("pom.xml", "build.gradle", ".git")(fname)
-							or vim.fn.getcwd()
-					end,
-					settings = {
-						java = {
-							signatureHelp = { enabled = true },
-							completion = {
-								favoriteStaticMembers = {
-									"org.junit.Assert.*",
-									"org.hamcrest.Matchers.*",
-									"org.hamcrest.CoreMatchers.*",
-									"java.util.Objects.requireNonNull",
-									"java.util.Objects.requireNonNullElse",
-									"java.util.Collections.emptyList",
-								},
-								filteredTypes = {
-									"com.sun.*",
-									"io.micrometer.shaded.*",
-									"java.awt.*",
-									"jdk.*",
-									"sun.*",
-								},
-							},
-							contentProvider = { preferred = "fernflower" },
-							sources = {
-								organizeImports = {
-									starThreshold = 3,
-									staticStarThreshold = 3,
-								},
-							},
-							codeGeneration = {
-								toString = {
-									template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
-								},
-								useBlocks = true,
-							},
-							eclipse = { downloadSources = true },
-							format = {
-								enabled = true,
-								settings = {
-									profile = "GoogleStyle",
-								},
-							},
-						},
-					},
-				},
+				-- jdtls = {
+				-- 	root_dir = function(fname)
+				-- 		return require("lspconfig.util").root_pattern("pom.xml", "build.gradle", ".git")(fname)
+				-- 			or vim.fn.getcwd()
+				-- 	end,
+				-- 	settings = {
+				-- 		java = {
+				-- 			signatureHelp = { enabled = true },
+				-- 			completion = {
+				-- 				favoriteStaticMembers = {
+				-- 					"org.junit.Assert.*",
+				-- 					"org.hamcrest.Matchers.*",
+				-- 					"org.hamcrest.CoreMatchers.*",
+				-- 					"java.util.Objects.requireNonNull",
+				-- 					"java.util.Objects.requireNonNullElse",
+				-- 					"java.util.Collections.emptyList",
+				-- 				},
+				-- 				filteredTypes = {
+				-- 					"com.sun.*",
+				-- 					"io.micrometer.shaded.*",
+				-- 					"java.awt.*",
+				-- 					"jdk.*",
+				-- 					"sun.*",
+				-- 				},
+				-- 			},
+				-- 			contentProvider = { preferred = "fernflower" },
+				-- 			sources = {
+				-- 				organizeImports = {
+				-- 					starThreshold = 3,
+				-- 					staticStarThreshold = 3,
+				-- 				},
+				-- 			},
+				-- 			codeGeneration = {
+				-- 				toString = {
+				-- 					template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
+				-- 				},
+				-- 				useBlocks = true,
+				-- 			},
+				-- 			eclipse = { downloadSources = true },
+				-- 			format = {
+				-- 				enabled = true,
+				-- 				settings = {
+				-- 					profile = "GoogleStyle",
+				-- 				},
+				-- 			},
+				-- 		},
+				-- 	},
+				-- },
 
 				-- pyright = {
 				-- 	settings = {
@@ -222,25 +220,31 @@ return {
 				-- 		},
 				-- 	},
 				-- },
-				--
-				clangd = {
-					cmd = {
-						"clangd",
-						"--background-index",
-						"--clang-tidy",
-						"--completion-style=detailed",
-						"--header-insertion=never",
-					},
-					init_options = {
-						clangdFileStatus = true,
-					},
-					settings = {
-						clangd = {
-							checkUpdates = true,
-							fallbackFlags = { "-std=c++20" },
-						},
-					},
-				},
+
+				-- clangd = {
+				-- 	cmd = {
+				-- 		"clangd",
+				-- 		"--background-index",
+				-- 		"--clang-tidy",
+				-- 		"--completion-style=detailed",
+				-- 		"--header-insertion=never",
+				-- 	},
+				-- 	init_options = {
+				-- 		clangdFileStatus = true,
+				-- 	},
+				-- 	settings = {
+				-- 		clangd = {
+				-- 			checkUpdates = true,
+				-- 			fallbackFlags = { "-std=c++20" },
+				-- 		},
+				-- 	},
+				-- },
+
+				-- gdscript = {
+				-- 	cmd = vim.fn.has("win32") == 1 and { "ncat", "localhost", "6005" }
+				-- 		or { "ncat", "localhost", "6005" },
+				-- 	flags = { debounce_text_changes = 200 },
+				-- },
 			}
 			for server, config in pairs(servers) do
 				config.on_attach = on_attach

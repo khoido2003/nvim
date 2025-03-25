@@ -3,17 +3,6 @@ vim.opt.shada = ""
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.opt.termguicolors = true
-vim.opt.fileencoding = "utf-8"
-vim.opt.encoding = "utf-8"
-vim.opt.swapfile = false
-vim.opt.updatetime = 500
-vim.opt.redrawtime = 1500
-
-vim.g.loaded_matchparen = 1
-vim.g.loaded_rplugin = 1
-vim.g.loaded_shada = 1
-vim.g.loaded_spellfile = 1
 
 -- init.lua
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -31,8 +20,10 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
-		pcall(require, "core.options")
-		pcall(require, "core.keymaps")
+		vim.schedule(function()
+			require("core.options")
+			require("core.keymaps").setup()
+		end)
 	end,
 })
 
@@ -40,6 +31,7 @@ require("lazy").setup("core.configs", {
 	performance = {
 		cache = { enabled = true },
 		rtp = {
+			reset = false,
 			disabled_plugins = {
 				"netrw",
 				"netrwPlugin",
@@ -49,10 +41,25 @@ require("lazy").setup("core.configs", {
 				"zipPlugin",
 				"tarPlugin",
 				"matchit",
+				"perl_provider",
+				"ruby_provider",
+				"node_provider",
 			},
 		},
 	},
 })
+
+vim.opt.termguicolors = true
+vim.opt.fileencoding = "utf-8"
+vim.opt.encoding = "utf-8"
+vim.opt.swapfile = false
+vim.opt.updatetime = 500
+vim.opt.redrawtime = 1500
+
+vim.g.loaded_matchparen = 1
+vim.g.loaded_rplugin = 1
+vim.g.loaded_shada = 1
+vim.g.loaded_spellfile = 1
 
 -- Large file optimizations
 vim.api.nvim_create_autocmd("BufEnter", {

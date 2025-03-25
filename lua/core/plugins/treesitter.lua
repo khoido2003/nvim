@@ -15,7 +15,7 @@ return {
 					-- "cpp",
 					-- "c",
 					-- "zig",
-					"rust",
+					-- "rust",
 					-- "dockerfile",
 					-- "proto",
 					-- "yaml",
@@ -45,7 +45,7 @@ return {
 					additional_vim_regex_highlighting = false,
 				},
 				indent = {
-					enable = true, -- Enable Tree-sitter indentation
+					enable = false, -- Enable Tree-sitter indentation
 				},
 			})
 
@@ -55,6 +55,7 @@ return {
 		dependencies = {
 			{
 				"windwp/nvim-ts-autotag",
+				event = { "BufReadPost", "BufNewFile" },
 				config = function()
 					require("nvim-ts-autotag").setup({
 						filetypes = {

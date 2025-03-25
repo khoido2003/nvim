@@ -1,7 +1,6 @@
 return {
 	"polirritmico/monokai-nightasty.nvim",
-	lazy = true,
-	event = "VimEnter",
+	lazy = false,
 	priority = 1000,
 	config = function()
 		require("monokai-nightasty").setup({
@@ -33,7 +32,7 @@ return {
 			lualine_bold = true,
 			lualine_style = "default", -- "dark", "light" or "default" (default follows dark/light style)
 
-			markdown_header_marks = true,
+			markdown_header_marks = false,
 			terminal_colors = true,
 			cache = true,
 			auto_enable_plugins = true,
