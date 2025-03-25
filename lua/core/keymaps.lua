@@ -55,10 +55,6 @@ function M.setup()
 	-- Select current line
 	map("n", "<CR>", "V")
 
-	-- Commenting
-	map("n", "<C-_>", "gcc", no_remap_opts)
-	map("v", "<C-_>", "gc", no_remap_opts)
-
 	-- Plugin-specific keymaps
 	-- NvimTree
 	map("n", "<leader>e", ":NvimTreeToggle<CR>")
