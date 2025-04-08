@@ -9,7 +9,7 @@ return {
 				update_cwd = false,
 				hijack_netrw = false,
 				reload_on_bufenter = false,
-				filters = { custom = { ".git", "node_modules", "__pycache__" }, git_ignored = false },
+				filters = { custom = { "node_modules", "__pycache__" } },
 				diagnostics = { enable = false },
 			})
 		end,

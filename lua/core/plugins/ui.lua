@@ -34,7 +34,9 @@ return {
 		event = "InsertEnter",
 		lazy = true,
 		config = function()
-			require("nvim-autopairs").setup({ check_ts = true })
+			require("nvim-autopairs").setup({
+				check_ts = false,
+			})
 		end,
 	},
 	{
@@ -42,10 +44,9 @@ return {
 		event = "BufReadPost",
 		lazy = true,
 		config = function()
-			require("colorizer").setup()
+			require("colorizer").setup({})
 		end,
 	},
-
 	{
 		"kyazdani42/nvim-web-devicons",
 		lazy = true,
@@ -53,7 +54,6 @@ return {
 			require("nvim-web-devicons").setup({ default = true })
 		end,
 	},
-
 	-- Multiple cursor
 	{
 		"mg979/vim-visual-multi",

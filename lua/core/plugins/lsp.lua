@@ -221,24 +221,31 @@ return {
 				-- 	},
 				-- },
 
-				-- clangd = {
-				-- 	cmd = {
-				-- 		"clangd",
-				-- 		"--background-index",
-				-- 		"--clang-tidy",
-				-- 		"--completion-style=detailed",
-				-- 		"--header-insertion=never",
-				-- 	},
-				-- 	init_options = {
-				-- 		clangdFileStatus = true,
-				-- 	},
-				-- 	settings = {
-				-- 		clangd = {
-				-- 			checkUpdates = true,
-				-- 			fallbackFlags = { "-std=c++20" },
-				-- 		},
-				-- 	},
-				-- },
+				clangd = {
+					on_attach = on_attach,
+					cmd = {
+						"clangd",
+						"--background-index",
+						"--pch-storage=memory",
+						"--all-scopes-completion",
+						"--pretty",
+						"--header-insertion=never",
+						"-j=4",
+						"--inlay-hints",
+						"--header-insertion-decorators",
+						"--function-arg-placeholders",
+						"--completion-style=detailed",
+					},
+					filetypes = { "c", "cpp", "objc", "objcpp" },
+					root_dir = require("lspconfig.util").root_pattern("meson.build", "src", "CMakeLists.txt", ".git"),
+					init_option = { fallbackFlags = { "-std=c++2a" } },
+					capabilities = capabilities,
+					settings = {
+						["clangd"] = {
+							fileStatus = true,
+						},
+					},
+				},
 
 				-- gdscript = {
 				-- 	cmd = vim.fn.has("win32") == 1 and { "ncat", "localhost", "6005" }
