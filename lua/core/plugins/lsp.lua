@@ -62,7 +62,11 @@ return {
 								globals = { "vim" },
 							},
 							workspace = {
-								library = vim.api.nvim_get_runtime_file("", true),
+								library = {
+									vim.fn.expand("$VIMRUNTIME/lua"),
+									vim.fn.expand("$VIMRUNTIME/lua/vim/lsp"),
+									"${3rd}/love2d/library",
+								},
 								checkthirdparty = false,
 							},
 							telemetry = { enable = false },
@@ -210,16 +214,16 @@ return {
 				-- 	},
 				-- },
 
-				-- pyright = {
-				-- 	settings = {
-				-- 		python = {
-				-- 			analysis = {
-				-- 				typeCheckingMode = "basic",
-				-- 				autoSearchPaths = true,
-				-- 			},
-				-- 		},
-				-- 	},
-				-- },
+				pyright = {
+					settings = {
+						python = {
+							analysis = {
+								typeCheckingMode = "basic",
+								autoSearchPaths = true,
+							},
+						},
+					},
+				},
 
 				clangd = {
 					on_attach = on_attach,
