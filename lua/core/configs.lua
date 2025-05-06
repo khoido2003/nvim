@@ -11,4 +11,5 @@ return {
 	require("core.plugins.formatter"),
 	require("core.plugins.cmp"),
 	require("core.plugins.lsp"),
+    require("core.plugins.mini_git")
 }

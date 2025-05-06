@@ -64,22 +64,6 @@ function M.setup()
 	map("n", "<A-f>", ":Telescope live_grep_args<CR>")
 	map("n", "<A-F>", ":Telescope current_buffer_fuzzy_find<CR>")
 
-	-- Gitsigns
-	local gitsigns_mappings = {
-		["<Leader>rh"] = ":Gitsigns reset_hunk<CR>",
-		["<Leader>rb"] = ":Gitsigns reset_buffer<CR>",
-		["<Leader>ph"] = ":Gitsigns preview_hunk<CR>",
-		["<Leader>df"] = ":Gitsigns diffthis<CR>",
-		["<Leader>bl"] = ":Gitsigns blame_line<CR>",
-		["<Leader>gs"] = ":Gitsigns toggle_signs<CR>",
-		["<Leader>tl"] = ":Gitsigns toggle_current_line_blame<CR>",
-		["<Leader>nh"] = ":Gitsigns next_hunk<CR>",
-		["<Leader>pv"] = ":Gitsigns prev_hunk<CR>",
-	}
-	for lhs, rhs in pairs(gitsigns_mappings) do
-		map("n", lhs, rhs)
-	end
-
 	-- Diffview
 	local diffview_mappings = {
 		["<leader>do"] = ":DiffviewOpen<CR>",
