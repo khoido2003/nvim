@@ -14,7 +14,7 @@ return {
 					typescriptreact = { "prettier" },
 					javascriptreact = { "prettier" },
 					scss = { "prettier" },
-                    svelte = {"prettier"},
+					svelte = { "prettier" },
 					jsx = { "prettier" },
 					tsx = { "prettier" },
 					json = { "prettier" },
@@ -30,8 +30,25 @@ return {
 					cs = { "csharpier" },
 					gdscript = { "gdformat" },
 				},
-				debug = true,
 				timeout = 10000,
+				debug = true,
+
+				formatters = {
+					csharpier = {
+						command = "dotnet-csharpier",
+						args = function()
+							local project_dir = vim.fn.expand("%:p:h")
+							local csproj_files = vim.fn.glob(project_dir .. "/*.csproj", true, true)
+							for _, file in ipairs(csproj_files) do
+								if file:match("Assembly%-CSharp%.csproj$") then
+									return { "--project", file }
+								end
+							end
+
+							return {}
+						end,
+					},
+				},
 			})
 
 			vim.api.nvim_create_autocmd("BufWritePost", {

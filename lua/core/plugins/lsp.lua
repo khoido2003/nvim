@@ -122,6 +122,9 @@ return {
 						["rust-analyzer"] = {
 							cargo = { features = "default" },
 							checkOnSave = { command = "clippy" },
+							procMacro = {
+								enable = true, -- Enable Anchor macros
+							},
 							diagnostics = {
 								enable = true,
 								experimental = { enable = true },
@@ -214,42 +217,42 @@ return {
 				-- 	},
 				-- },
 
-				pyright = {
-					settings = {
-						python = {
-							analysis = {
-								typeCheckingMode = "basic",
-								autoSearchPaths = true,
-							},
-						},
-					},
-				},
-
-				clangd = {
-					on_attach = on_attach,
-					cmd = {
-						"clangd",
-						"--background-index",
-						"--pch-storage=memory",
-						"--all-scopes-completion",
-						"--pretty",
-						"--header-insertion=never",
-						"-j=4",
-						"--inlay-hints",
-						"--header-insertion-decorators",
-						"--function-arg-placeholders",
-						"--completion-style=detailed",
-					},
-					filetypes = { "c", "cpp", "objc", "objcpp" },
-					root_dir = require("lspconfig.util").root_pattern("meson.build", "src", "CMakeLists.txt", ".git"),
-					init_option = { fallbackFlags = { "-std=c++2a" } },
-					capabilities = capabilities,
-					settings = {
-						["clangd"] = {
-							fileStatus = true,
-						},
-					},
-				},
+				-- pyright = {
+				-- 	settings = {
+				-- 		python = {
+				-- 			analysis = {
+				-- 				typeCheckingMode = "basic",
+				-- 				autoSearchPaths = true,
+				-- 			},
+				-- 		},
+				-- 	},
+				-- },
+				--
+				-- clangd = {
+				-- 	on_attach = on_attach,
+				-- 	cmd = {
+				-- 		"clangd",
+				-- 		"--background-index",
+				-- 		"--pch-storage=memory",
+				-- 		"--all-scopes-completion",
+				-- 		"--pretty",
+				-- 		"--header-insertion=never",
+				-- 		"-j=4",
+				-- 		"--inlay-hints",
+				-- 		"--header-insertion-decorators",
+				-- 		"--function-arg-placeholders",
+				-- 		"--completion-style=detailed",
+				-- 	},
+				-- 	filetypes = { "c", "cpp", "objc", "objcpp" },
+				-- 	root_dir = require("lspconfig.util").root_pattern("meson.build", "src", "CMakeLists.txt", ".git"),
+				-- 	init_option = { fallbackFlags = { "-std=c++2a" } },
+				-- 	capabilities = capabilities,
+				-- 	settings = {
+				-- 		["clangd"] = {
+				-- 			fileStatus = true,
+				-- 		},
+				-- 	},
+				-- },
 
 				-- gdscript = {
 				-- 	cmd = vim.fn.has("win32") == 1 and { "ncat", "localhost", "6005" }
