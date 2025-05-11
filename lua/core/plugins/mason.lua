@@ -1,16 +1,19 @@
 return {
 	{
-		"williamboman/mason.nvim",
+		"mason-org/mason.nvim",
+		branch = "v1.x",
 		event = "VeryLazy",
-		cmd = "Mason",
-		dependencies = { "williamboman/mason-lspconfig.nvim" },
 		config = function()
-			local mason = require("mason")
-			local mason_lspconfig = require("mason-lspconfig")
-
-			-- Mason setup
-			mason.setup()
-			mason_lspconfig.setup({
+			require("mason").setup()
+		end,
+	},
+	{
+		"mason-org/mason-lspconfig.nvim",
+		branch = "v1.x",
+		event = "VeryLazy",
+		dependencies = { "neovim/nvim-lspconfig" },
+		config = function()
+			require("mason-lspconfig").setup({
 				ensure_installed = {
 					-- "lua_ls",
 					-- "ts_ls",
@@ -25,7 +28,7 @@ return {
 					-- "rust_analyzer",
 					-- "gopls",
 				},
-				automatic_installation = false, -- Run :MasonInstall manually if needed
+				automatic_installation = false,
 			})
 		end,
 	},

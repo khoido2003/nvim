@@ -48,7 +48,7 @@ return {
 					{ noremap = true, silent = true }
 				)
 
-				-- print("LSP server '" .. client.name .. "' started successfully!")
+				print("LSP server '" .. client.name .. "' started successfully!")
 			end
 
 			local servers = {
@@ -85,7 +85,12 @@ return {
 					},
 				},
 				omnisharp = {
-					cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+					cmd = {
+						"omnisharp",
+						"--languageserver",
+						"--hostPID",
+						tostring(vim.fn.getpid()),
+					},
 					filetypes = { "cs" },
 					handlers = {
 						["textDocument/definition"] = require("omnisharp_extended").definition_handler,
@@ -99,7 +104,7 @@ return {
 					end,
 					settings = {
 						omnisharp = {
-							useModernNet = true,
+							useModernNet = false,
 							enableEditorConfigSupport = true,
 							enableMsBuildLoadProjectsOnDemand = true,
 							enableImportCompletion = true,
