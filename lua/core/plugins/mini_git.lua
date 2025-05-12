@@ -7,7 +7,7 @@ return {
 				view = {
 					style = "sign",
 					signs = { add = "+", change = "~", delete = "-" },
-					priority = 199,
+					priority = 10,
 				},
 				source = require("mini.diff").gen_source.git(),
 				options = {

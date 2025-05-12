@@ -1,5 +1,7 @@
 vim.lsp.set_log_level("off") -- Keep off unless debugging
 
+vim.o.signcolumn = "auto:2" -- Allow up to 2 sign columns
+
 -- Scrolling and navigation
 vim.opt.scrolloff = 5 -- More context, less jittery redraws
 vim.opt.sidescrolloff = 5 -- Consistent with scrolloff
