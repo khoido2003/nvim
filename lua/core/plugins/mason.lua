@@ -1,15 +1,13 @@
 return {
 	{
 		"mason-org/mason.nvim",
-		branch = "v1.x",
 		event = "VeryLazy",
-		config = function()
-			require("mason").setup()
-		end,
+		version = "1.11.0",
+		opts = {},
 	},
 	{
 		"mason-org/mason-lspconfig.nvim",
-		branch = "v1.x",
+		version = "1.32.0",
 		event = "VeryLazy",
 		dependencies = { "neovim/nvim-lspconfig" },
 		config = function()
