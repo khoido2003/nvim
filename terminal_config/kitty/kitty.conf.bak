@@ -1,0 +1,24 @@
+# Minimal tab bar configuration
+tab_bar_style custom
+tab_bar_min_tabs 1
+tab_bar_edge bottom
+tab_title_template "{index}"
+active_tab_font_style bold
+inactive_tab_font_style normal
+
+# Tab bar background color (applies to the entire tab bar)
+tab_bar_background #1a1a1a
+
+# Active and inactive tab background colors
+active_tab_background #2a2a2a
+inactive_tab_background #222222
+
+# Optional: Foreground colors for better contrast
+active_tab_foreground #ffffff
+inactive_tab_foreground #aaaaaa
+
+window_padding_width 0
+window_margin_width 0
+window_border_width 0
+tab_bar_margin_height 0.0 0.0
+tab_bar_margin_width 0.0
