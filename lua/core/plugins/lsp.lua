@@ -1,22 +1,3 @@
-local function setup_lsp_keymaps()
-	local lsp_mappings = {
-		{ "<leader>gd", "vim.lsp.buf.definition()" },
-		{ "<leader>k", "vim.lsp.buf.hover()" },
-		{ "<leader>rn", "vim.lsp.buf.rename()" },
-		{ "<leader>gr", "vim.lsp.buf.references()" },
-		{ "<leader>gt", "vim.lsp.buf.type_definition()" },
-		{ "<leader>sh", "vim.lsp.buf.signature_help()" },
-		{ "<leader>ca", "vim.lsp.buf.code_action()" },
-	}
-	for _, mapping in ipairs(lsp_mappings) do
-		vim.keymap.set("n", mapping[1], "<Cmd>lua " .. mapping[2] .. "<CR>", { noremap = true, silent = true })
-	end
-	vim.keymap.set("n", "<Leader>d", ":lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true })
-end
-
--- Call this once during Neovim startup
-setup_lsp_keymaps()
-
 return {
 	{
 		"neovim/nvim-lspconfig",
@@ -36,10 +17,45 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "cs",
+				callback = function()
+					vim.keymap.set(
+						"n",
+						"<leader>gd",
+						":lua require('omnisharp_extended').telescope_lsp_definitions()<cr>",
+						{ buffer = true, noremap = true, silent = true }
+					)
+				end,
+			})
+
 			local on_attach = function(client, _)
 				client.server_capabilities.documentFormattingProvider = false
 				client.server_capabilities.documentRangeFormattingProvider = false
 
+				local lsp_mappings = {
+					{ "<leader>gd", "vim.lsp.buf.definition()" },
+					{ "<leader>k", "vim.lsp.buf.hover()" },
+					{ "<leader>rn", "vim.lsp.buf.rename()" },
+					{ "<leader>gr", "vim.lsp.buf.references()" },
+					{ "<leader>gt", "vim.lsp.buf.type_definition()" },
+					{ "<leader>sh", "vim.lsp.buf.signature_help()" },
+					{ "<leader>ca", "vim.lsp.buf.code_action()" },
+				}
+				for _, mapping in ipairs(lsp_mappings) do
+					vim.keymap.set(
+						"n",
+						mapping[1],
+						"<Cmd>lua " .. mapping[2] .. "<CR>",
+						{ noremap = true, silent = true }
+					)
+				end
+				vim.keymap.set(
+					"n",
+					"<Leader>d",
+					":lua vim.diagnostic.open_float()<CR>",
+					{ noremap = true, silent = true }
+				)
 				print("LSP server '" .. client.name .. "' started successfully!")
 			end
 
@@ -88,15 +104,15 @@ return {
 					},
 					filetypes = { "cs" },
 					handlers = {
-						["textDocument/definition"] = require("omnisharp_extended").definition_handler,
-						["textDocument/typeDefinition"] = require("omnisharp_extended").type_definition_handler,
-						["textDocument/references"] = require("omnisharp_extended").references_handler,
-						["textDocument/implementation"] = require("omnisharp_extended").implementation_handler,
+						["textDocument/definition"] = function(...)
+							return require("omnisharp_extended").handler(...)
+						end,
 					},
 					root_dir = function(fname)
 						local root = require("lspconfig.util").root_pattern("*.sln", "*.csproj")(fname)
 						return root
 					end,
+
 					settings = {
 						omnisharp = {
 							useModernNet = true,
@@ -129,8 +145,8 @@ return {
 						},
 					},
 					init_options = {
-						AutomaticWorkspaceInitialization = false, -- Prevent OmniSharp from scanning entire workspace on start
-						LoadProjectsOnDemand = true, -- Lazy-load projects
+						AutomaticWorkspaceInitialization = false,
+						LoadProjectsOnDemand = true,
 					},
 				},
 
