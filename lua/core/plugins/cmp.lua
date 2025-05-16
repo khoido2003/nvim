@@ -29,6 +29,26 @@ return {
 				completion = {
 					completeopt = "menu,menuone,noinsert",
 				},
+				performance = {
+					debounce = 60, -- Faster trigger
+					throttle = 30, -- Faster updates
+					fetching_timeout = 100, -- Reduce timeout for LSP responses
+					max_view_entries = 30, -- Limit displayed items
+				},
+				sorting = {
+					priority_weight = 2,
+					comparators = {
+						cmp.config.compare.offset,
+						cmp.config.compare.exact,
+						cmp.config.compare.score,
+						cmp.config.compare.recently_used,
+						cmp.config.compare.locality,
+						cmp.config.compare.kind,
+						cmp.config.compare.sort_text,
+						cmp.config.compare.length,
+						cmp.config.compare.order,
+					},
+				},
 			})
 		end,
 	},

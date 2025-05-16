@@ -1,18 +1,16 @@
 return {
 	{
 		"mason-org/mason.nvim",
-		event = "VeryLazy",
-		version = "1.11.0",
+		event = { "BufReadPre", "BufNewFile" },
 		opts = {},
 	},
 	{
 		"mason-org/mason-lspconfig.nvim",
-		version = "1.32.0",
-		event = "VeryLazy",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = { "neovim/nvim-lspconfig" },
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = {
+				automatic_enable = {
 					-- "lua_ls",
 					-- "ts_ls",
 					-- "pyright",
@@ -26,7 +24,6 @@ return {
 					-- "rust_analyzer",
 					-- "gopls",
 				},
-				automatic_installation = false,
 			})
 		end,
 	},
