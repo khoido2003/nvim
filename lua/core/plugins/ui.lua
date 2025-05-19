@@ -29,16 +29,16 @@ return {
 			})
 		end,
 	},
+	-- Auto pair
 	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		lazy = true,
+		"echasnovski/mini.pairs",
+		version = "*",
+		event = "BufReadPost",
 		config = function()
-			require("nvim-autopairs").setup({
-				check_ts = false,
-			})
+			require("mini.pairs").setup({})
 		end,
 	},
+
 	{
 		"norcalli/nvim-colorizer.lua",
 		event = "BufReadPost",
@@ -58,6 +58,5 @@ return {
 	{
 		"mg979/vim-visual-multi",
 		event = "BufReadPost",
-		lazy = true,
 	},
 }
