@@ -114,17 +114,6 @@ return {
 					end,
 
 					settings = {
-						omnisharp = {
-							useModernNet = true,
-							enableEditorConfigSupport = true,
-							enableMsBuildLoadProjectsOnDemand = true,
-							enableImportCompletion = true,
-							analyzeOpenDocumentsOnly = true,
-							sdkIncludePrereleases = false,
-							maxProjectFileCount = 50,
-							enableRoslynAnalyzers = true,
-							organizeImportsOnFormat = true,
-						},
 						FormattingOptions = {
 							EnableEditorConfigSupport = true,
 							OrganizeImports = true,
@@ -132,20 +121,18 @@ return {
 						RoslynExtensionsOptions = {
 							EnableAnalyzersSupport = true,
 							EnableImportCompletion = true,
-							InlayHintsOptions = {
-								EnableForParameters = true,
-								EnableForLiteralParameters = true,
-								EnableForIndexerParameters = true,
-								EnableForObjectCreationParameters = true,
-								EnableForOtherParameters = true,
-							},
 						},
-						SdkOptions = {
-							IncludePrereleases = false,
+						FileOptions = {
+							ExcludeSearchPatterns = {
+								"**/bin/**/*",
+								"**/obj/**/*",
+								"**/Library/**/*",
+								"**/Temp/**/*",
+							},
 						},
 					},
 					init_options = {
-						AutomaticWorkspaceInitialization = false,
+						AutomaticWorkspaceInitialization = true,
 						LoadProjectsOnDemand = true,
 					},
 				},
