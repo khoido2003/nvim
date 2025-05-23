@@ -1,12 +1,6 @@
 local wezterm = require("wezterm")
 -- local gpus = wezterm.gui.enumerate_gpus()
 
--- RUN this on window with powershell 7 for recommendation
-
--- Install-Module PSReadLine -Force -SkipPublisherCheck
--- Set-PSReadLineOption -PredictionSource HistoryAndPlugin
--- Set-PSReadLineOption -Colors @{ InLinePrediction = '#8A2BE2' }
-
 local config = {
 	window_padding = {
 		left = 0,
@@ -41,16 +35,7 @@ local config = {
 		{ key = "x", mods = "CTRL|SHIFT", action = wezterm.action.CloseCurrentPane({ confirm = true }) },
 	},
 
-	-- Uncomment and change this to the correct directory
-
-	-- default_prog = { "D:\\powershell\\7\\pwsh.exe" },
-	--
-	-- launch_menu = {
-	-- 	{
-	-- 		label = "PowerShell 7",
-	-- 		args = { "D:\\powershell\\7\\pwsh.exe" },
-	-- 	},
-	-- },
+	default_prog = { "pwsh" },
 }
 
 -- Tab renaming function
