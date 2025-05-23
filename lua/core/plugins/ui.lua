@@ -26,6 +26,7 @@ return {
 				start_in_insert = true,
 				insert_mappings = true,
 				terminal_mappings = true,
+				-- shell = "D:/powershell/7/pwsh.exe",
 			})
 		end,
 	},
