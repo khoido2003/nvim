@@ -248,7 +248,7 @@ Dowload: https://github.com/equalsraf/win32yank/releases
 
 ![img](images/0.png)
 
-![img](images/8.jpg)
+![img](images/8.png)
 
 ![img](images/1.png)
 
