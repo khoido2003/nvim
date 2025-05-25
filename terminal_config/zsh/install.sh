@@ -10,6 +10,12 @@ fi
 
 ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
 
+# Install Powerlevel10k if not present
+if [ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ]; then
+  echo "Installing Powerlevel10k..."
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+fi
+
 # Install zsh-autosuggestions if not present
 if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
   echo "Installing zsh-autosuggestions..."
@@ -32,6 +38,7 @@ fi
 # Symlink dotfiles
 echo "Linking dotfiles..."
 ln -sf "$(pwd)/.zshrc" "$HOME/.zshrc"
-ln -sf "$(pwd)/.p10k.zsh" "$HOME/.p10k.zsh"
 
-echo "Installation complete! Please restart your terminal or run 'source ~/.zshrc'"
+echo "✅ Installation complete!"
+echo "🔁 Please restart your terminal or run 'source ~/.zshrc'"
+echo "🧙 Powerlevel10k config wizard will start automatically."
