@@ -35,7 +35,7 @@ local config = {
 		{ key = "x", mods = "CTRL|SHIFT", action = wezterm.action.CloseCurrentPane({ confirm = true }) },
 	},
 
-	default_prog = { "pwsh" },
+	default_prog = { "nu" },
 }
 
 -- Tab renaming function
