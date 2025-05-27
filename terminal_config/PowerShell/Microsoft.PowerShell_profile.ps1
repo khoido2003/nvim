@@ -1,36 +1,21 @@
-# ===============================
-# PowerShell 7 Minimal Profile
-# Optimized for speed + dev work
-# ===============================
-
-# Simple prompt - fast & clean
+# Minimal PowerShell 7 Profile for WezTerm, Neovim, and Game Dev
 function prompt {
     "PS $PWD> "
 }
 
-# Tab shows a menu of completion options
-Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
-
-# Prediction from history only (fast, no plugin)
+# PSReadLine for fast completions
 Set-PSReadLineOption -PredictionSource History
-
-# Show inline gray text suggestion (non-intrusive)
-Set-PSReadLineOption -PredictionViewStyle InlineView
-
-# Optional: Faster history saving (adjust as you want)
 Set-PSReadLineOption -HistorySaveStyle SaveIncrementally
 Set-PSReadLineOption -HistoryNoDuplicates
-
-# Avoid loading heavy modules or prompts here
-# Load them manually only if you need them in a session
-
-# End of profile
-
-
-# ~/.config/powershell/Microsoft.PowerShell_profile.ps1
-
+Set-PSReadLineOption -MaximumHistoryCount 1000
 Set-PSReadLineOption -Colors @{ "Selection" = "`e[7m" }
 Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
-carapace _carapace | Out-String | Invoke-Expression
 
-Set-PSReadLineOption -BellStyle None
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\hul10.omp.json" | Invoke-Expression
+# Measure-Command { oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\hul10.omp.json" | Invoke-Expression }
+
+# Heavy module
+function s {
+    carapace _carapace | Out-String | Invoke-Expression
+}
+
