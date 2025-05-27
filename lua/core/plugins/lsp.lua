@@ -110,7 +110,7 @@ return {
 					},
 					root_dir = function(fname)
 						local root = require("lspconfig.util").root_pattern("*.sln", "*.csproj")(fname)
-						return root
+						return root or vim.fn.getcwd()
 					end,
 
 					settings = {
