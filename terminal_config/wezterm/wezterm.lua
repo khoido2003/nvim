@@ -23,8 +23,8 @@ local config = {
 	color_scheme = "Hardcore (base16)",
 
 	-- Font settings
-	-- font = wezterm.font("FiraCode Nerd Font", { weight = "Regular" }),
-	-- font = wezterm.font("Consolas", { weight = "Regular" }),
+	font = wezterm.font("BlexMono Nerd Font", { weight = "Regular" }),
+
 	font_size = 10.5,
 
 	window_close_confirmation = "NeverPrompt",
