@@ -1,8 +1,12 @@
 local wezterm = require("wezterm")
--- local gpus = wezterm.gui.enumerate_gpus()
+
+-- Tab renaming function
+wezterm.on("format-tab-title", function(tab)
+	return " " .. tostring(tab.tab_index + 1) .. " "
+end)
 
 local config = {
-	enable_wayland = false, -- Wayland is not used on Windows
+	enable_wayland = false,
 	check_for_updates = false,
 
 	window_padding = {
@@ -12,11 +16,14 @@ local config = {
 		bottom = 0,
 	},
 	show_close_tab_button_in_tabs = false,
-	front_end = "OpenGL",
-	max_fps = 60,
+
+	front_end = "WebGpu",
+	webgpu_power_preference = "HighPerformance",
+
+	max_fps = 120,
 	animation_fps = 1,
 	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
-	enable_kitty_graphics = true,
+	enable_kitty_graphics = false,
 	anti_alias_custom_block_glyphs = false,
 
 	enable_scroll_bar = false,
@@ -39,10 +46,5 @@ local config = {
 
 	default_prog = { "pwsh" },
 }
-
--- Tab renaming function
-wezterm.on("format-tab-title", function(tab)
-	return " " .. tostring(tab.tab_index + 1) .. " "
-end)
 
 return config
