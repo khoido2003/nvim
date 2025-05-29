@@ -9,6 +9,60 @@ local config = {
 	enable_wayland = false,
 	check_for_updates = false,
 
+	-- Classic Monokai colorscheme
+	window_frame = {
+		active_titlebar_bg = "#272822",
+		inactive_titlebar_bg = "#272822",
+
+		active_titlebar_fg = "#f8f8f2",
+		inactive_titlebar_fg = "#75715e",
+
+		active_titlebar_border_bottom = "#272822",
+		inactive_titlebar_border_bottom = "#272822",
+
+		button_bg = "#272822",
+		button_fg = "#f8f8f2",
+		button_hover_bg = "#3e3d32",
+		button_hover_fg = "#f92672",
+	},
+
+	colors = {
+		tab_bar = {
+			background = "#272822",
+
+			active_tab = {
+				bg_color = "#49483e",
+				fg_color = "#f8f8f2",
+				intensity = "Bold",
+				underline = "None",
+				italic = false,
+				strikethrough = false,
+			},
+
+			inactive_tab = {
+				bg_color = "#272822",
+				fg_color = "#75715e",
+			},
+
+			inactive_tab_hover = {
+				bg_color = "#49483e",
+				fg_color = "#f8f8f2",
+				italic = true,
+			},
+
+			new_tab = {
+				bg_color = "#272822",
+				fg_color = "#75715e",
+			},
+
+			new_tab_hover = {
+				bg_color = "#49483e",
+				fg_color = "#f8f8f2",
+				italic = true,
+			},
+		},
+	},
+
 	window_padding = {
 		left = 0,
 		right = 0,
@@ -27,7 +81,7 @@ local config = {
 	anti_alias_custom_block_glyphs = false,
 
 	enable_scroll_bar = false,
-	color_scheme = "Hardcore (base16)",
+	color_scheme = "Monokai (dark) (terminal.sexy)",
 
 	-- Font settings
 	font = wezterm.font("BlexMono Nerd Font", { weight = "Regular" }),
