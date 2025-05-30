@@ -45,5 +45,13 @@ return {
 			},
 		})
 		require("bamboo").load()
+
+		-- Iterate over all highlight groups and disable italics, similar to classic_monokai's on_highlights
+		for group, _ in pairs(vim.api.nvim_get_hl(0, {})) do
+			local hl = vim.api.nvim_get_hl(0, { name = group })
+			if hl.italic then
+				vim.api.nvim_set_hl(0, group, { italic = false, fg = hl.fg, bg = hl.bg, sp = hl.sp })
+			end
+		end
 	end,
 }
