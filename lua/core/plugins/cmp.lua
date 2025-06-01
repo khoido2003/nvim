@@ -30,8 +30,8 @@ return {
 					completeopt = "menu,menuone,noinsert",
 				},
 				performance = {
-					debounce = 60, -- Faster trigger
-					throttle = 30, -- Faster updates
+					debounce = 30, -- Faster trigger
+					throttle = 20, -- Faster updates
 					fetching_timeout = 100, -- Reduce timeout for LSP responses
 					max_view_entries = 30, -- Limit displayed items
 				},

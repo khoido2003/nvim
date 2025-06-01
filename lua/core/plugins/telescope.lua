@@ -1,28 +1,93 @@
 return {
-	-- Telescope for Fuzzy Finding
-	{
-		"nvim-telescope/telescope.nvim",
-		tag = "0.1.4",
-		cmd = "Telescope",
-		lazy = true,
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			{
-				"nvim-telescope/telescope-live-grep-args.nvim",
-				config = function()
-					require("telescope").load_extension("live_grep_args")
-				end,
-			},
+	"nvim-telescope/telescope.nvim",
+	tag = "0.1.8",
+	cmd = "Telescope",
+	lazy = true,
+	dependencies = {
+		{ "nvim-lua/plenary.nvim", lazy = true },
+		{
+			"nvim-telescope/telescope-live-grep-args.nvim",
+			lazy = true,
+			config = function()
+				require("telescope").load_extension("live_grep_args")
+			end,
 		},
-		config = function()
-			require("telescope").setup({
-				defaults = { file_ignore_patterns = { "node_modules", ".git/*", "*.log" } },
-				extensions = {
-					lsp_handlers = {
-						code_action = { telescope = require("telescope.themes").get_dropdown({}) },
-					},
-				},
-			})
-		end,
 	},
+	config = function()
+		require("telescope").setup({
+			defaults = {
+				file_ignore_patterns = {
+					"node_modules/*",
+					".git/*",
+					"*.log",
+					"dist/*",
+					"build/*",
+					"target/*",
+					"out/*",
+					"bin/*",
+					"obj/*",
+					"coverage/*",
+					"vendor/*",
+					".venv/*",
+					"venv/*",
+					"*.egg-info/*",
+					"bower_components/*",
+					".pnpm-store/*",
+					"*.tmp",
+					"*.temp",
+					"*.cache",
+					".DS_Store",
+					"*.swp",
+					"*.swo",
+					"*.bak",
+					"*.backup",
+					"*.pyc",
+					"*.pyo",
+					"__pycache__/*",
+					"*.class",
+					"*.o",
+					"*.obj",
+					"*.jpg",
+					"*.jpeg",
+					"*.png",
+					"*.gif",
+					"*.svg",
+					"*.mp4",
+					"*.mkv",
+					"*.avi",
+					"*.mp3",
+					"*.wav",
+					"*.zip",
+					"*.tar",
+					"*.gz",
+					"*.7z",
+					"*.exe",
+					"*.dll",
+					"*.so",
+					"*.dylib",
+					"*.pdf",
+					"package-lock.json",
+					"yarn.lock",
+					"pnpm-lock.yaml",
+					"*.min.js",
+					"*.min.css",
+					"*.map",
+					"*.db",
+					"*.sqlite",
+					"*.sqlite3",
+					".github/*",
+					".gitlab/*",
+					".gitignore",
+					".gitattributes",
+					".circleci/*",
+					".travis.yml",
+				},
+			},
+			extensions = {
+				lsp_handlers = {
+					code_action = { telescope = require("telescope.themes").get_dropdown({}) },
+				},
+			},
+		})
+	end,
 }

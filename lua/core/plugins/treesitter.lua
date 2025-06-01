@@ -49,6 +49,13 @@ return {
 				},
 			})
 
+			vim.api.nvim_create_autocmd("BufReadPre", {
+				callback = function()
+					if vim.fn.line("$") > 15000 then
+						vim.cmd("TSBufDisable highlight")
+					end
+				end,
+			})
 			-- USING ZIG AS COMPILER FOR TREESITTER
 			require("nvim-treesitter.install").compilers = { "gcc", "zig" }
 		end,

@@ -1,7 +1,6 @@
 -- plugins.lua
 return {
 	require("core.plugins.monokai"),
-	-- require("core.plugins.theme"),
 	require("core.plugins.ui"),
 	require("core.plugins.diffview"),
 	require("core.plugins.nvim_tree"),

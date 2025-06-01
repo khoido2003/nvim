@@ -1,7 +1,5 @@
 vim.lsp.set_log_level("off") -- Keep off unless debugging
 
--- vim.o.signcolumn = "auto:2" -- Allow up to 2 sign columns
-
 -- Scrolling and navigation
 vim.opt.scrolloff = 5 -- More context, less jittery redraws
 vim.opt.sidescrolloff = 5 -- Consistent with scrolloff
@@ -20,7 +18,6 @@ vim.opt.showmode = false
 -- Editing
 vim.opt.backspace = "indent,eol,start"
 vim.opt.showcmd = true
-vim.opt.laststatus = 2 -- Default, but explicit for clarity
 vim.opt.autowrite = true
 vim.opt.shiftround = true
 vim.opt.swapfile = false -- No swap files, less I/O

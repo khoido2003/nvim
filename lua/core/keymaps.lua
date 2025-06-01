@@ -4,6 +4,9 @@ local M = {}
 local opts = { noremap = true, silent = true }
 local no_remap_opts = { noremap = false, silent = true } -- For commands like commenting
 
+-- Close all buffers
+vim.api.nvim_create_user_command("BDA", "bufdo bd!", {})
+
 -- Helper function to set keymaps
 local function map(mode, lhs, rhs, options)
 	vim.keymap.set(mode, lhs, rhs, options or opts)
