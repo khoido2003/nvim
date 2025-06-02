@@ -109,7 +109,7 @@ return {
 					},
 					RoslynExtensionsOptions = {
 						EnableAnalyzersSupport = true,
-						EnableImportCompletion = true,
+						EnableImportCompletion = false,
 					},
 					FileOptions = {
 						ExcludeSearchPatterns = {
