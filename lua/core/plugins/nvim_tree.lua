@@ -14,7 +14,6 @@ return {
 				custom = {
 					"node_modules",
 					"__pycache__",
-					".git",
 					"dist",
 					"build",
 					"target",
@@ -69,6 +68,7 @@ return {
 					"*.sqlite3",
 				},
 				dotfiles = true,
+				exclude = { ".gitignore" },
 			},
 		})
 	end,

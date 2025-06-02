@@ -15,7 +15,7 @@ return {
 				mapping = cmp.mapping.preset.insert({
 					["<C-b>"] = cmp.mapping.scroll_docs(-4), -- Scroll documentation
 					["<C-f>"] = cmp.mapping.scroll_docs(4), -- Scroll documentation
-					["<C-Space>"] = cmp.mapping.complete(), -- Trigger completion
+					["<C-y>"] = cmp.mapping.complete(), -- Trigger completion
 					["<C-e>"] = cmp.mapping.close(), -- Close completion menu
 					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Confirm selection
 					["<Tab>"] = cmp.mapping.select_next_item(), -- Select next item
@@ -30,9 +30,8 @@ return {
 					completeopt = "menu,menuone,noinsert",
 				},
 				performance = {
-					debounce = 30, -- Faster trigger
-					throttle = 20, -- Faster updates
-					fetching_timeout = 100, -- Reduce timeout for LSP responses
+					debounce = 20, -- Faster trigger
+					throttle = 5, -- Faster updates
 					max_view_entries = 30, -- Limit displayed items
 				},
 				sorting = {
