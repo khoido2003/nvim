@@ -6,6 +6,10 @@ return {
 		config = function()
 			-- Then apply any customizations through on_highlights
 			require("classic_monokai").setup({
+				plugins = {
+					["rainbow-delimiters.nvim"] = true,
+					all = true,
+				},
 				dark_style_background = "default",
 				light_style_background = "default",
 				hl_styles = {
@@ -27,7 +31,6 @@ return {
 					end
 				end,
 				auto_enable_plugins = true,
-				plugins = { all = true },
 				color_headers = true,
 				dim_inactive = false,
 				lualine_bold = true,
