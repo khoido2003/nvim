@@ -104,12 +104,13 @@ return {
 
 				settings = {
 					FormattingOptions = {
-						EnableEditorConfigSupport = true,
-						OrganizeImports = true,
+						EnableEditorConfigSupport = false,
+						OrganizeImports = false,
 					},
+
 					RoslynExtensionsOptions = {
-						EnableAnalyzersSupport = true,
-						EnableImportCompletion = false,
+						EnableAnalyzersSupport = false,
+						EnableImportCompletion = true,
 					},
 					FileOptions = {
 						ExcludeSearchPatterns = {

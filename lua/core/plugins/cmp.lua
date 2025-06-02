@@ -32,7 +32,7 @@ return {
 				performance = {
 					debounce = 20, -- Faster trigger
 					throttle = 5, -- Faster updates
-					max_view_entries = 30, -- Limit displayed items
+					max_view_entries = 12, -- Limit displayed items
 				},
 				sorting = {
 					priority_weight = 2,
