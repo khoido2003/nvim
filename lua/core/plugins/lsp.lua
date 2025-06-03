@@ -16,6 +16,24 @@ return {
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 		capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+		vim.diagnostic.config({
+			float = {
+				border = "rounded",
+			},
+		})
+
+		vim.o.updatetime = 300
+		vim.api.nvim_create_autocmd("CursorHold", {
+			callback = function()
+				vim.diagnostic.open_float(nil, {
+					focusable = false,
+					border = "rounded",
+					source = "always",
+					scope = "cursor",
+				})
+			end,
+		})
+
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = "cs",
 			callback = function()
