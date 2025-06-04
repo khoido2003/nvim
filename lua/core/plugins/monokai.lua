@@ -17,8 +17,8 @@ return {
 					keywords = { italic = false },
 					functions = { italic = false },
 					variables = { italic = false },
-					floats = "dark",
-					sidebars = "dark",
+					floats = "default",
+					sidebars = "default",
 				},
 				on_highlights = function(highlights, _)
 					for _, group in pairs(highlights) do
