@@ -8,10 +8,29 @@ return {
 			{ "hrsh7th/cmp-buffer", lazy = true }, -- Buffer completions
 			{ "hrsh7th/cmp-path", lazy = true }, -- Path completions (filesystem)
 		},
+
 		config = function()
 			local cmp = require("cmp")
-
 			cmp.setup({
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = {
+						border = "rounded",
+						max_width = 80,
+						max_height = 20,
+					},
+				},
+
+				formatting = {
+					format = function(entry, vim_item)
+						local max_width = 40
+						if #vim_item.abbr > max_width then
+							vim_item.abbr = vim_item.abbr:sub(1, max_width - 3) .. "..."
+						end
+						return vim_item
+					end,
+				},
+
 				mapping = cmp.mapping.preset.insert({
 					["<C-b>"] = cmp.mapping.scroll_docs(-4), -- Scroll documentation
 					["<C-f>"] = cmp.mapping.scroll_docs(4), -- Scroll documentation
