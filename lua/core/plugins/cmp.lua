@@ -4,11 +4,15 @@ return {
 		lazy = true,
 		event = "InsertEnter",
 		dependencies = {
-			{ "hrsh7th/cmp-nvim-lsp", lazy = true }, -- LSP completions with path info
-			{ "hrsh7th/cmp-buffer", lazy = true }, -- Buffer completions
-			{ "hrsh7th/cmp-path", lazy = true }, -- Path completions (filesystem)
+			{ "hrsh7th/cmp-nvim-lsp", lazy = true },
+			{ "hrsh7th/cmp-buffer", lazy = true },
+			{ "hrsh7th/cmp-path", lazy = true },
+			{
+				"hrsh7th/cmp-nvim-lsp-signature-help",
+				lazy = true,
+			},
+			{ "onsails/lspkind-nvim", lazy = true },
 		},
-
 		config = function()
 			local cmp = require("cmp")
 			cmp.setup({
@@ -22,36 +26,40 @@ return {
 				},
 
 				formatting = {
-					format = function(entry, vim_item)
-						local max_width = 40
-						if #vim_item.abbr > max_width then
-							vim_item.abbr = vim_item.abbr:sub(1, max_width - 3) .. "..."
-						end
-						return vim_item
-					end,
+					format = require("lspkind").cmp_format({
+						mode = "symbol_text",
+						ellipsis_char = "...",
+						menu = {
+							buffer = "[BUF]",
+							nvim_lsp = "[LSP]",
+							path = "[PATH]",
+							nvim_lsp_signature_help = "[SIG]",
+						},
+					}),
 				},
 
 				mapping = cmp.mapping.preset.insert({
-					["<C-b>"] = cmp.mapping.scroll_docs(-4), -- Scroll documentation
-					["<C-f>"] = cmp.mapping.scroll_docs(4), -- Scroll documentation
-					["<C-y>"] = cmp.mapping.complete(), -- Trigger completion
-					["<C-e>"] = cmp.mapping.close(), -- Close completion menu
-					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Confirm selection
-					["<Tab>"] = cmp.mapping.select_next_item(), -- Select next item
-					["<S-Tab>"] = cmp.mapping.select_prev_item(), -- Select previous item
+					["<C-b>"] = cmp.mapping.scroll_docs(-4),
+					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					["<C-y>"] = cmp.mapping.complete(),
+					["<C-e>"] = cmp.mapping.close(),
+					["<CR>"] = cmp.mapping.confirm({ select = true }),
+					["<Tab>"] = cmp.mapping.select_next_item(),
+					["<S-Tab>"] = cmp.mapping.select_prev_item(),
 				}),
 				sources = {
-					{ name = "nvim_lsp" }, -- LSP completion source
-					{ name = "path" }, -- Path completion source
-					{ name = "buffer" }, -- Buffer completion source
+					{ name = "nvim_lsp" },
+					{ name = "path" },
+					{ name = "buffer" },
+					{ name = "nvim_lsp_signature_help" },
 				},
 				completion = {
 					completeopt = "menu,menuone,noinsert",
 				},
 				performance = {
-					debounce = 20, -- Faster trigger
-					throttle = 5, -- Faster updates
-					max_view_entries = 12, -- Limit displayed items
+					debounce = 20,
+					throttle = 5,
+					max_view_entries = 12,
 				},
 				sorting = {
 					priority_weight = 2,

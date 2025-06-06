@@ -16,24 +16,6 @@ return {
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 		capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-		vim.diagnostic.config({
-			float = {
-				border = "rounded",
-			},
-		})
-
-		vim.o.updatetime = 300
-		vim.api.nvim_create_autocmd("CursorHold", {
-			callback = function()
-				vim.diagnostic.open_float(nil, {
-					focusable = false,
-					border = "rounded",
-					source = "always",
-					scope = "cursor",
-				})
-			end,
-		})
-
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = "cs",
 			callback = function()
@@ -52,17 +34,53 @@ return {
 
 			local lsp_mappings = {
 				{ "<leader>gd", "vim.lsp.buf.definition()" },
-				{ "<leader>k", "vim.lsp.buf.hover()" },
+				{
+					"<leader>k",
+					function()
+						vim.lsp.buf.hover({ border = "rounded" })
+					end,
+				},
 				{ "<leader>rn", "vim.lsp.buf.rename()" },
 				{ "<leader>gr", "vim.lsp.buf.references()" },
 				{ "<leader>gt", "vim.lsp.buf.type_definition()" },
-				{ "<leader>sh", "vim.lsp.buf.signature_help()" },
-				{ "<leader>ca", "vim.lsp.buf.code_action()" },
+				{
+					"<leader>sh",
+					function()
+						vim.lsp.buf.signature_help({ border = "rounded" })
+					end,
+				},
+				{
+					"<leader>ca",
+					function()
+						vim.lsp.buf.code_action({ border = "rounded" })
+					end,
+				},
 			}
 			for _, mapping in ipairs(lsp_mappings) do
-				vim.keymap.set("n", mapping[1], "<Cmd>lua " .. mapping[2] .. "<CR>", { noremap = true, silent = true })
+				vim.keymap.set("n", mapping[1], mapping[2], { noremap = true, silent = true })
 			end
+
+			-- diagnostic config
 			vim.keymap.set("n", "<Leader>d", ":lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true })
+
+			vim.diagnostic.config({
+				float = {
+					border = "rounded",
+				},
+			})
+
+			vim.o.updatetime = 300
+			vim.api.nvim_create_autocmd("CursorHold", {
+				callback = function()
+					vim.diagnostic.open_float(nil, {
+						focusable = false,
+						border = "rounded",
+						source = "always",
+						scope = "cursor",
+					})
+				end,
+			})
+
 			print("LSP server '" .. client.name .. "' started successfully!")
 		end
 
@@ -108,6 +126,9 @@ return {
 					"--languageserver",
 					"--hostPID",
 					tostring(vim.fn.getpid()),
+					"--encoding",
+					"utf-8",
+					"--memory-limit:8192",
 				},
 				filetypes = { "cs" },
 				handlers = {
@@ -129,19 +150,46 @@ return {
 					RoslynExtensionsOptions = {
 						EnableAnalyzersSupport = false,
 						EnableImportCompletion = true,
+						EnableDecompilationSupport = false,
+						DocumentAnalysisTimeoutMs = 5000,
+						DiagnosticWorkersThreadCount = 2,
 					},
 					FileOptions = {
+						SystemExcludeSearchPatterns = {
+							"**/bin/**/*",
+							"**/obj/**/*",
+							"**/Library/**/*",
+							"**/Temp/**/*",
+							"**/node_modules/**/*",
+							"**/dist/**/*",
+							"**/packages/**/*",
+							"**/.git/**/*",
+							"**/.vs/**/*",
+							"**/Logs/**/*",
+							"**/ProjectSettings/**/*",
+						},
 						ExcludeSearchPatterns = {
 							"**/bin/**/*",
 							"**/obj/**/*",
 							"**/Library/**/*",
 							"**/Temp/**/*",
+							"**/node_modules/**/*",
+							"**/dist/**/*",
+							"**/packages/**/*",
+							"**/.git/**/*",
+							"**/.vs/**/*",
+							"**/Logs/**/*",
+							"**/ProjectSettings/**/*",
 						},
+					},
+					SdkOptions = {
+						IncludePrerelease = false,
 					},
 				},
 				init_options = {
 					AutomaticWorkspaceInitialization = true,
 					LoadProjectsOnDemand = true,
+					UseModernNet = true,
 				},
 			},
 
