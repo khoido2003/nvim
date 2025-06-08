@@ -12,4 +12,5 @@ return {
 	require("core.plugins.cmp"),
 	require("core.plugins.lsp"),
 	require("core.plugins.git_signs"),
+	require("core.plugins.indent"),
 }
