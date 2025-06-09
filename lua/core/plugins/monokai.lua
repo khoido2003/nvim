@@ -32,7 +32,7 @@ return {
 				dim_inactive = false,
 				lualine_bold = true,
 				lualine_style = "default",
-				markdown_header_marks = true,
+				markdown_header_marks = false,
 				terminal_colors = true,
 				cache = false,
 			})
