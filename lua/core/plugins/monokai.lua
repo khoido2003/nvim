@@ -25,9 +25,6 @@ return {
 						if group.italic then
 							group.italic = false
 						end
-						if group.bold then
-							group.bold = false
-						end
 					end
 				end,
 				auto_enable_plugins = true,
@@ -35,7 +32,7 @@ return {
 				dim_inactive = false,
 				lualine_bold = true,
 				lualine_style = "default",
-				markdown_header_marks = false,
+				markdown_header_marks = true,
 				terminal_colors = true,
 				cache = false,
 			})
