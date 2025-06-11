@@ -46,13 +46,13 @@ return {
 				{
 					"<leader>sh",
 					function()
-						vim.lsp.buf.signature_help({ border = "rounded" })
+						vim.lsp.buf.signature_help()
 					end,
 				},
 				{
 					"<leader>ca",
 					function()
-						vim.lsp.buf.code_action({ border = "rounded" })
+						vim.lsp.buf.code_action()
 					end,
 				},
 			}
@@ -62,12 +62,6 @@ return {
 
 			-- diagnostic config
 			vim.keymap.set("n", "<Leader>d", ":lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true })
-
-			vim.diagnostic.config({
-				float = {
-					border = "rounded",
-				},
-			})
 
 			vim.o.updatetime = 300
 			vim.api.nvim_create_autocmd("CursorHold", {
