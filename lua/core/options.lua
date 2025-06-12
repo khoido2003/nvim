@@ -28,7 +28,7 @@ vim.opt.softtabstop = 4
 vim.opt.expandtab = true -- Consolidated from duplicate
 
 -- Line numbers
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 vim.opt.number = true
 
 vim.diagnostic.config({ virtual_text = true })
