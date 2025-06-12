@@ -1,7 +1,7 @@
 return {
 	{
 		"khoido2003/classic_monokai.nvim",
-		event = "VeryLazy",
+		event = "UIEnter",
 		priority = 1000,
 		config = function()
 			-- Then apply any customizations through on_highlights
