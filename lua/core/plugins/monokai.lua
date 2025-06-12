@@ -34,7 +34,7 @@ return {
 				lualine_style = "default",
 				markdown_header_marks = false,
 				terminal_colors = true,
-				cache = false,
+				cache = true,
 			})
 			-- Set the colorscheme first
 			vim.cmd.colorscheme("classic-monokai")

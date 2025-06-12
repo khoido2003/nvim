@@ -27,6 +27,9 @@ local config = {
 	},
 
 	colors = {
+		cursor_bg = "#f8f8f0",
+		cursor_fg = "#272822",
+		cursor_border = "#f8f8f0",
 		tab_bar = {
 			background = "#272822",
 
@@ -81,6 +84,7 @@ local config = {
 	anti_alias_custom_block_glyphs = false,
 
 	enable_scroll_bar = false,
+
 	color_scheme = "Monokai (dark) (terminal.sexy)",
 
 	-- Font settings

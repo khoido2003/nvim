@@ -1,8 +1,7 @@
 return {
 	{
 		"HiPhish/rainbow-delimiters.nvim",
-		lazy = true,
-		event = "BufReadPost",
+		event = "VeryLazy",
 	},
 	{
 		"akinsho/toggleterm.nvim",
@@ -22,21 +21,32 @@ return {
 			})
 		end,
 	},
-	-- Auto pair
 	{
 		"echasnovski/mini.pairs",
 		version = "*",
-		event = "BufReadPost",
+		event = "VeryLazy",
 		config = function()
 			require("mini.pairs").setup({})
 		end,
 	},
 	{
-		"norcalli/nvim-colorizer.lua",
-		event = "BufReadPost",
-		lazy = true,
+		"echasnovski/mini.hipatterns",
+		version = "*",
+		event = "VeryLazy",
 		config = function()
-			require("colorizer").setup({})
+			local hipatterns = require("mini.hipatterns")
+			hipatterns.setup({
+				highlighters = {
+					-- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+					fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+					hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+					todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+					note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+
+					-- Highlight hex color strings (`#rrggbb`) using that color
+					hex_color = hipatterns.gen_highlighter.hex_color(),
+				},
+			})
 		end,
 	},
 	{
@@ -46,9 +56,8 @@ return {
 			require("nvim-web-devicons").setup({ default = true })
 		end,
 	},
-	-- Multiple cursor
 	{
 		"mg979/vim-visual-multi",
-		event = "BufReadPost",
+		event = "VeryLazy",
 	},
 }
