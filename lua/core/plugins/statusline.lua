@@ -1,6 +1,6 @@
 return {
 	"echasnovski/mini.statusline",
-	event = "UIEnter",
+	event = "VeryLazy",
 
 	version = "*",
 	lazy = true,

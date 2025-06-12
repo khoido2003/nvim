@@ -1,7 +1,7 @@
 return {
 	{
 		"khoido2003/classic_monokai.nvim",
-		lazy = false,
+		event = "VeryLazy",
 		priority = 1000,
 		config = function()
 			-- Then apply any customizations through on_highlights
@@ -34,7 +34,7 @@ return {
 				lualine_style = "default",
 				markdown_header_marks = false,
 				terminal_colors = true,
-				cache = true,
+				cache = false,
 			})
 			-- Set the colorscheme first
 			vim.cmd.colorscheme("classic-monokai")
