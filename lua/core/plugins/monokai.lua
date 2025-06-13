@@ -33,7 +33,7 @@ return {
 				lualine_bold = true,
 				lualine_style = "default",
 				markdown_header_marks = false,
-				terminal_colors = false,
+				terminal_colors = true,
 				cache = false,
 			})
 			-- Set the colorscheme first
