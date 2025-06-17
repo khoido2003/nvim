@@ -16,33 +16,45 @@ return {
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 		capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-		vim.api.nvim_create_autocmd("FileType", {
-			pattern = "cs",
-			callback = function()
-				vim.keymap.set(
-					"n",
-					"<leader>gd",
-					":lua require('omnisharp_extended').telescope_lsp_definitions()<cr>",
-					{ buffer = true, noremap = true, silent = true }
-				)
-			end,
-		})
-
 		local on_attach = function(client, _)
 			client.server_capabilities.documentFormattingProvider = false
 			client.server_capabilities.documentRangeFormattingProvider = false
 
 			local lsp_mappings = {
-				{ "<leader>gd", "vim.lsp.buf.definition()" },
+				{
+					"<leader>gd",
+					function()
+						if vim.bo.filetype == "cs" then
+							require("omnisharp_extended").telescope_lsp_definitions()
+						else
+							vim.lsp.buf.definition()
+						end
+					end,
+				},
 				{
 					"<leader>k",
 					function()
 						vim.lsp.buf.hover({ border = "rounded" })
 					end,
 				},
-				{ "<leader>rn", "vim.lsp.buf.rename()" },
-				{ "<leader>gr", "vim.lsp.buf.references()" },
-				{ "<leader>gt", "vim.lsp.buf.type_definition()" },
+				{
+					"<leader>rn",
+					function()
+						vim.lsp.buf.rename()
+					end,
+				},
+				{
+					"<leader>gr",
+					function()
+						require("telescope.builtin").lsp_references()
+					end,
+				},
+				{
+					"<leader>gt",
+					function()
+						vim.lsp.buf.type_definition()
+					end,
+				},
 				{
 					"<leader>sh",
 					function()
@@ -203,10 +215,10 @@ return {
 				},
 			},
 
-			svelte = {
-				cmd = { "svelteserver", "--stdio" },
-				filetypes = { "svelte" },
-			},
+			-- svelte = {
+			-- 	cmd = { "svelteserver", "--stdio" },
+			-- 	filetypes = { "svelte" },
+			-- },
 
 			html = {
 				filetypes = {

@@ -68,7 +68,7 @@ return {
 					"*.sqlite3",
 				},
 				dotfiles = true,
-				exclude = { ".gitignore" },
+				exclude = { ".gitignore" , "routes"},
 			},
 		})
 	end,
