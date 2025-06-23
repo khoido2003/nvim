@@ -77,7 +77,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	end,
 })
 
-
 -- Enable cursorline only in active buffer
 vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
 	callback = function()
