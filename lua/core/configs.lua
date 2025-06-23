@@ -9,7 +9,7 @@ return {
 	require("core.plugins.telescope"),
 	require("core.plugins.mason"),
 	require("core.plugins.formatter"),
-	require("core.plugins.cmp"),
+	require("core.plugins.blink"),
 	require("core.plugins.lsp"),
 	require("core.plugins.git_signs"),
 	require("core.plugins.indent"),

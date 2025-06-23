@@ -2,10 +2,8 @@ return {
 	"neovim/nvim-lspconfig",
 	event = { "LspAttach" },
 	dependencies = {
-		{
-			"hrsh7th/cmp-nvim-lsp",
-			lazy = true,
-		},
+		{ "saghen/blink.cmp" },
+
 		{
 			"Hoffs/omnisharp-extended-lsp.nvim",
 			lazy = true,
@@ -13,8 +11,7 @@ return {
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
-		capabilities.textDocument.completion.completionItem.snippetSupport = true
+		local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 		local on_attach = function(client, _)
 			client.server_capabilities.documentFormattingProvider = false
@@ -220,35 +217,35 @@ return {
 			-- 	filetypes = { "svelte" },
 			-- },
 
-			html = {
-				filetypes = {
-					"html",
-					"css",
-					"javascript",
-					"typescript",
-					"javascriptreact",
-					"typescriptreact",
-					"vue",
-					"svelte",
-				},
-			},
-
-			cssls = {
-				filetypes = { "css", "scss", "less", "svelte" },
-			},
-
-			tailwindcss = {
-				filetypes = {
-					"html",
-					"css",
-					"javascript",
-					"typescript",
-					"javascriptreact",
-					"typescriptreact",
-					"vue",
-					"svelte",
-				},
-			},
+			-- html = {
+			-- 	filetypes = {
+			-- 		"html",
+			-- 		"css",
+			-- 		"javascript",
+			-- 		"typescript",
+			-- 		"javascriptreact",
+			-- 		"typescriptreact",
+			-- 		"vue",
+			-- 		"svelte",
+			-- 	},
+			-- },
+			--
+			-- cssls = {
+			-- 	filetypes = { "css", "scss", "less", "svelte" },
+			-- },
+			--
+			-- tailwindcss = {
+			-- 	filetypes = {
+			-- 		"html",
+			-- 		"css",
+			-- 		"javascript",
+			-- 		"typescript",
+			-- 		"javascriptreact",
+			-- 		"typescriptreact",
+			-- 		"vue",
+			-- 		"svelte",
+			-- 	},
+			-- },
 
 			-- jdtls = {
 			-- 	root_dir = function(fname)
