@@ -12,26 +12,6 @@ return {
 		end,
 	},
 	{
-		"echasnovski/mini.hipatterns",
-		version = "*",
-		event = "VeryLazy",
-		config = function()
-			local hipatterns = require("mini.hipatterns")
-			hipatterns.setup({
-				highlighters = {
-					-- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-					fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
-					hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
-					todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
-					note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
-
-					-- Highlight hex color strings (`#rrggbb`) using that color
-					hex_color = hipatterns.gen_highlighter.hex_color(),
-				},
-			})
-		end,
-	},
-	{
 		"kyazdani42/nvim-web-devicons",
 		lazy = true,
 		config = function()
@@ -39,7 +19,20 @@ return {
 		end,
 	},
 	{
-		"mg979/vim-visual-multi",
+		"smoka7/multicursors.nvim",
 		event = "VeryLazy",
+		dependencies = {
+			"nvimtools/hydra.nvim",
+		},
+		opts = {},
+		cmd = { "MCstart", "MCvisual", "MCclear", "MCpattern", "MCvisualPattern", "MCunderCursor" },
+		keys = {
+			{
+				mode = { "v", "n" },
+				"<Leader>m",
+				"<cmd>MCstart<cr>",
+				desc = "Create a selection for selected text or word under the cursor",
+			},
+		},
 	},
 }
