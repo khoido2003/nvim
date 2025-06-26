@@ -72,17 +72,17 @@ return {
 			-- diagnostic config
 			vim.keymap.set("n", "<Leader>d", ":lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true })
 
-			vim.o.updatetime = 300
-			vim.api.nvim_create_autocmd("CursorHold", {
-				callback = function()
-					vim.diagnostic.open_float(nil, {
-						focusable = false,
-						border = "rounded",
-						source = "always",
-						scope = "cursor",
-					})
-				end,
-			})
+			-- vim.o.updatetime = 300
+			-- vim.api.nvim_create_autocmd("CursorHold", {
+			-- 	callback = function()
+			-- 		vim.diagnostic.open_float(nil, {
+			-- 			focusable = false,
+			-- 			border = "rounded",
+			-- 			source = "always",
+			-- 			scope = "cursor",
+			-- 		})
+			-- 	end,
+			-- })
 
 			print("LSP server '" .. client.name .. "' started successfully!")
 		end

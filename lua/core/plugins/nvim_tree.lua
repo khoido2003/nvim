@@ -8,7 +8,10 @@ return {
 			update_cwd = false,
 			hijack_netrw = false,
 			reload_on_bufenter = false,
-
+			git = {
+				enable = true,
+				timeout = 5000,
+			},
 			diagnostics = { enable = false },
 			filters = {
 				custom = {
@@ -68,7 +71,7 @@ return {
 					"*.sqlite3",
 				},
 				dotfiles = true,
-				exclude = { ".gitignore" , "routes"},
+				exclude = { ".gitignore", "routes" },
 			},
 		})
 	end,
