@@ -31,7 +31,7 @@ return {
 				{
 					"<leader>k",
 					function()
-						vim.lsp.buf.hover({ border = "rounded" })
+						vim.lsp.buf.hover({ border = "single" })
 					end,
 				},
 				{
@@ -64,13 +64,19 @@ return {
 						vim.lsp.buf.code_action()
 					end,
 				},
+				{
+					"<leader>d",
+					function()
+						vim.diagnostic.open_float(nil, {
+							source = "always",
+							border = "single",
+						})
+					end,
+				},
 			}
 			for _, mapping in ipairs(lsp_mappings) do
 				vim.keymap.set("n", mapping[1], mapping[2], { noremap = true, silent = true })
 			end
-
-			-- diagnostic config
-			vim.keymap.set("n", "<Leader>d", ":lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true })
 
 			-- vim.o.updatetime = 300
 			-- vim.api.nvim_create_autocmd("CursorHold", {
