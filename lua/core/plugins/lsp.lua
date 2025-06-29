@@ -3,7 +3,6 @@ return {
 	event = { "LspAttach" },
 	dependencies = {
 		{ "saghen/blink.cmp" },
-
 		{
 			"Hoffs/omnisharp-extended-lsp.nvim",
 			lazy = true,
@@ -13,84 +12,70 @@ return {
 		local lspconfig = require("lspconfig")
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
 
+		local lsp_mappings = {
+			{
+				"<leader>gd",
+				function()
+					if vim.bo.filetype == "cs" then
+						require("omnisharp_extended").lsp_definitions()
+					else
+						vim.lsp.buf.definition()
+					end
+				end,
+			},
+			{
+				"<leader>k",
+				function()
+					vim.lsp.buf.hover({ border = "single" })
+				end,
+			},
+			{
+				"<leader>rn",
+				function()
+					vim.lsp.buf.rename()
+				end,
+			},
+			{
+				"<leader>gr",
+				function()
+					require("telescope.builtin").lsp_references()
+				end,
+			},
+			{
+				"<leader>gt",
+				function()
+					vim.lsp.buf.type_definition()
+				end,
+			},
+			{
+				"<leader>sh",
+				function()
+					vim.lsp.buf.signature_help()
+				end,
+			},
+			{
+				"<leader>ca",
+				function()
+					vim.lsp.buf.code_action()
+				end,
+			},
+			{
+				"<leader>d",
+				function()
+					vim.diagnostic.open_float(nil, {
+						source = "always",
+						border = "single",
+					})
+				end,
+			},
+		}
+		for _, mapping in ipairs(lsp_mappings) do
+			vim.keymap.set("n", mapping[1], mapping[2], { noremap = true, silent = true })
+		end
+
 		local on_attach = function(client, _)
 			client.server_capabilities.documentFormattingProvider = false
 			client.server_capabilities.documentRangeFormattingProvider = false
-
-			local lsp_mappings = {
-				{
-					"<leader>gd",
-					function()
-						if vim.bo.filetype == "cs" then
-							require("omnisharp_extended").telescope_lsp_definitions()
-						else
-							vim.lsp.buf.definition()
-						end
-					end,
-				},
-				{
-					"<leader>k",
-					function()
-						vim.lsp.buf.hover({ border = "single" })
-					end,
-				},
-				{
-					"<leader>rn",
-					function()
-						vim.lsp.buf.rename()
-					end,
-				},
-				{
-					"<leader>gr",
-					function()
-						require("telescope.builtin").lsp_references()
-					end,
-				},
-				{
-					"<leader>gt",
-					function()
-						vim.lsp.buf.type_definition()
-					end,
-				},
-				{
-					"<leader>sh",
-					function()
-						vim.lsp.buf.signature_help()
-					end,
-				},
-				{
-					"<leader>ca",
-					function()
-						vim.lsp.buf.code_action()
-					end,
-				},
-				{
-					"<leader>d",
-					function()
-						vim.diagnostic.open_float(nil, {
-							source = "always",
-							border = "single",
-						})
-					end,
-				},
-			}
-			for _, mapping in ipairs(lsp_mappings) do
-				vim.keymap.set("n", mapping[1], mapping[2], { noremap = true, silent = true })
-			end
-
-			-- vim.o.updatetime = 300
-			-- vim.api.nvim_create_autocmd("CursorHold", {
-			-- 	callback = function()
-			-- 		vim.diagnostic.open_float(nil, {
-			-- 			focusable = false,
-			-- 			border = "rounded",
-			-- 			source = "always",
-			-- 			scope = "cursor",
-			-- 		})
-			-- 	end,
-			-- })
-
-			print("LSP server '" .. client.name .. "' started successfully!")
 		end
 
 		local servers = {
@@ -212,7 +197,7 @@ return {
 						},
 						diagnostics = {
 							enable = true,
-							experimental = { enable = true },
+							experimental = { enable = false },
 						},
 					},
 				},
