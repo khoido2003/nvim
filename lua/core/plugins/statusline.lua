@@ -1,51 +1,37 @@
 return {
 	"echasnovski/mini.statusline",
 	event = "VeryLazy",
-
 	version = "*",
 	lazy = true,
 	config = function()
-		local MiniStatusline = require("mini.statusline")
-
-		-- Custom active statusline function
-		local function custom_active()
-			-- Default sections
-			local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
-			local git = MiniStatusline.section_git({ trunc_width = 50 })
-			local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 40 })
-			local diff = MiniStatusline.section_diff({ trunc_width = 75 })
-			local lsp = MiniStatusline.section_lsp({ trunc_width = 40 })
-
-			local line_num = vim.api.nvim_win_get_cursor(0)[1] -- Current line number
-			local total_lines = vim.api.nvim_buf_line_count(0) -- Total lines
-			local location = string.format("%d|%d", line_num, total_lines)
-
-			-- Custom file info: show only filename
-			local filename = vim.fn.expand("%:t")
-			local fileinfo = filename == "" and "[No Name]" or filename
-
-			-- Combine sections into groups
-			return MiniStatusline.combine_groups({
-				{ hl = mode_hl, strings = { mode } }, -- Mode
-				{ hl = "MiniStatuslineDevinfo", strings = { git } }, -- Git branch
-				{ hl = "MiniStatuslineDevinfo", strings = { diff } }, -- Diff
-				{ hl = "MiniStatuslineDevinfo", strings = { diagnostics } }, -- Diagnostics
-				"%<", -- Truncate point
-				{ hl = "MiniStatuslineFilename", strings = { fileinfo } }, -- Filename
-
-				"%=", -- Right-align
-
-				{ hl = "MiniStatuslineDevinfo", strings = { lsp } }, -- LSP info
-				{ hl = mode_hl, strings = { location } },
-			})
-		end
-
-		MiniStatusline.setup({
+		require("mini.statusline").setup({
 			content = {
-				active = custom_active,
+				active = function()
+					local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+					local git = MiniStatusline.section_git({ trunc_width = 40 })
+					local diff = MiniStatusline.section_diff({ trunc_width = 75 })
+					local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+					local lsp = MiniStatusline.section_lsp({ trunc_width = 75 })
+					-- Custom section to show only the file name
+					local filename = vim.fn.fnamemodify(vim.fn.bufname(), ":t")
+					local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+					local location = MiniStatusline.is_truncated(40) and ""
+						or (vim.fn.line(".") .. "|" .. vim.fn.line("$"))
+					local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
+					return MiniStatusline.combine_groups({
+						{ hl = mode_hl, strings = { mode } },
+						{ hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics } },
+						"%<", -- Mark general truncate point
+						{ hl = "MiniStatuslineFilename", strings = { filename } }, -- Use custom filename
+						"%=", -- End left alignment
+						{ hl = "MiniStatuslineFilename", strings = { fileinfo } },
+						{ hl = "MiniStatuslineFileinfo", strings = { lsp } },
+						{ hl = mode_hl, strings = { search, location } },
+					})
+				end,
 				inactive = nil,
 			},
-			set_vim_settings = true,
+			use_icons = true,
 		})
 	end,
 }
