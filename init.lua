@@ -24,7 +24,6 @@ vim.opt.rtp:prepend(lazypath)
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
 		vim.schedule(function()
-			require("core.settings.winbar")
 			require("core.settings.options")
 			require("core.settings.keymaps").setup()
 		end)
