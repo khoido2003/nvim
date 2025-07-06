@@ -1,6 +1,6 @@
 return {
 	"stevearc/conform.nvim",
-	event = "BufWritePre",
+	event = "BufWritePost",
 	lazy = true,
 	config = function()
 		-- Formatter setup
@@ -49,7 +49,7 @@ return {
 			},
 		})
 
-		vim.api.nvim_create_autocmd("BufWritePre", {
+		vim.api.nvim_create_autocmd("BufWritePost", {
 			pattern = "*",
 			callback = function(args)
 				require("conform").format({ bufnr = args.buf, async = true })
