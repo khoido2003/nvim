@@ -24,13 +24,14 @@ vim.opt.rtp:prepend(lazypath)
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
 		vim.schedule(function()
-			require("core.options")
-			require("core.keymaps").setup()
+			require("core.settings.winbar")
+			require("core.settings.options")
+			require("core.settings.keymaps").setup()
 		end)
 	end,
 })
 
-require("lazy").setup("core.configs", {
+require("lazy").setup("core.settings.configs", {
 	performance = {
 		cache = { enabled = true },
 		rtp = {
