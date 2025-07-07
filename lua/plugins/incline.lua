@@ -1,5 +1,6 @@
 return {
 	"b0o/incline.nvim",
+	priority = 1200,
 	config = function()
 		local helpers = require("incline.helpers")
 		local devicons = require("nvim-web-devicons")
@@ -9,7 +10,7 @@ return {
 				rising = 10,
 			},
 			hide = {
-				cursorline = true,
+				cursorline = false,
 				focused_win = false,
 				only_win = false,
 			},

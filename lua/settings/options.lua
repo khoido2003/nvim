@@ -1,5 +1,17 @@
 vim.lsp.set_log_level("off") -- Keep off unless debugging
 
+vim.opt.termguicolors = true
+vim.opt.fileencoding = "utf-8"
+vim.opt.encoding = "utf-8"
+vim.opt.swapfile = false
+vim.opt.updatetime = 500
+vim.opt.redrawtime = 1500
+
+vim.g.loaded_matchparen = 1
+vim.g.loaded_rplugin = 1
+vim.g.loaded_shada = 1
+vim.g.loaded_spellfile = 1
+
 -- Scrolling and navigation
 vim.opt.scrolloff = 5 -- More context, less jittery redraws
 vim.opt.sidescrolloff = 5 -- Consistent with scrolloff
