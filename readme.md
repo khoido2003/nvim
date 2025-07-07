@@ -1,106 +1,19 @@
-<a href="https://dotfyle.com/khoido2003/nvim"><img src="https://dotfyle.com/khoido2003/nvim/badges/plugins?style=flat" /></a>
-<a href="https://dotfyle.com/khoido2003/nvim"><img src="https://dotfyle.com/khoido2003/nvim/badges/leaderkey?style=flat" /></a>
-<a href="https://dotfyle.com/khoido2003/nvim"><img src="https://dotfyle.com/khoido2003/nvim/badges/plugin-manager?style=flat" /></a>
+# Neovim Config
 
-# My Neovim Setup!
-
-This is a **super fast** Neovim configuration that starts up in **50 ms or less**! It’s designed to be simple yet powerful, with a cool **Monokai** colorscheme to make coding look great.
+**Super fast** Neovim configuration that starts up in **50 ms or less**!.
 
 - Window 10: Wezterm + Powershell7
 - Fedora Linux: Kitty + Zsh
 
 ---
 
-## What's this all about
+## Specs
 - Speed: Starts up blazingly fast (≤50 ms).
-- Look: Uses the Monokai theme for a sleek, modern vibe. (https://github.com/polirritmico/monokai-nightasty.nvim)
+- Look: Classic Monokai theme. (https://github.com/khoido2003/classic_monokai.nvim)
 - Tools: Manages plugins with LazyVim and LSP servers with Mason.nvim.
-- Keybindings: Easy-to-use shortcuts for editing, navigation, and more (check them out below!).
 
-
-## Install Instructions
-
- > Install requires Neovim 0.10+. Always review the code before installing a configuration.
-
-Clone the repository and install the plugins:
-
-```sh
-git clone git@github.com:khoido2003/nvim ~/.config/khoido2003/nvim
-```
-
-Open Neovim with this config:
-
-```
-NVIM_APPNAME=khoido2003/nvim/ nvim
-```
-
-## Plugins
-
-### colorscheme
-
-+ [polirritmico/monokai-nightasty.nvim](https://dotfyle.com/plugins/polirritmico/monokai-nightasty.nvim)
-### completion
-
-+ [hrsh7th/nvim-cmp](https://dotfyle.com/plugins/hrsh7th/nvim-cmp)
-### editing-support
-
-+ [windwp/nvim-ts-autotag](https://dotfyle.com/plugins/windwp/nvim-ts-autotag)
-+ [echasnovski/mini.pairs](https://dotfyle.com/plugins/echasnovski/mini.pairs)
-+ [HiPhish/rainbow-delimiters.nvim](https://dotfyle.com/plugins/HiPhish/rainbow-delimiters.nvim)
-### file-explorer
-
-+ [nvim-tree/nvim-tree.lua](https://dotfyle.com/plugins/nvim-tree/nvim-tree.lua)
-### formatting
-
-+ [stevearc/conform.nvim](https://dotfyle.com/plugins/stevearc/conform.nvim)
-### fuzzy-finder
-
-+ [nvim-telescope/telescope.nvim](https://dotfyle.com/plugins/nvim-telescope/telescope.nvim)
-### git
-
-+ [sindrets/diffview.nvim](https://dotfyle.com/plugins/sindrets/diffview.nvim)
-+ [echasnovski/mini-git](https://dotfyle.com/plugins/echasnovski/mini-git)
-+ [echasnovski/mini.diff](https://dotfyle.com/plugins/echasnovski/mini.diff)
-### icon
-
-+ [kyazdani42/nvim-web-devicons](https://dotfyle.com/plugins/kyazdani42/nvim-web-devicons)
-### lsp
-
-+ [neovim/nvim-lspconfig](https://dotfyle.com/plugins/neovim/nvim-lspconfig)
-### nvim-dev
-
-+ [nvim-lua/plenary.nvim](https://dotfyle.com/plugins/nvim-lua/plenary.nvim)
-### plugin-manager
-
-+ [folke/lazy.nvim](https://dotfyle.com/plugins/folke/lazy.nvim)
-### statusline
-
-+ [echasnovski/mini.statusline](https://dotfyle.com/plugins/echasnovski/mini.statusline)
-### syntax
-
-+ [nvim-treesitter/nvim-treesitter](https://dotfyle.com/plugins/nvim-treesitter/nvim-treesitter)
-### terminal-integration
-
-+ [akinsho/toggleterm.nvim](https://dotfyle.com/plugins/akinsho/toggleterm.nvim)
-
-## Language Servers
-
-+ clangd
-+ cssls
-+ gdscript
-+ gopls
-+ html
-+ jdtls
-+ lua_ls
-+ omnisharp
-+ pyright
-+ rust_analyzer
-+ svelte
-+ tailwindcss
 
 ## Keymappings
-
-This configuration includes ergonomic keybindings for navigation, editing, and Git/LSP workflows. Below is a summary:
 
 ### Window Navigation
 | Key         | Action             |
@@ -176,7 +89,6 @@ This configuration includes ergonomic keybindings for navigation, editing, and G
 | Key         | Action                  |
 |-------------|-------------------------|
 | `Ctrl + t`  | Toggle terminal         |
-
 
 
 ## Prequesites
