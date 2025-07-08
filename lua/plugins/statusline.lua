@@ -38,7 +38,19 @@ return {
 			sections = {
 				lualine_a = { "mode" },
 				lualine_b = { "branch", "diff", "diagnostics" },
-				lualine_c = { "" },
+				lualine_c = {
+
+					{
+						function()
+							local bufnr = vim.api.nvim_get_current_buf()
+							local clients = vim.lsp.get_clients({ bufnr = bufnr })
+							if #clients == 0 then
+								return "No LSP"
+							end
+							return clients[1].name
+						end,
+					},
+				},
 				lualine_x = { "encoding", "filetype" },
 				lualine_y = { "progress" },
 				lualine_z = { "location" },

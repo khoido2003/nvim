@@ -21,15 +21,9 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.api.nvim_create_autocmd("VimEnter", {
-	callback = function()
-		vim.schedule(function()
-			require("settings.options")
-			require("settings.keymaps").setup()
-			require("settings.autocmd")
-		end)
-	end,
-})
+require("settings.options")
+require("settings.keymaps").setup()
+require("settings.autocmd")
 
 require("lazy").setup("plugins.init", {
 	performance = {
