@@ -4,7 +4,6 @@ return {
 		event = "UIEnter",
 		priority = 1000,
 		config = function()
-			-- Then apply any customizations through on_highlights
 			require("classic_monokai").setup({
 				plugins = {
 					["rainbow-delimiters.nvim"] = true,
@@ -20,13 +19,6 @@ return {
 					floats = "default",
 					sidebars = "default",
 				},
-				on_highlights = function(highlights, _)
-					for _, group in pairs(highlights) do
-						if group.italic then
-							group.italic = false
-						end
-					end
-				end,
 				auto_enable_plugins = true,
 				color_headers = true,
 				dim_inactive = false,
@@ -36,7 +28,7 @@ return {
 				terminal_colors = false,
 				cache = true,
 			})
-			-- Set the colorscheme first
+
 			vim.cmd.colorscheme("classic-monokai")
 		end,
 	},
