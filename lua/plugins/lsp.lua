@@ -110,7 +110,25 @@ return {
 
 			gopls = {
 				settings = {
-					gopls = { staticcheck = true },
+					gopls = {
+						analyses = {
+							unusedparams = true,
+							unusedwrite = true,
+							nilness = true,
+						},
+						codelenses = {
+							gc_details = false,
+						},
+						usePlaceholders = true,
+						completeUnimported = true,
+						experimentalPostfixCompletions = true,
+						staticcheck = true,
+						matcher = "Fuzzy",
+						diagnosticsDelay = "500ms",
+						symbolMatcher = "fuzzy",
+						gofumpt = false,
+						directoryFilters = { "-vendor" },
+					},
 				},
 			},
 
@@ -122,7 +140,7 @@ return {
 					tostring(vim.fn.getpid()),
 					"--encoding",
 					"utf-8",
-					"--memory-limit:8192",
+					"--memory-limit:4096",
 				},
 				filetypes = { "cs" },
 				handlers = {
@@ -145,7 +163,7 @@ return {
 						EnableAnalyzersSupport = false,
 						EnableImportCompletion = true,
 						EnableDecompilationSupport = false,
-						DocumentAnalysisTimeoutMs = 5000,
+						DocumentAnalysisTimeoutMs = 3000,
 						DiagnosticWorkersThreadCount = 2,
 					},
 					FileOptions = {
