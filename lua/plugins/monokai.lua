@@ -9,6 +9,14 @@ return {
 					["rainbow-delimiters.nvim"] = true,
 					all = true,
 				},
+
+				on_highlights = function(highlights, _)
+					for _, group in pairs(highlights) do
+						if group.italic then
+							group.italic = false
+						end
+					end
+				end,
 				dark_style_background = "default",
 				light_style_background = "default",
 				hl_styles = {

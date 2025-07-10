@@ -50,7 +50,7 @@ return {
 			{
 				"<leader>sh",
 				function()
-					vim.lsp.buf.signature_help()
+					vim.lsp.buf.signature_help({ border = "single" })
 				end,
 			},
 			{
