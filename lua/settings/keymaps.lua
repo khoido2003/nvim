@@ -40,8 +40,8 @@ function M.setup()
 	map("i", "<C-z>", "<C-o>u") -- Undo in insert mode
 
 	-- Buffer navigation
-	map("n", "<Tab>", ":bnext<CR>")
-	map("n", "<S-Tab>", ":bprev<CR>")
+	-- map("n", "<Tab>", ":bnext<CR>")
+	-- map("n", "<S-Tab>", ":bprev<CR>")
 
 	-- Move lines
 	map("n", "<A-k>", ":m .-2<CR>==")
@@ -63,12 +63,13 @@ function M.setup()
 	map("n", "<leader>e", ":NvimTreeToggle<CR>")
 
 	-- Telescope
-	map("n", "<leader>ff", ":Telescope find_files<CR>")
 	map("n", "<A-f>", ":Telescope live_grep_args<CR>")
 	map("n", "<A-F>", ":Telescope current_buffer_fuzzy_find<CR>")
 	map("n", "<leader>fo", ":Telescope oldfiles<CR>")
 	map("n", "<leader>fk", ":Telescope keymaps<CR>")
-	map("n", "<C-p>", ":Telescope buffers<CR>")
+	map("n", "<Tab>", ":Telescope buffers<CR>")
+	map("n", "<C-p>", ":Telescope find_files<CR>")
+
 	-- Diffview
 	local diffview_mappings = {
 		["<leader>do"] = ":DiffviewOpen<CR>",

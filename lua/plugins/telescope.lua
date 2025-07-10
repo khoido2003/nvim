@@ -16,6 +16,7 @@ return {
 	config = function()
 		require("telescope").setup({
 			defaults = {
+				path_display = { "smart" },
 				file_ignore_patterns = {
 					"node_modules/*",
 					"*.log",
@@ -82,7 +83,57 @@ return {
 					".travis.yml",
 				},
 			},
+			pickers = {
+				find_files = {
+					theme = "dropdown",
+					previewer = false,
+					hidden = true,
+					path_display = { "smart" },
+				},
+				live_grep = {
+					theme = "dropdown",
+					previewer = true,
+				},
+				current_buffer_fuzzy_find = {
+					theme = "dropdown",
+					previewer = false,
+				},
+				buffers = {
+					sort_lastused = true,
+					theme = "dropdown",
+					previewer = false,
+					path_display = { "tail" },
+					mappings = {
+						i = {
+							["<C-d>"] = "delete_buffer",
+						},
+						n = {
+							["<C-d>"] = "delete_buffer",
+						},
+					},
+				},
+				oldfiles = {
+					theme = "dropdown",
+					previewer = false,
+					path_display = { "smart" },
+				},
+				keymaps = {
+					theme = "dropdown",
+					layout_config = {
+						width = 0.8,
+						height = 0.4,
+					},
+				},
+				help_tags = {
+					theme = "dropdown",
+					previewer = false,
+				},
+			},
 			extensions = {
+				live_grep_args = {
+					theme = "dropdown",
+					auto_quoting = true,
+				},
 				lsp_handlers = {
 					code_action = { telescope = require("telescope.themes").get_dropdown({}) },
 				},
