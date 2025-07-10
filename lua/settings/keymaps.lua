@@ -66,7 +66,9 @@ function M.setup()
 	map("n", "<leader>ff", ":Telescope find_files<CR>")
 	map("n", "<A-f>", ":Telescope live_grep_args<CR>")
 	map("n", "<A-F>", ":Telescope current_buffer_fuzzy_find<CR>")
-
+	map("n", "<leader>fo", ":Telescope oldfiles<CR>")
+	map("n", "<leader>fk", ":Telescope keymaps<CR>")
+	map("n", "<C-p>", ":Telescope buffers<CR>")
 	-- Diffview
 	local diffview_mappings = {
 		["<leader>do"] = ":DiffviewOpen<CR>",
