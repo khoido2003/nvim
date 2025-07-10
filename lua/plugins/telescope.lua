@@ -17,6 +17,11 @@ return {
 		require("telescope").setup({
 			defaults = {
 				path_display = { "smart" },
+				mappings = {
+					i = {
+						["<Esc>"] = require("telescope.actions").close,
+					},
+				},
 				file_ignore_patterns = {
 					"node_modules/*",
 					"*.log",
