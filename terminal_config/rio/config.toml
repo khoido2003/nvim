@@ -1,0 +1,99 @@
+[editor]
+program = "nvim"
+args = []
+
+# Disable padding
+padding-x = 0
+padding-y = [0, 0]
+
+# Monokai Classic colorscheme
+[colors]
+background = '#272822'
+foreground = '#F8F8F2'
+cursor = '#F8F8F2'
+vi-cursor = '#F8F8F2'
+selection-background = '#49483E'
+selection-foreground = '#F8F8F2'
+search-match-background = '#49483E'
+search-match-foreground = '#F8F8F2'
+search-focused-match-background = '#75715E'
+search-focused-match-foreground = '#F8F8F2'
+tabs = '#4B4B41'
+tabs-foreground = '#75715E'
+tabs-active = '#3C3D37'
+tabs-active-highlight = '#FD971F'
+tabs-active-foreground = '#F8F8F2'
+bar = '#272822'
+
+# Regular colors
+black = '#272822'
+red = '#F92672'
+green = '#A6E22E'
+yellow = '#E6DB74'
+blue = '#66D9EF'
+magenta = '#AE81FF'
+cyan = '#A1EFE4'
+white = '#F8F8F2'
+
+# Dim colors
+dim-black = '#1E1F1C'
+dim-red = '#C3074A'
+dim-green = '#7F9F1F'
+dim-yellow = '#BFAF5B'
+dim-blue = '#4A9CB2'
+dim-magenta = '#8A65CC'
+dim-cyan = '#80B8B3'
+dim-white = '#C1C1C1'
+
+# Light colors
+light-black = '#75715E'
+light-red = '#FF5995'
+light-green = '#B6E354'
+light-yellow = '#F5E68B'
+light-blue = '#8CD0F3'
+light-magenta = '#C0A3FF'
+light-cyan = '#B3F6EF'
+light-white = '#FFFFFF'
+
+
+[fonts]
+family = "BlexMono Nerd Font"
+size = 14
+use-drawable-chars = true
+
+[fonts.regular]
+family = "BlexMono Nerd Font"
+style = "Normal"
+width = "Normal"
+weight = 500
+
+[fonts.bold]
+family = "BlexMono Nerd Font"
+style = "Normal"
+width = "Normal"
+weight = 700
+
+[fonts.italic]
+family = "BlexMono Nerd Font"
+style = "Italic"
+width = "Normal"
+weight = 400
+
+[fonts.bold-italic]
+family = "BlexMono Nerd Font"
+style = "Italic"
+width = "Normal"
+weight = 700
+
+[cursor]
+shape = "block"
+blinking = false
+
+[shell]
+program = "pwsh"
+
+# Window settings for clean integration
+[window]
+decorations = "Enabled"
+opacity = 1.0
+blur = false
