@@ -6,6 +6,14 @@ args = []
 padding-x = 0
 padding-y = [0, 0]
 
+[window]
+decorations = "Enabled"
+opacity = 1.0
+blur = false
+
+[renderer]
+performance = "High"
+
 # Monokai Classic colorscheme
 [colors]
 background = '#272822'
@@ -57,33 +65,32 @@ light-white = '#FFFFFF'
 
 
 [fonts]
-family = "BlexMono Nerd Font"
+family = "CaskaydiaCove Nerd Font Mono"
 size = 14
-use-drawable-chars = true
 
 [fonts.regular]
-family = "BlexMono Nerd Font"
+family = "CaskaydiaCove Nerd Font Mono"
 style = "Normal"
+weight = 400
 width = "Normal"
-weight = 500
 
 [fonts.bold]
-family = "BlexMono Nerd Font"
+family = "CaskaydiaCove Nerd Font Mono"
 style = "Normal"
+weight = 800
 width = "Normal"
-weight = 700
 
 [fonts.italic]
-family = "BlexMono Nerd Font"
+family = "CaskaydiaCove Nerd Font Mono"
 style = "Italic"
 width = "Normal"
 weight = 400
 
 [fonts.bold-italic]
-family = "BlexMono Nerd Font"
+family = "CaskaydiaCove Nerd Font Mono"
 style = "Italic"
 width = "Normal"
-weight = 700
+weight = 800
 
 [cursor]
 shape = "block"
@@ -92,8 +99,3 @@ blinking = false
 [shell]
 program = "pwsh"
 
-# Window settings for clean integration
-[window]
-decorations = "Enabled"
-opacity = 1.0
-blur = false
