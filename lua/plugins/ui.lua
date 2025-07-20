@@ -36,4 +36,22 @@ return {
 			},
 		},
 	},
+	{
+		"rcarriga/nvim-notify",
+		event = "VeryLazy",
+		config = function()
+			local notify = require("notify")
+			notify.setup({
+				stages = "static",
+				timeout = 1000,
+				render = "minimal",
+				max_width = 50,
+				max_height = 5,
+				fps = 30,
+				top_down = false,
+			})
+
+			vim.notify = notify
+		end,
+	},
 }

@@ -25,6 +25,17 @@ function M.setup()
 		map("n", lhs, rhs)
 	end
 
+	-- Restart roslyn lsp since it does not have file watching
+	map("n", "<leader>l", function()
+		local clients = vim.lsp.get_clients()
+		for _, client in ipairs(clients) do
+			if client.name == "roslyn" or client.name == "roslyn_ls" then
+				vim.lsp.stop_client(client.id, true)
+			end
+		end
+		vim.cmd("edit")
+	end, { desc = "Restart Roslyn LSP" })
+
 	-- General editing
 	map("n", "<leader>h", ":nohlsearch<CR>") -- Clear search highlight
 	map("n", "<C-s>", ":w<CR>") -- Save file
@@ -36,12 +47,8 @@ function M.setup()
 	map("n", "<C-v>", '"+p')
 	map("v", "<C-v>", '"+p')
 	map("i", "<C-v>", "<C-r>+")
-	map("n", "<C-z>", "u") -- Undo in normal mode
-	map("i", "<C-z>", "<C-o>u") -- Undo in insert mode
-
-	-- Buffer navigation
-	-- map("n", "<Tab>", ":bnext<CR>")
-	-- map("n", "<S-Tab>", ":bprev<CR>")
+	map("n", "<C-z>", "u")
+	map("i", "<C-z>", "<C-o>u")
 
 	-- Move lines
 	map("n", "<A-k>", ":m .-2<CR>==")
@@ -62,14 +69,6 @@ function M.setup()
 	-- NvimTree
 	map("n", "<leader>e", ":NvimTreeToggle<CR>")
 
-	-- Telescope
-	map("n", "<A-f>", ":Telescope live_grep_args<CR>")
-	map("n", "<A-F>", ":Telescope current_buffer_fuzzy_find<CR>")
-	map("n", "<leader>fo", ":Telescope oldfiles<CR>")
-	map("n", "<leader>fk", ":Telescope keymaps<CR>")
-	map("n", "<Tab>", ":Telescope buffers<CR>")
-	map("n", "<C-p>", ":Telescope find_files<CR>")
-
 	-- Diffview
 	local diffview_mappings = {
 		["<leader>do"] = ":DiffviewOpen<CR>",
@@ -80,6 +79,59 @@ function M.setup()
 	}
 	for lhs, rhs in pairs(diffview_mappings) do
 		map("n", lhs, rhs)
+	end
+
+	-- LSP keymaps
+	local lsp_mappings = {
+		["<leader>gd"] = {
+			function()
+				vim.lsp.buf.definition()
+			end,
+			"LSP: Go to Definition",
+		},
+		["<leader>k"] = {
+			function()
+				vim.lsp.buf.hover({ border = "single" })
+			end,
+			"LSP: Hover",
+		},
+		["<leader>rn"] = {
+			function()
+				vim.lsp.buf.rename()
+			end,
+			"LSP: Rename",
+		},
+		["<leader>gt"] = {
+			function()
+				vim.lsp.buf.type_definition()
+			end,
+			"LSP: Type Definition",
+		},
+		["<leader>sh"] = {
+			function()
+				vim.lsp.buf.signature_help({ border = "single" })
+			end,
+			"LSP: Signature Help",
+		},
+		["<leader>ca"] = {
+			function()
+				vim.lsp.buf.code_action()
+			end,
+			"LSP: Code Action",
+		},
+		["<leader>d"] = {
+			function()
+				vim.diagnostic.open_float(nil, {
+					source = "always",
+					border = "single",
+				})
+			end,
+			"LSP: Show Diagnostic",
+		},
+	}
+
+	for lhs, config in pairs(lsp_mappings) do
+		map("n", lhs, config[1], { desc = config[2], silent = true })
 	end
 end
 

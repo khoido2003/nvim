@@ -1,8 +1,7 @@
 return {
 	"nvim-telescope/telescope.nvim",
 	tag = "0.1.8",
-	cmd = "Telescope",
-	lazy = true,
+	event = "VeryLazy",
 	dependencies = {
 		{ "nvim-lua/plenary.nvim", lazy = true },
 		{
@@ -14,7 +13,12 @@ return {
 		},
 	},
 	config = function()
-		require("telescope").setup({
+		local telescope = require("telescope")
+		local builtin = require("telescope.builtin")
+		local extensions = telescope.extensions
+		local themes = require("telescope.themes")
+
+		telescope.setup({
 			defaults = {
 				path_display = { "smart" },
 				mappings = {
@@ -134,15 +138,39 @@ return {
 					previewer = false,
 				},
 			},
-			extensions = {
-				live_grep_args = {
-					theme = "dropdown",
-					auto_quoting = true,
-				},
-				lsp_handlers = {
-					code_action = { telescope = require("telescope.themes").get_dropdown({}) },
-				},
-			},
 		})
+
+		-- Load extensions
+		telescope.load_extension("live_grep_args")
+
+		-- Minimal dropdown keymaps
+		local map = vim.keymap.set
+		map("n", "<A-f>", function()
+			extensions.live_grep_args.live_grep_args(themes.get_dropdown({ previewer = true }))
+		end, { desc = "Live Grep Args (dropdown)" })
+
+		map("n", "<A-F>", function()
+			builtin.current_buffer_fuzzy_find(themes.get_dropdown({ previewer = false }))
+		end, { desc = "Fuzzy Find in Buffer (dropdown)" })
+
+		map("n", "<leader>fo", function()
+			builtin.oldfiles(themes.get_dropdown({ previewer = false }))
+		end, { desc = "Recent Files (dropdown)" })
+
+		map("n", "<leader>fk", function()
+			builtin.keymaps(themes.get_dropdown({ previewer = false }))
+		end, { desc = "Keymaps (dropdown)" })
+
+		map("n", "<Tab>", function()
+			builtin.buffers(themes.get_dropdown({ previewer = false }))
+		end, { desc = "Buffers (dropdown)" })
+
+		map("n", "<C-p>", function()
+			builtin.find_files(themes.get_dropdown({ previewer = false, hidden = true }))
+		end, { desc = "Find Files (dropdown)" })
+
+		map("n", "<leader>gr", function()
+			builtin.lsp_references(themes.get_dropdown({ previewer = false }))
+		end, { desc = "LSP References (dropdown)" })
 	end,
 }
