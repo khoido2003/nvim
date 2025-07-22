@@ -1,6 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
-	event = { "LspAttach" },
+	event = { "VeryLazy" },
 	dependencies = {
 		{ "saghen/blink.cmp" },
 	},
@@ -16,9 +16,6 @@ return {
 			client.server_capabilities.foldingRangeProvider = false
 			client.server_capabilities.inlayHintProvider = false
 		end
-
-		-- Lua lsp
-		vim.lsp.enable("lua_ls")
 
 		-- C# lsp
 		vim.lsp.enable("roslyn_ls")

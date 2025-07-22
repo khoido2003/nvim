@@ -20,7 +20,7 @@ return {
 	},
 	{
 		"smoka7/multicursors.nvim",
-		event = "VeryLazy",
+		lazy = true,
 		dependencies = {
 			"nvimtools/hydra.nvim",
 			lazy = true,
@@ -53,5 +53,12 @@ return {
 
 			vim.notify = notify
 		end,
+	},
+	{
+		"mbbill/undotree",
+		lazy = true,
+		keys = {
+			{ "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undotree" },
+		},
 	},
 }

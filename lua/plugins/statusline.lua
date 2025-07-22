@@ -1,6 +1,7 @@
 return {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
+
 	config = function()
 		require("lualine").setup({
 			options = {
@@ -12,28 +13,10 @@ return {
 					statusline = {},
 					winbar = {},
 				},
-				ignore_focus = {},
+				ignore_focus = { "NvimTree", "TelescopePrompt" },
 				always_divide_middle = true,
-				always_show_tabline = true,
+				always_show_tabline = false,
 				globalstatus = false,
-				refresh = {
-					statusline = 1000,
-					tabline = 1000,
-					winbar = 1000,
-					refresh_time = 16, -- ~60fps
-					events = {
-						"WinEnter",
-						"BufEnter",
-						"BufWritePost",
-						"SessionLoadPost",
-						"FileChangedShellPost",
-						"VimResized",
-						"Filetype",
-						"CursorMoved",
-						"CursorMovedI",
-						"ModeChanged",
-					},
-				},
 			},
 			sections = {
 				lualine_a = { "mode" },
@@ -51,7 +34,6 @@ return {
 						end,
 						icon = "",
 					},
-					"filetype",
 					"encoding",
 				},
 				lualine_y = { "progress" },
@@ -65,6 +47,7 @@ return {
 				lualine_y = {},
 				lualine_z = {},
 			},
+
 			tabline = {},
 			winbar = {},
 			inactive_winbar = {},

@@ -1,7 +1,7 @@
 return {
 	"saghen/blink.cmp",
 	event = "VeryLazy",
-	dependencies = { "rafamadriz/friendly-snippets", lazy = true },
+	dependencies = {},
 	version = "1.*",
 	opts = {
 		-- All presets have the following mappings:
@@ -18,7 +18,7 @@ return {
 			menu = { border = "single" },
 		},
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer" },
+			default = { "lsp", "path", "buffer" },
 		},
 		signature = { enabled = true, window = { border = "single" } },
 		fuzzy = { implementation = "prefer_rust_with_warning" },
