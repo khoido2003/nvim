@@ -25,7 +25,6 @@ function M.setup()
 		map("n", lhs, rhs)
 	end
 
-	-- Restart roslyn lsp since it does not have file watching
 	map("n", "<leader>l", function()
 		local clients = vim.lsp.get_clients()
 		for _, client in ipairs(clients) do
@@ -33,8 +32,16 @@ function M.setup()
 				vim.lsp.stop_client(client.id, true)
 			end
 		end
-		vim.cmd("edit")
-	end, { desc = "Restart Roslyn LSP" })
+
+		-- Re-edit all open listed buffers to trigger LSP reattach
+		for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+			if vim.api.nvim_buf_is_loaded(bufnr) and vim.bo[bufnr].buflisted then
+				vim.api.nvim_buf_call(bufnr, function()
+					vim.cmd("edit")
+				end)
+			end
+		end
+	end, { desc = "Restart Roslyn LSP on all buffers" })
 
 	-- General editing
 	map("n", "<leader>h", ":nohlsearch<CR>") -- Clear search highlight
