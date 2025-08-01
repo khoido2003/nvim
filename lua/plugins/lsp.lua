@@ -8,15 +8,6 @@ return {
 		local lspconfig = require("lspconfig")
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-		local on_attach = function(client, _)
-			client.server_capabilities.documentFormattingProvider = false
-			client.server_capabilities.documentRangeFormattingProvider = false
-			client.server_capabilities.codeLensProvider = false
-			client.server_capabilities.documentHighlightProvider = false
-			client.server_capabilities.foldingRangeProvider = false
-			client.server_capabilities.inlayHintProvider = false
-		end
-
 		-- C# lsp
 		vim.lsp.enable("roslyn_ls")
 
@@ -54,7 +45,6 @@ return {
 			},
 		}
 		for server, config in pairs(servers) do
-			config.on_attach = on_attach
 			config.capabilities = capabilities
 			lspconfig[server].setup(config)
 		end
