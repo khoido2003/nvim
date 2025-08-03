@@ -5,34 +5,10 @@ return {
 		local helpers = require("incline.helpers")
 		local devicons = require("nvim-web-devicons")
 		require("incline").setup({
-			debounce_threshold = {
-				falling = 50,
-				rising = 10,
-			},
 			hide = {
 				cursorline = false,
 				focused_win = false,
 				only_win = false,
-			},
-			highlight = {
-				groups = {
-					InclineNormal = {
-						default = true,
-						group = "NormalFloat",
-					},
-					InclineNormalNC = {
-						default = true,
-						group = "NormalFloat",
-					},
-				},
-			},
-
-			ignore = {
-				buftypes = "special",
-				filetypes = {},
-				floating_wins = true,
-				unlisted_buffers = true,
-				wintypes = "special",
 			},
 			render = function(props)
 				local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
@@ -41,7 +17,6 @@ return {
 				end
 				local ft_icon, ft_color = devicons.get_icon_color(filename)
 				local modified = vim.bo[props.buf].modified
-				-- Get NormalFloat background dynamically
 				local bg_color = nil
 				local hl = vim.api.nvim_get_hl(0, { name = "NormalFloat" })
 				if hl.bg then
