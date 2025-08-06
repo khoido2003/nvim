@@ -1,7 +1,7 @@
 return {
 	{
 		"khoido2003/classic_monokai.nvim",
-		event = "UIEnter",
+		lazy = false,
 		priority = 1000,
 		config = function()
 			require("classic_monokai").setup({

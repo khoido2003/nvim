@@ -61,4 +61,38 @@ return {
 			{ "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undotree" },
 		},
 	},
+
+	{
+		"windwp/nvim-ts-autotag",
+		ft = {
+			"html",
+			"javascript",
+			"typescript",
+			"javascriptreact",
+			"typescriptreact",
+			"jsx",
+			"tsx",
+			"vue",
+			"svelte",
+			"php",
+			"markdown",
+		},
+		config = function()
+			require("nvim-ts-autotag").setup({
+				filetypes = {
+					"html",
+					"javascript",
+					"typescript",
+					"javascriptreact",
+					"typescriptreact",
+					"jsx",
+					"tsx",
+					"vue",
+					"svelte",
+					"php",
+					"markdown",
+				},
+			})
+		end,
+	},
 }
