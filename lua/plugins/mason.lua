@@ -1,29 +1,25 @@
 return {
 	{
 		"mason-org/mason.nvim",
-		event = { "BufReadPre", "BufNewFile" },
+		event = "VeryLazy",
 		opts = {},
+
+		config = function()
+			require("mason").setup({
+				registries = {
+					"github:mason-org/mason-registry",
+					"github:Crashdummyy/mason-registry",
+				},
+			})
+		end,
 	},
 	{
 		"mason-org/mason-lspconfig.nvim",
-		event = { "BufReadPre", "BufNewFile" },
+		event = "VeryLazy",
 		dependencies = { "neovim/nvim-lspconfig" },
 		config = function()
 			require("mason-lspconfig").setup({
-				automatic_enable = {
-					-- "lua_ls",
-					-- "ts_ls",
-					-- "pyright",
-					-- "clangd",
-					-- "jdtls",
-					-- "html",
-					-- "cssls",
-					-- "yamlls",
-					-- "tailwindcss",
-					-- "omnisharp",
-					-- "rust_analyzer",
-					-- "gopls",
-				},
+				automatic_enable = {},
 			})
 		end,
 	},
