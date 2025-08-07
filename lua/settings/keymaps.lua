@@ -37,7 +37,7 @@ function M.setup()
 		for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
 			if vim.api.nvim_buf_is_loaded(bufnr) and vim.bo[bufnr].buflisted then
 				vim.api.nvim_buf_call(bufnr, function()
-					vim.cmd("edit")
+					vim.cmd("edit!")
 				end)
 			end
 		end
