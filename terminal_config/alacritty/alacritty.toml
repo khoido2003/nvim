@@ -1,20 +1,48 @@
+# Alacritty Configuration File
+# Equivalent to WezTerm setup
+
+# Import the Monokai color scheme
+[colors.primary]
+background = '#272822'
+foreground = '#f8f8f2'
+
+[colors.cursor]
+text = '#272822'
+cursor = '#f8f8f0'
+
+[colors.normal]
+black = '#272822'
+red = '#f92672'
+green = '#a6e22e'
+yellow = '#f5bf75'
+blue = '#66d9ef'
+magenta = '#ae81ff'
+cyan = '#a1efe4'
+white = '#f8f8f2'
+
+[colors.bright]
+black = '#75715e'
+red = '#f92672'
+green = '#a6e22e'
+yellow = '#f4bf75'
+blue = '#66d9ef'
+magenta = '#ae81ff'
+cyan = '#a1efe4'
+white = '#f9f8f5'
+
+# Window settings
+[window]
+decorations = "full"
+[window.padding]
+x = 0
+y = 0
+
+# Font settings
 [font]
-normal = { family = "FiraCode Nerd Font", style = "SemiBold" }
-bold = { family = "FiraCode Nerd Font", style = "SemiBold" }
-italic = { family = "FiraCode Nerd Font", style = "Italic" }
-size = 11.5  
-
-
-[env]
-LANG = "en_US.UTF-8"
-TERM = "xterm-256color"
-
-
-[keyboard]
-bindings = [
-  { key = "Slash", mods = "Control", chars = "\u001f" }
-]
+[font.normal]
+family = "CaskaydiaCove Nerd Font Mono"
+style = "Regular"
 
 [terminal.shell]
-program = "C:\\Users\\Lenovo\\AppData\\Local\\Programs\\nu\\bin\\nu.exe"  # Path to Nushell
-args = ["--login"]  
+program = "pwsh"
+args = ["-NoExit"]
