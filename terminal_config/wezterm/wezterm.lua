@@ -27,9 +27,6 @@ local config = {
 	},
 
 	colors = {
-		cursor_bg = "#f8f8f0",
-		cursor_fg = "#272822",
-		cursor_border = "#f8f8f0",
 		tab_bar = {
 			background = "#272822",
 
@@ -80,17 +77,17 @@ local config = {
 	max_fps = 120,
 	animation_fps = 1,
 	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
-	enable_kitty_graphics = false,
-	anti_alias_custom_block_glyphs = false,
+	enable_kitty_graphics = true,
 
 	enable_scroll_bar = false,
 
 	color_scheme = "Monokai (dark) (terminal.sexy)",
 
 	-- Font settings
-	font = wezterm.font("BlexMono Nerd Font", { weight = "Regular" }),
+	-- font = wezterm.font("BlexMono Nerd Font", { weight = 450 }),
 
-	font_size = 10.5,
+	font = wezterm.font("CaskaydiaCove Nerd Font Mono"),
+	font_size = 10,
 
 	window_close_confirmation = "NeverPrompt",
 	scrollback_lines = 100,
@@ -102,7 +99,7 @@ local config = {
 		{ key = "x", mods = "CTRL|SHIFT", action = wezterm.action.CloseCurrentPane({ confirm = true }) },
 	},
 
-	default_prog = { "pwsh" },
+	default_prog = { "pwsh", "-NoLogo" },
 }
 
 return config
