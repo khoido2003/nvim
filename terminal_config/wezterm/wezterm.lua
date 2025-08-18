@@ -1,6 +1,6 @@
 local wezterm = require("wezterm")
+local act = wezterm.action
 
--- Tab renaming function
 wezterm.on("format-tab-title", function(tab)
 	return " " .. tostring(tab.tab_index + 1) .. " "
 end)
@@ -71,10 +71,10 @@ local config = {
 	},
 	show_close_tab_button_in_tabs = false,
 
-	front_end = "WebGpu",
-	webgpu_power_preference = "HighPerformance",
+	-- front_end = "WebGpu",
+	-- webgpu_power_preference = "HighPerformance",
 
-	max_fps = 120,
+	max_fps = 60,
 	animation_fps = 1,
 	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
 	enable_kitty_graphics = true,
@@ -82,9 +82,6 @@ local config = {
 	enable_scroll_bar = false,
 
 	color_scheme = "Monokai (dark) (terminal.sexy)",
-
-	-- Font settings
-	-- font = wezterm.font("BlexMono Nerd Font", { weight = 450 }),
 
 	font = wezterm.font("CaskaydiaCove Nerd Font Mono"),
 	font_size = 10,
@@ -97,6 +94,8 @@ local config = {
 		{ key = "h", mods = "CTRL|SHIFT", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 		{ key = "|", mods = "CTRL|SHIFT", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
 		{ key = "x", mods = "CTRL|SHIFT", action = wezterm.action.CloseCurrentPane({ confirm = true }) },
+
+		{ key = " ", mods = "CTRL", action = act.SendKey({ key = " ", mods = "CTRL" }) },
 	},
 
 	default_prog = { "pwsh", "-NoLogo" },
