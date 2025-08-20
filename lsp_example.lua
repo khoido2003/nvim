@@ -14,7 +14,7 @@ local servers = {
 						vim.fn.expand("$VIMRUNTIME/lua/vim/lsp"),
 						"${3rd}/love2d/library",
 					},
-					checkthirdparty = false,
+					checkThirdParty = false,
 				},
 				telemetry = { enable = false },
 			},
@@ -252,7 +252,7 @@ local servers = {
 		},
 		filetypes = { "c", "cpp", "objc", "objcpp" },
 		root_dir = require("lspconfig.util").root_pattern("meson.build", "src", "CMakeLists.txt", ".git"),
-		init_option = { fallbackFlags = { "-std=c++2a" } },
+		init_options = { fallbackFlags = { "-std=c++2a" } },
 		capabilities = capabilities,
 		settings = {
 			["clangd"] = {
@@ -266,3 +266,11 @@ local servers = {
 		flags = { debounce_text_changes = 200 },
 	},
 }
+
+-- In your config function (e.g., in lazy.nvim spec):
+-- config = function()
+for server, config in pairs(servers) do
+	vim.lsp.config(server, config)
+	vim.lsp.enable(server)
+end
+-- end
