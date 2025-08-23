@@ -1,7 +1,6 @@
 return {
 	"nvim-tree/nvim-tree.lua",
-	cmd = "NvimTreeToggle",
-	lazy = true,
+	event = "VeryLazy",
 	config = function()
 		require("nvim-tree").setup({
 			sync_root_with_cwd = false,
