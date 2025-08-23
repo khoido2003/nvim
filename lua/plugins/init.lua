@@ -2,7 +2,6 @@
 return {
 	require("plugins.monokai"),
 	require("plugins.utils"),
-	require("plugins.diffview"),
 	require("plugins.nvim_tree"),
 	require("plugins.treesitter"),
 	require("plugins.lualine"),
@@ -12,5 +11,4 @@ return {
 	require("plugins.blink"),
 	require("plugins.lsp"),
 	require("plugins.git_signs"),
-	require("plugins.trouble"),
 }
