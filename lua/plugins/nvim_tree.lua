@@ -68,6 +68,25 @@ return {
 					"*.db",
 					"*.sqlite",
 					"*.sqlite3",
+					"Library/*", -- Unity local cache
+					"Logs/*", -- Unity log files
+					"Temp/*", -- Temp build stuff
+					"Obj/*", -- Build object cache
+					"Build/*", -- Compiled builds
+					"UserSettings/*", -- Local Unity editor settings
+					".gradle/*", -- Android builds
+					"*.csproj", -- Auto-generated C# project files
+					"*.unityproj", -- Old Unity project format
+					"*.sln", -- Visual Studio solution
+					"*.tmp", -- Temp files
+					"*.pidb", -- Unity metadata
+					"*.booproj", -- Rider metadata
+					"*.svd", -- Debugger files
+					"*.pdb", -- Debug symbols
+					"*.mdb", -- Debug database
+					"*.opendb", -- Local cache
+					"*.VC.db", -- VS cache
+					"*.meta",
 				},
 				dotfiles = true,
 				exclude = { ".gitignore", "routes" },
