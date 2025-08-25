@@ -63,11 +63,12 @@ return {
 					},
 				},
 
-				lualine_b = {
+				lualine_b = {},
+
+				lualine_c = {
 					{
 						function()
 							local filename = vim.fn.expand("%:t")
-
 							local file_status = ""
 							if vim.bo.modified then
 								file_status = file_status .. " ●"
@@ -79,40 +80,32 @@ return {
 								return "[No Name]"
 							end
 
-							local extension = vim.fn.expand("%:e")
-							local icon = require("nvim-web-devicons").get_icon(filename, extension, { default = true })
-								or ""
-
-							return icon .. " " .. filename .. file_status
+							return filename .. file_status
 						end,
 						icon = "",
 					},
 				},
 
-				lualine_c = {},
-
 				lualine_x = {
 					{
 						function()
+							local filename = vim.fn.expand("%:t")
+							local extension = vim.fn.expand("%:e")
+							local icon = require("nvim-web-devicons").get_icon(filename, extension, { default = true })
+								or ""
+
 							local bufnr = vim.api.nvim_get_current_buf()
 							local clients = vim.lsp.get_clients({ bufnr = bufnr })
+
 							if #clients == 0 then
-								return " no LSP"
+								return "no LSP"
 							end
-							return " " .. clients[1].name
+							return icon .. " LSP"
 						end,
 						cond = function()
 							return vim.fn.winwidth(0) > 60
 						end,
 					},
-					{
-						"encoding",
-						cond = function()
-							return vim.fn.winwidth(0) > 70
-						end,
-					},
-				},
-				lualine_y = {
 					{
 						"diff",
 						cond = function()
@@ -121,12 +114,12 @@ return {
 					},
 					{
 						"diagnostics",
-
 						cond = function()
 							return vim.fn.winwidth(0) > 40
 						end,
 					},
 				},
+				lualine_y = {},
 				lualine_z = { "branch" },
 			},
 			inactive_sections = {
