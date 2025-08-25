@@ -88,6 +88,18 @@ return {
 
 				lualine_x = {
 					{
+						"diff",
+						cond = function()
+							return vim.fn.winwidth(0) > 40
+						end,
+					},
+					{
+						"diagnostics",
+						cond = function()
+							return vim.fn.winwidth(0) > 40
+						end,
+					},
+					{
 						function()
 							local filename = vim.fn.expand("%:t")
 							local extension = vim.fn.expand("%:e")
@@ -98,24 +110,12 @@ return {
 							local clients = vim.lsp.get_clients({ bufnr = bufnr })
 
 							if #clients == 0 then
-								return "no LSP"
+								return icon .. " no LSP"
 							end
 							return icon .. " LSP"
 						end,
 						cond = function()
 							return vim.fn.winwidth(0) > 60
-						end,
-					},
-					{
-						"diff",
-						cond = function()
-							return vim.fn.winwidth(0) > 40
-						end,
-					},
-					{
-						"diagnostics",
-						cond = function()
-							return vim.fn.winwidth(0) > 40
 						end,
 					},
 				},
