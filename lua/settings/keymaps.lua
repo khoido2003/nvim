@@ -2,7 +2,7 @@ local M = {}
 
 -- Common options
 local opts = { noremap = true, silent = true }
-local no_remap_opts = { noremap = false, silent = true } -- For commands like commenting
+local no_remap_opts = { noremap = false, silent = true }
 
 -- Close all buffers
 vim.api.nvim_create_user_command("BDA", "bufdo bd!", {})
@@ -44,9 +44,9 @@ function M.setup()
 	end, { desc = "Restart Roslyn LSP on all buffers" })
 
 	-- General editing
-	map("n", "<leader>h", ":nohlsearch<CR>") -- Clear search highlight
-	map("n", "<C-s>", ":w<CR>") -- Save file
-	map("n", "<C-a>", "ggVG") -- Select all
+	map("n", "<leader>h", ":nohlsearch<CR>")
+	map("n", "<C-s>", ":w<CR>")
+	map("n", "<C-a>", "ggVG")
 
 	-- Copy/paste with system clipboard
 	map("n", "<C-c>", '"+y')
@@ -72,7 +72,6 @@ function M.setup()
 	-- Select current line
 	map("n", "<CR>", "V")
 
-	-- Plugin-specific keymaps
 	-- NvimTree
 	map("n", "<leader>e", ":NvimTreeToggle<CR>")
 

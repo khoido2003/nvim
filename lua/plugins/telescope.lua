@@ -28,7 +28,6 @@ return {
 				},
 
 				file_ignore_patterns = {
-					-- Common junk
 					"node_modules",
 					"dist",
 					"build",
@@ -58,7 +57,6 @@ return {
 					"%.o",
 					"%.obj",
 
-					-- Unity-specific
 					"^Library/",
 					"^Logs/",
 					"^Temp/",
@@ -78,7 +76,6 @@ return {
 					"%.VC%.db$",
 					"%.meta$",
 
-					-- Binaries / media
 					"%.jpg$",
 					"%.jpeg$",
 					"%.png$",
@@ -99,7 +96,6 @@ return {
 					"%.dylib$",
 					"%.pdf$",
 
-					-- Misc project noise
 					"package%-lock%.json",
 					"yarn%.lock",
 					"pnpm%-lock%.yaml",
@@ -110,7 +106,6 @@ return {
 					"%.sqlite$",
 					"%.sqlite3$",
 
-					-- CI / git noise
 					"^.github/",
 					"^.gitlab/",
 					"%.gitignore$",

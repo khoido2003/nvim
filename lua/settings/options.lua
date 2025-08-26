@@ -1,5 +1,3 @@
-vim.lsp.set_log_level("off") -- Keep off unless debugging
-
 vim.opt.termguicolors = true
 vim.opt.fileencoding = "utf-8"
 vim.opt.encoding = "utf-8"
@@ -12,35 +10,32 @@ vim.g.loaded_rplugin = 1
 vim.g.loaded_shada = 1
 vim.g.loaded_spellfile = 1
 
--- Scrolling and navigation
-vim.opt.scrolloff = 5 -- More context, less jittery redraws
-vim.opt.sidescrolloff = 5 -- Consistent with scrolloff
+vim.opt.scrolloff = 5
+vim.opt.sidescrolloff = 5
 vim.opt.sidescroll = 1
-vim.opt.mouse = "a" -- Unchanged, minimal cost
+vim.opt.mouse = "a"
 
--- Text and wrapping
 vim.opt.wrap = true
-vim.opt.linebreak = true -- Keep for readability
-vim.opt.textwidth = 0 -- Disable hard wrapping (let LSP/formatters handle it)
-vim.opt.wrapmargin = 0 -- Simplify, reduce redraws
-vim.opt.breakindent = true -- Keep for wrapped line readability
+vim.opt.linebreak = true
+vim.opt.textwidth = 0
+vim.opt.wrapmargin = 0
+vim.opt.breakindent = true
 vim.opt.inccommand = "split"
 vim.opt.showmode = false
 
--- Editing
 vim.opt.backspace = "indent,eol,start"
 vim.opt.showcmd = true
 vim.opt.autowrite = true
 vim.opt.shiftround = true
-vim.opt.swapfile = false -- No swap files, less I/O
+vim.opt.swapfile = false
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
-vim.opt.expandtab = true -- Consolidated from duplicate
+vim.opt.expandtab = true
 
--- Line numbers
 vim.opt.relativenumber = false
 vim.opt.number = true
 
+vim.lsp.set_log_level("off")
 vim.diagnostic.config({ virtual_text = true })
