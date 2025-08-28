@@ -4,7 +4,7 @@ return {
 		event = "VeryLazy",
 	},
 	{
-		"echasnovski/mini.pairs",
+		"nvim-mini/mini.pairs",
 		version = "*",
 		event = "VeryLazy",
 		config = function()
