@@ -9,30 +9,61 @@ local config = {
 	enable_wayland = false,
 	check_for_updates = false,
 
-	-- Classic Monokai colorscheme
+	-- Monokai Pro colorscheme
 	window_frame = {
-		active_titlebar_bg = "#272822",
-		inactive_titlebar_bg = "#272822",
+		active_titlebar_bg = "#2d2a2e", -- background
+		inactive_titlebar_bg = "#2d2a2e",
 
-		active_titlebar_fg = "#f8f8f2",
-		inactive_titlebar_fg = "#75715e",
+		active_titlebar_fg = "#fcfcfa", -- foreground
+		inactive_titlebar_fg = "#727072", -- neutral3 (comment color)
 
-		active_titlebar_border_bottom = "#272822",
-		inactive_titlebar_border_bottom = "#272822",
+		active_titlebar_border_bottom = "#2d2a2e",
+		inactive_titlebar_border_bottom = "#2d2a2e",
 
-		button_bg = "#272822",
-		button_fg = "#f8f8f2",
-		button_hover_bg = "#3e3d32",
-		button_hover_fg = "#f92672",
+		button_bg = "#2d2a2e",
+		button_fg = "#fcfcfa",
+		button_hover_bg = "#403e41", -- neutral5
+		button_hover_fg = "#ff6188", -- red
 	},
 
 	colors = {
+		foreground = "#fcfcfa",
+		background = "#2d2a2e",
+
+		cursor_bg = "#fcfcfa",
+		cursor_border = "#fcfcfa",
+		cursor_fg = "#2d2a2e",
+
+		selection_bg = "#403e41",
+		selection_fg = "#fcfcfa",
+
+		ansi = {
+			"#1e1c1f", -- black (surface0)
+			"#ff6188", -- red
+			"#a9dc76", -- green
+			"#ffd866", -- yellow
+			"#6ab8ff", -- blue (delimiter_blue)
+			"#ab9df2", -- purple
+			"#78dce8", -- cyan
+			"#fcfcfa", -- white (foreground)
+		},
+		brights = {
+			"#727072", -- bright black (neutral3)
+			"#ff6ac1", -- bright red (delimiter_pink)
+			"#8aff80", -- bright green (delimiter_green)
+			"#ffd866", -- bright yellow
+			"#6ab8ff", -- bright blue
+			"#bd93f9", -- bright purple (delimiter_purple)
+			"#5ad4e6", -- bright cyan (delimiter_cyan)
+			"#ffffff", -- bright white
+		},
+
 		tab_bar = {
-			background = "#272822",
+			background = "#2d2a2e",
 
 			active_tab = {
-				bg_color = "#49483e",
-				fg_color = "#f8f8f2",
+				bg_color = "#403e41",
+				fg_color = "#fcfcfa",
 				intensity = "Bold",
 				underline = "None",
 				italic = false,
@@ -40,24 +71,24 @@ local config = {
 			},
 
 			inactive_tab = {
-				bg_color = "#272822",
-				fg_color = "#75715e",
+				bg_color = "#2d2a2e",
+				fg_color = "#727072",
 			},
 
 			inactive_tab_hover = {
-				bg_color = "#49483e",
-				fg_color = "#f8f8f2",
+				bg_color = "#403e41",
+				fg_color = "#fcfcfa",
 				italic = true,
 			},
 
 			new_tab = {
-				bg_color = "#272822",
-				fg_color = "#75715e",
+				bg_color = "#2d2a2e",
+				fg_color = "#727072",
 			},
 
 			new_tab_hover = {
-				bg_color = "#49483e",
-				fg_color = "#f8f8f2",
+				bg_color = "#403e41",
+				fg_color = "#fcfcfa",
 				italic = true,
 			},
 		},
@@ -71,17 +102,12 @@ local config = {
 	},
 	show_close_tab_button_in_tabs = false,
 
-	-- front_end = "WebGpu",
-	-- webgpu_power_preference = "HighPerformance",
-
 	max_fps = 60,
 	animation_fps = 1,
 	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
 	enable_kitty_graphics = true,
 
 	enable_scroll_bar = false,
-
-	color_scheme = "Monokai (dark) (terminal.sexy)",
 
 	font = wezterm.font("CaskaydiaCove Nerd Font Mono"),
 	font_size = 10,
