@@ -1,43 +1,13 @@
 return {
 	{
-		"khoido2003/classic_monokai.nvim",
-		lazy = false,
+		"khoido2003/monokai-v2.nvim",
 		priority = 1000,
 		config = function()
-			require("classic_monokai").setup({
-				plugins = {
-					["rainbow-delimiters.nvim"] = true,
-					all = true,
-				},
-
-				on_highlights = function(highlights, _)
-					for _, group in pairs(highlights) do
-						if group.italic then
-							group.italic = false
-						end
-					end
-				end,
-				dark_style_background = "default",
-				light_style_background = "default",
-				hl_styles = {
-					comments = { italic = false },
-					keywords = { italic = false },
-					functions = { italic = false },
-					variables = { italic = false },
-					floats = "default",
-					sidebars = "default",
-				},
-				auto_enable_plugins = true,
-				color_headers = true,
-				dim_inactive = false,
-				lualine_bold = true,
-				lualine_style = "default",
-				markdown_header_marks = false,
-				terminal_colors = false,
-				cache = true,
+			require("monokai-v2").setup({
+				-- classic | light | machine | octagon | pro | ristretto | spectrum
+				filter = "spectrum",
 			})
-
-			vim.cmd.colorscheme("classic-monokai")
+			vim.cmd("colorscheme monokai-v2")
 		end,
 	},
 }
