@@ -18,7 +18,7 @@ return {
 				ignore_focus = { "NvimTree", "TelescopePrompt" },
 				always_divide_middle = true,
 				always_show_tabline = false,
-				globalstatus = true,
+				globalstatus = false,
 			},
 			sections = {
 				lualine_a = {
