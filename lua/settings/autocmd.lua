@@ -29,22 +29,14 @@ vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave" }, {
 -- Roslyn file watcher for C# projects (Unity + general .NET)
 local uv = vim.uv or vim.loop
 
-local function notify_roslyn(event, path)
-	local uri = vim.uri_from_fname(path)
-	local clients = vim.lsp.get_clients({ name = "roslyn_ls" })
-	for _, client in ipairs(clients) do
-		client.notify("workspace/didChangeWatchedFiles", {
-			changes = {
-				{
-					uri = uri,
-					type = event, -- 1 = created, 2 = changed, 3 = deleted
-				},
-			},
-		})
-	end
-end
+-- ///////////////////////////////////////////////////////////
+-- SETTINGS
+-- ///////////////////////////////////////////////////////////
 
-local watchers = {}
+-- enable batching? (default = false for stability)
+local enable_batching = true
+-- batch flush interval in milliseconds (only used if batching is enabled)
+local batch_interval = 100
 
 -- junk folders we don’t care about
 local ignore_dirs = {
@@ -58,22 +50,35 @@ local ignore_dirs = {
 	".vs",
 }
 
--- only watch files we care about
+-- ///////////////////////////////////////////////////////////
+-- CORE HELPERS
+-- ///////////////////////////////////////////////////////////
+
+local function notify_roslyn(changes)
+	local clients = vim.lsp.get_clients({ name = "roslyn_ls" })
+	for _, client in ipairs(clients) do
+		client.notify("workspace/didChangeWatchedFiles", {
+			changes = changes,
+		})
+	end
+end
+
+-- filter to only watch useful files
 local function should_watch(path)
-	-- skip ignored directories
 	for _, dir in ipairs(ignore_dirs) do
 		if path:find("[/\\]" .. dir .. "[/\\]") then
 			return false
 		end
 	end
-
-	-- allow .cs, .csproj, .sln
-	if path:match("%.cs$") or path:match("%.csproj$") or path:match("%.sln$") then
-		return true
-	end
-
-	return false
+	return path:match("%.cs$") or path:match("%.csproj$") or path:match("%.sln$")
 end
+
+-- ///////////////////////////////////////////////////////////
+-- WATCHER LOGIC
+-- ///////////////////////////////////////////////////////////
+
+local watchers = {}
+local batch_queues = {}
 
 local function start_watching(client)
 	if watchers[client.id] then
@@ -106,28 +111,72 @@ local function start_watching(client)
 		end
 
 		local fullpath = root .. "/" .. filename
-
 		if not should_watch(fullpath) then
 			return
 		end
 
+		local evs = {}
 		if events.change then
-			notify_roslyn(2, fullpath)
+			table.insert(evs, { uri = vim.uri_from_fname(fullpath), type = 2 })
 		elseif events.rename then
-			-- rename can be either create or delete
-			notify_roslyn(1, fullpath)
-			notify_roslyn(3, fullpath)
+			-- rename can be create + delete
+			table.insert(evs, { uri = vim.uri_from_fname(fullpath), type = 1 })
+			table.insert(evs, { uri = vim.uri_from_fname(fullpath), type = 3 })
+		end
+
+		if #evs == 0 then
+			return
+		end
+
+		if enable_batching then
+			-- lazy-init batch queue
+			if not batch_queues[client.id] then
+				batch_queues[client.id] = { events = {}, timer = nil }
+			end
+			local queue = batch_queues[client.id]
+
+			-- append events
+			vim.list_extend(queue.events, evs)
+
+			-- start timer if not running
+			if not queue.timer then
+				queue.timer = uv.new_timer()
+				queue.timer:start(batch_interval, 0, function()
+					local changes = queue.events
+					queue.events = {}
+					queue.timer:stop()
+					queue.timer:close()
+					queue.timer = nil
+
+					if #changes > 0 then
+						vim.schedule(function()
+							notify_roslyn(changes)
+						end)
+					end
+				end)
+			end
+		else
+			-- no batching → send immediately
+			notify_roslyn(evs)
 		end
 	end)
 
 	watchers[client.id] = handle
 
+	-- cleanup on detach
 	vim.api.nvim_create_autocmd("LspDetach", {
 		once = true,
 		callback = function(args)
 			if args.data.client_id == client.id then
 				handle:stop()
 				watchers[client.id] = nil
+				if batch_queues[client.id] then
+					if batch_queues[client.id].timer then
+						batch_queues[client.id].timer:stop()
+						batch_queues[client.id].timer:close()
+					end
+					batch_queues[client.id] = nil
+				end
 			end
 		end,
 	})
