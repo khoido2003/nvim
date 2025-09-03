@@ -76,4 +76,28 @@ return {
 			})
 		end,
 	},
+	{
+		"khoido2003/roslyn-filewatch.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("roslyn_filewatch").setup({
+				client_names = { "roslyn_ls" },
+				ignore_dirs = {
+					"Library",
+					"Temp",
+					"Logs",
+					"Obj",
+					"Bin",
+					".git",
+					".idea",
+					".vs",
+				},
+				watch_extensions = { ".cs", ".csproj", ".sln", ".props", ".targets" },
+				batching = {
+					enabled = true,
+					interval = 100,
+				},
+			})
+		end,
+	},
 }
