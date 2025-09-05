@@ -1,6 +1,9 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
+-- 🔹 pick your palette here
+local palette = require("spectrum")
+
 wezterm.on("format-tab-title", function(tab)
 	return " " .. tostring(tab.tab_index + 1) .. " "
 end)
@@ -9,61 +12,60 @@ local config = {
 	enable_wayland = false,
 	check_for_updates = false,
 
-	-- Monokai Pro colorscheme
 	window_frame = {
-		active_titlebar_bg = "#2d2a2e", -- background
-		inactive_titlebar_bg = "#2d2a2e",
+		active_titlebar_bg = palette.background,
+		inactive_titlebar_bg = palette.background,
 
-		active_titlebar_fg = "#fcfcfa", -- foreground
-		inactive_titlebar_fg = "#727072", -- neutral3 (comment color)
+		active_titlebar_fg = palette.foreground,
+		inactive_titlebar_fg = palette.neutral3,
 
-		active_titlebar_border_bottom = "#2d2a2e",
-		inactive_titlebar_border_bottom = "#2d2a2e",
+		active_titlebar_border_bottom = palette.background,
+		inactive_titlebar_border_bottom = palette.background,
 
-		button_bg = "#2d2a2e",
-		button_fg = "#fcfcfa",
-		button_hover_bg = "#403e41", -- neutral5
-		button_hover_fg = "#ff6188", -- red
+		button_bg = palette.background,
+		button_fg = palette.foreground,
+		button_hover_bg = palette.neutral5,
+		button_hover_fg = palette.red,
 	},
 
 	colors = {
-		foreground = "#fcfcfa",
-		background = "#2d2a2e",
+		foreground = palette.foreground,
+		background = palette.background,
 
-		cursor_bg = "#fcfcfa",
-		cursor_border = "#fcfcfa",
-		cursor_fg = "#2d2a2e",
+		cursor_bg = palette.foreground,
+		cursor_border = palette.foreground,
+		cursor_fg = palette.background,
 
-		selection_bg = "#403e41",
-		selection_fg = "#fcfcfa",
+		selection_bg = palette.neutral5,
+		selection_fg = palette.foreground,
 
 		ansi = {
-			"#1e1c1f", -- black (surface0)
-			"#ff6188", -- red
-			"#a9dc76", -- green
-			"#ffd866", -- yellow
-			"#6ab8ff", -- blue (delimiter_blue)
-			"#ab9df2", -- purple
-			"#78dce8", -- cyan
-			"#fcfcfa", -- white (foreground)
+			palette.surface0,
+			palette.red,
+			palette.green,
+			palette.yellow,
+			palette.delimiter_blue,
+			palette.purple,
+			palette.cyan,
+			palette.foreground,
 		},
 		brights = {
-			"#727072", -- bright black (neutral3)
-			"#ff6ac1", -- bright red (delimiter_pink)
-			"#8aff80", -- bright green (delimiter_green)
-			"#ffd866", -- bright yellow
-			"#6ab8ff", -- bright blue
-			"#bd93f9", -- bright purple (delimiter_purple)
-			"#5ad4e6", -- bright cyan (delimiter_cyan)
-			"#ffffff", -- bright white
+			palette.neutral3,
+			palette.delimiter_pink,
+			palette.delimiter_green,
+			palette.delimiter_yellow,
+			palette.delimiter_blue,
+			palette.delimiter_purple,
+			palette.delimiter_cyan,
+			"#ffffff",
 		},
 
 		tab_bar = {
-			background = "#2d2a2e",
+			background = palette.background,
 
 			active_tab = {
-				bg_color = "#403e41",
-				fg_color = "#fcfcfa",
+				bg_color = palette.neutral5,
+				fg_color = palette.foreground,
 				intensity = "Bold",
 				underline = "None",
 				italic = false,
@@ -71,24 +73,24 @@ local config = {
 			},
 
 			inactive_tab = {
-				bg_color = "#2d2a2e",
-				fg_color = "#727072",
+				bg_color = palette.background,
+				fg_color = palette.neutral3,
 			},
 
 			inactive_tab_hover = {
-				bg_color = "#403e41",
-				fg_color = "#fcfcfa",
+				bg_color = palette.neutral5,
+				fg_color = palette.foreground,
 				italic = true,
 			},
 
 			new_tab = {
-				bg_color = "#2d2a2e",
-				fg_color = "#727072",
+				bg_color = palette.background,
+				fg_color = palette.neutral3,
 			},
 
 			new_tab_hover = {
-				bg_color = "#403e41",
-				fg_color = "#fcfcfa",
+				bg_color = palette.neutral5,
+				fg_color = palette.foreground,
 				italic = true,
 			},
 		},
