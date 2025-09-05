@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 
 -- 🔹 pick your palette here
-local palette = require("spectrum")
+local palette = require("classic")
 
 wezterm.on("format-tab-title", function(tab)
 	return " " .. tostring(tab.tab_index + 1) .. " "

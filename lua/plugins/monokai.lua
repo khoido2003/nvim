@@ -5,7 +5,7 @@ return {
 		config = function()
 			require("monokai-v2").setup({
 				-- classic | light | machine | octagon | pro | ristretto | spectrum
-				filter = "spectrum",
+				filter = "classic",
 			})
 			vim.cmd("colorscheme monokai-v2")
 		end,
