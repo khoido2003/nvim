@@ -34,3 +34,5 @@ function lsp() {
 
 # Autosuggestions styling
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#888888"
+
+export PATH="$HOME/.local/bin:$PATH"

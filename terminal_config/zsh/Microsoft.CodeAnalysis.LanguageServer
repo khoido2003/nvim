@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+exec dotnet /home/khoizpro/.local/share/nvim/mason/packages/roslyn/libexec/Microsoft.CodeAnalysis.LanguageServer.dll "$@"
+

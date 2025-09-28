@@ -40,3 +40,55 @@ If you want to re-run the Powerlevel10k config wizard later:
 ```
 p10k configure
 ```
+
+--- 
+
+## Configure roslyn lsp server
+
+### Check Microsoft.CodeAnalysis.LanguageServer
+```
+ls -l ~/.local/bin/Microsoft.CodeAnalysis.LanguageServer
+```
+
+### If not have the file yet
+```
+mkdir -p ~/.local/bin
+nvim ~/.local/bin/Microsoft.CodeAnalysis.LanguageServer
+```
+
+Paste this inside
+```
+#!/usr/bin/env bash
+exec dotnet /home/<your username>/.local/share/nvim/mason/packages/roslyn/libexec/Microsoft.CodeAnalysis.LanguageServer.dll "$@"
+```
+
+### Make the file excutable
+```
+chmod +x ~/.local/bin/Microsoft.CodeAnalysis.LanguageServer
+```
+
+### Confirm $PATH
+
+```
+echo $PATH
+```
+
+You should see /home/<your username>/.local/bin at the beginning (or somewhere in the list).
+If not → check your .zshrc again and make sure you have this line once:
+
+```
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+### Reload zsh
+
+```
+source ~/.zshrc
+```
+
+### Test 
+```
+which Microsoft.CodeAnalysis.LanguageServer
+
+->  /home/<your username>/.local/bin/Microsoft.CodeAnalysis.LanguageServer
+```

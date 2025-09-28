@@ -33,18 +33,12 @@ return {
 
 			formatters = {
 				csharpier = {
-					command = "dotnet-csharpier",
-					args = function()
-						local project_dir = vim.fn.expand("%:p:h")
-						local csproj_files = vim.fn.glob(project_dir .. "/*.csproj", true, true)
-						for _, file in ipairs(csproj_files) do
-							if file:match("Assembly%-CSharp%.csproj$") then
-								return { "--project", file }
-							end
-						end
-
-						return {}
-					end,
+					command = "csharpier",
+					args = {
+						"format",
+						"--write-stdout",
+					},
+					stdin = true,
 				},
 			},
 		})
