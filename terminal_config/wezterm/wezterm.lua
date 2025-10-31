@@ -1,7 +1,6 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
--- 🔹 pick your palette here
 local palette = require("classic")
 
 wezterm.on("format-tab-title", function(tab)
@@ -104,20 +103,16 @@ local config = {
 	},
 	show_close_tab_button_in_tabs = false,
 
-	max_fps = 60,
-	animation_fps = 1,
 	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
-	enable_kitty_graphics = true,
-
+	front_end = "WebGpu",
+	webgpu_power_preference = "HighPerformance",
 	enable_scroll_bar = false,
 
 	font = wezterm.font("CaskaydiaCove Nerd Font Mono"),
 	font_size = 10,
 
 	window_close_confirmation = "NeverPrompt",
-	scrollback_lines = 100,
 
-	harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
 	keys = {
 		{ key = "h", mods = "CTRL|SHIFT", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 		{ key = "|", mods = "CTRL|SHIFT", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
