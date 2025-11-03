@@ -2,6 +2,8 @@ return {
 	"nvim-tree/nvim-tree.lua",
 	lazy = false,
 	config = function()
+		vim.g.nvim_tree_respect_buf_cwd = 1
+
 		require("nvim-tree").setup({
 			sync_root_with_cwd = false,
 			update_cwd = false,
@@ -11,7 +13,18 @@ return {
 				enable = true,
 				timeout = 5000,
 			},
-			diagnostics = { enable = false },
+			diagnostics = { enable = true },
+			renderer = {
+				highlight_git = true,
+				root_folder_label = false,
+				icons = { show = { file = true, folder = true, folder_arrow = true, git = true } },
+			},
+
+			view = { width = 35, side = "left" },
+
+			update_focused_file = { enable = true, update_root = false },
+
+			filesystem_watchers = { enable = true },
 
 			filters = {
 				custom = {
