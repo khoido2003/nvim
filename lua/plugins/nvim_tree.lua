@@ -11,9 +11,9 @@ return {
 			reload_on_bufenter = false,
 			git = {
 				enable = true,
-				timeout = 5000,
+				timeout = 1000,
 			},
-			diagnostics = { enable = true },
+			diagnostics = { enable = false },
 			renderer = {
 				highlight_git = true,
 				root_folder_label = false,
