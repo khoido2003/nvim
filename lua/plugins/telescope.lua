@@ -1,9 +1,3 @@
--- Require:
--- winget install Kitware.CMake --source winget
--- scoop install rg
--- scoop install fd
--- winget install Ninja-build.Ninja
---
 return {
 	"nvim-telescope/telescope.nvim",
 	branch = "0.1.x",
@@ -19,29 +13,8 @@ return {
 		},
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
-			build = function()
-				local cmake = vim.fn.executable("cmake") == 1 and "cmake" or nil
-				local ninja = vim.fn.executable("ninja") == 1 and "ninja" or nil
-				local make = vim.fn.executable("make") == 1 and "make" or nil
-
-				if cmake and ninja then
-					return cmake
-						.. " -S. -Bbuild -G Ninja -DCMAKE_BUILD_TYPE=Release && "
-						.. ninja
-						.. " --build build --config Release && "
-						.. cmake
-						.. " --install build --prefix build"
-				elseif cmake then
-					return cmake
-						.. " -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && "
-						.. cmake
-						.. " --build build --config Release"
-				elseif make then
-					return "make"
-				else
-					error("telescope-fzf-native.nvim: Install cmake, ninja, or make")
-				end
-			end,
+			build = "cmake -S. -Bbuild -G Ninja -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+			lazy = true,
 		},
 	},
 	config = function()
@@ -225,6 +198,7 @@ return {
 		})
 
 		-- Load extensions
+		telescope.load_extension("fzf")
 		telescope.load_extension("live_grep_args")
 
 		-- Minimal dropdown keymaps

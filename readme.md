@@ -116,6 +116,69 @@ sudo dnf install -y gcc gcc-c++ make pkgconf-pkg-config \
     ninja-build cmake python3 python3-neovim
 ```
 
+### telescope-fzf-native.nvim on Windows
+
+#### 1. Install required tools (one time)
+
+```powershell
+# Run in PowerShell as Administrator
+winget install Kitware.CMake
+winget install Ninja-build.Ninja
+scoop install rg fd
+
+```
+
+#### 2. Install Visual Studio Build Tools (C++)
+
+- Download: https://visualstudio.microsoft.com/visual-cpp-build-tools/
+- Run installer → select "Desktop development with C++"
+- Install (~2.5 GB)
+- Restart PC
+
+#### 3. Install VC++ Redistributables (BOTH!)
+
+- x64: https://aka.ms/vs/17/release/vc_redist.x64.exe
+- x86: https://aka.ms/vs/17/release/vc_redist.x86.exe
+
+#### 4. First-time build
+
+Start Menu → type → "x64 Native Tools Command Prompt for VS 2022" → Open
+Paste these commands:
+
+```cmd
+cd %LOCALAPPDATA%\nvim-data\lazy\telescope-fzf-native.nvim
+rmdir /s /q build
+cmake -S. -Bbuild -G Ninja -DCMAKE_BUILD_TYPE=Release
+cmake --build build --config Release
+cmake --install build --prefix build
+```
+
+#### 4. Verify
+```
+:checkhealth telescope
+
+
+telescope:                                                                  ✅
+
+Checking for required plugins ~
+- ✅ OK plenary installed.
+- ✅ OK nvim-treesitter installed.
+
+Checking external dependencies ~
+- ✅ OK rg: found ripgrep 14.1.1 (rev 4649aa9700)
+- ✅ OK fd: found fd 10.2.0
+
+===== Installed extensions ===== ~
+
+Telescope Extension: `fzf` ~
+- ✅ OK lib working as expected
+- ✅ OK file_sorter correctly configured
+- ✅ OK generic_sorter correctly configured
+
+Telescope Extension: `live_grep_args` ~
+- No healthcheck provided
+```
+
 ### Dowload Zig as compiler for Nvim-Tree-sitter(Window)
 Using chocolatey
 

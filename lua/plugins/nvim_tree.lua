@@ -11,7 +11,7 @@ return {
 			reload_on_bufenter = false,
 			git = {
 				enable = true,
-				timeout = 1000,
+				timeout = 15000,
 			},
 			diagnostics = { enable = false },
 			renderer = {
