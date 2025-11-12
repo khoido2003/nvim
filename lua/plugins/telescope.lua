@@ -11,11 +11,6 @@ return {
 				require("telescope").load_extension("live_grep_args")
 			end,
 		},
-		{
-			"nvim-telescope/telescope-fzf-native.nvim",
-			build = "cmake -S. -Bbuild -G Ninja -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-			lazy = true,
-		},
 	},
 	config = function()
 		local telescope = require("telescope")
@@ -198,7 +193,6 @@ return {
 		})
 
 		-- Load extensions
-		telescope.load_extension("fzf")
 		telescope.load_extension("live_grep_args")
 
 		-- Minimal dropdown keymaps
