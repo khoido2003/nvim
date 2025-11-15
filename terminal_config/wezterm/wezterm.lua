@@ -8,7 +8,7 @@ wezterm.on("format-tab-title", function(tab)
 end)
 
 local config = {
-	enable_wayland = false,
+	enable_wayland = true,
 	check_for_updates = false,
 
 	window_frame = {
@@ -121,12 +121,11 @@ local config = {
 		{ key = " ", mods = "CTRL", action = act.SendKey({ key = " ", mods = "CTRL" }) },
 	},
 
-    -- Window
-	default_prog = { "pwsh", "-NoLogo" },
-	
-    -- Linux (POP OS)
-    -- default_prog = { "zsh" },
+	-- Window
+	--default_prog = { "pwsh", "-NoLogo" },
 
+	-- Linux (Zorin)
+	default_prog = { "zsh" },
 }
 
 return config
