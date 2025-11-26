@@ -45,7 +45,7 @@ function M.setup()
 
 	-- General editing
 	map("n", "<leader>h", ":nohlsearch<CR>")
-	map("n", "<C-s>", ":w<CR>")
+	map("n", "<C-s>", ":w!<CR>")
 	map("n", "<C-a>", "ggVG")
 
 	-- Copy/paste with system clipboard

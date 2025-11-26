@@ -10,7 +10,7 @@ This repo sets up my Zsh environment with:
 
 ## 🚀 Quick Start (on a new machine)
 
-0. Install Zsh and make it your default shell (Fedora)
+0. Install Zsh and make it your default shell
 
 ```bash
 sudo dnf install -y zsh
@@ -32,6 +32,11 @@ chmod +x install.sh
 3. **Run the installer
 ```
 chmod +x install.sh
+```
+
+4. Install wl-clipboard if distro use Wayland
+```
+sudo apt install -y wl-clipboard
 ```
 
 ## Configure P10K Wizard
