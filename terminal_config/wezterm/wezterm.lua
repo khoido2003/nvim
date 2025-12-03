@@ -104,8 +104,8 @@ local config = {
 	show_close_tab_button_in_tabs = false,
 
 	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
-	front_end = "WebGpu",
-	webgpu_power_preference = "HighPerformance",
+	-- front_end = "WebGpu",
+	-- webgpu_power_preference = "HighPerformance",
 	enable_scroll_bar = false,
 
 	font = wezterm.font("CaskaydiaCove Nerd Font Mono"),
@@ -122,10 +122,10 @@ local config = {
 	},
 
 	-- Window
-	--default_prog = { "pwsh", "-NoLogo" },
+	default_prog = { "pwsh", "-NoLogo" },
 
-	-- Linux (Zorin)
-	default_prog = { "zsh" },
+	-- Linux (KDE Neon)
+	-- default_prog = { "zsh" },
 }
 
 return config

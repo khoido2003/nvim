@@ -20,6 +20,8 @@ return {
 
 		telescope.setup({
 			defaults = {
+				grep_backend = "rg",
+
 				vimgrep_arguments = {
 					"rg",
 					"--color=never",
@@ -29,8 +31,12 @@ return {
 					"--column",
 					"--smart-case",
 					"--hidden",
-					"--glob",
-					"!**/.git/*",
+					"--no-ignore",
+					"--glob=!**/.git/*",
+					"--glob=!**/node_modules/*",
+					"--glob=!**/target/*",
+					"--glob=!**/dist/*",
+					"--glob=!**/build/*",
 				},
 				path_display = { "smart" },
 				mappings = {
@@ -197,12 +203,12 @@ return {
 
 		-- Minimal dropdown keymaps
 		local map = vim.keymap.set
-		map("n", "<A-f>", function()
+		map("n", "<leader>f", function()
 			extensions.live_grep_args.live_grep_args(themes.get_dropdown({ previewer = true }))
 		end, { desc = "Live Grep Args (dropdown)" })
 
-		map("n", "<A-F>", function()
-			builtin.current_buffer_fuzzy_find(themes.get_dropdown({ previewer = false }))
+		map("n", "f", function()
+			builtin.current_buffer_fuzzy_find(themes.get_dropdown({ previewer = true }))
 		end, { desc = "Fuzzy Find in Buffer (dropdown)" })
 
 		map("n", "<leader>fo", function()
@@ -217,7 +223,7 @@ return {
 			builtin.buffers(themes.get_dropdown({ previewer = false }))
 		end, { desc = "Buffers (dropdown)" })
 
-		map("n", "<C-p>", function()
+		map("n", "<leader>ff", function()
 			builtin.find_files(themes.get_dropdown({ previewer = false, hidden = true }))
 		end, { desc = "Find Files (dropdown)" })
 
