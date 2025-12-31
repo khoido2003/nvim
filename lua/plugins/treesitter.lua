@@ -1,33 +1,61 @@
 return {
-	{
-		"nvim-treesitter/nvim-treesitter",
-		event = { "BufReadPost", "BufNewFile" },
-		build = ":TSUpdate",
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = {},
-				auto_install = true,
-				sync_install = true,
+	"nvim-treesitter/nvim-treesitter",
+	lazy = false,
+	build = ":TSUpdate",
+	branch = "main",
+	config = function()
+		local ts = require("nvim-treesitter")
 
-				modules = {},
-				ignore_install = {},
-				highlight = {
-					enable = true,
-					additional_vim_regex_highlighting = false,
-				},
-				indent = {
-					enable = false,
-				},
-			})
+		ts.setup()
 
-			vim.api.nvim_create_autocmd("BufReadPre", {
-				callback = function()
-					if vim.fn.line("$") > 15000 then
-						vim.cmd("TSBufDisable highlight")
-					end
-				end,
-			})
-			require("nvim-treesitter.install").compilers = { "gcc", "zig" }
-		end,
-	},
+		ts.install({
+			-- scripting / config
+			"lua",
+			"json",
+			"jsonc",
+			"yaml",
+			"toml",
+
+			-- web
+			"javascript",
+			"typescript",
+			"tsx",
+			"html",
+			"css",
+
+			-- backend / systems
+			"c",
+			"cpp",
+			"c_sharp",
+			"go",
+			"rust",
+
+			-- data / misc
+			"bash",
+			"regex",
+			"markdown",
+			"markdown_inline",
+		})
+
+		local ignore_filetypes = {
+			"checkhealth",
+			"lazy",
+			"mason",
+			"snacks_dashboard",
+			"snacks_notif",
+			"snacks_win",
+		}
+
+		vim.api.nvim_create_autocmd("FileType", {
+			callback = function(ev)
+				if vim.tbl_contains(ignore_filetypes, ev.match) then
+					return
+				end
+
+				pcall(vim.treesitter.start, ev.buf)
+
+				vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+			end,
+		})
+	end,
 }

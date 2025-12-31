@@ -23,3 +23,11 @@ vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave" }, {
 		vim.opt_local.cursorline = false
 	end,
 })
+
+vim.api.nvim_create_autocmd("BufReadPre", {
+	callback = function()
+		if vim.fn.line("$") > 15000 then
+			vim.cmd("TSBufDisable highlight")
+		end
+	end,
+})
