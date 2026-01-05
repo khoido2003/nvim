@@ -12,7 +12,6 @@ return {
 			-- scripting / config
 			"lua",
 			"json",
-			"jsonc",
 			"yaml",
 			"toml",
 
