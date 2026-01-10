@@ -19,24 +19,6 @@ return {
 		end,
 	},
 	{
-		"rcarriga/nvim-notify",
-		event = "VeryLazy",
-		config = function()
-			local notify = require("notify")
-			notify.setup({
-				stages = "static",
-				timeout = 1000,
-				render = "minimal",
-				max_width = 50,
-				max_height = 5,
-				fps = 30,
-				top_down = false,
-			})
-
-			vim.notify = notify
-		end,
-	},
-	{
 		"mbbill/undotree",
 		lazy = true,
 		keys = {
@@ -81,6 +63,16 @@ return {
 		event = "VeryLazy",
 		config = function()
 			require("roslyn_filewatch").setup({})
+		end,
+	},
+	{
+		"khoido2003/multiple-cursor.nvim",
+		keys = {
+			{ "<C-n>", "<cmd>MultipleCursorStart<cr>", desc = "Start Multiple Cursor" },
+		},
+		cmd = { "MultipleCursorStart", "MultipleCursorSelectAll" },
+		config = function()
+			require("multiple-cursor").setup()
 		end,
 	},
 }
