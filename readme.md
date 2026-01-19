@@ -211,7 +211,7 @@ Dowload: https://github.com/equalsraf/win32yank/releases
 
 ## Requirements
 
-- Neovim >= 0.10.0 
+- Neovim >= 0.11.0 
 
 - Git >= 2.19.0 
 
