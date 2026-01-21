@@ -70,7 +70,7 @@ function M.setup()
 	map("i", "<Up>", "<C-o>gk")
 
 	-- Select current line
-	map("n", "<CR>", "V")
+	-- map("n", "<CR>", "V")
 
 	-- NvimTree
 	map("n", "<leader>e", ":NvimTreeToggle<CR>")
