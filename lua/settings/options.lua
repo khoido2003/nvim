@@ -5,6 +5,9 @@ vim.opt.swapfile = false
 vim.opt.updatetime = 500
 vim.opt.redrawtime = 1500
 
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+
 vim.g.loaded_matchparen = 1
 vim.g.loaded_rplugin = 1
 vim.g.loaded_shada = 1

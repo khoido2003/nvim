@@ -52,8 +52,6 @@ return {
 				end
 
 				pcall(vim.treesitter.start, ev.buf)
-
-				vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 			end,
 		})
 	end,
