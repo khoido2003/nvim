@@ -54,6 +54,7 @@ return {
 	{
 		"khoido2003/roslyn-filewatch.nvim",
 		event = "VeryLazy",
+		branch = "v0.4.x",
 		config = function()
 			require("roslyn_filewatch").setup({})
 		end,

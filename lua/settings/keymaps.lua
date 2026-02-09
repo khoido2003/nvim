@@ -79,7 +79,9 @@ function M.setup()
 		},
 		["<leader>k"] = {
 			function()
-				vim.lsp.buf.hover({ border = "single" })
+				vim.lsp.buf.hover({
+					--    border = "single"
+				})
 			end,
 			"LSP: Hover",
 		},
@@ -97,7 +99,9 @@ function M.setup()
 		},
 		["<leader>sh"] = {
 			function()
-				vim.lsp.buf.signature_help({ border = "single" })
+				vim.lsp.buf.signature_help({
+					--    border = "single"
+				})
 			end,
 			"LSP: Signature Help",
 		},
@@ -111,7 +115,7 @@ function M.setup()
 			function()
 				vim.diagnostic.open_float(nil, {
 					source = "always",
-					border = "single",
+					--	border = "single",
 				})
 			end,
 			"LSP: Show Diagnostic",
