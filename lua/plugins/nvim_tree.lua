@@ -25,7 +25,6 @@ return {
 			update_focused_file = { enable = true, update_root = false },
 
 			filesystem_watchers = { enable = true },
-
 			filters = {
 				custom = {
 					-- Common junk / OS
@@ -60,8 +59,8 @@ return {
 					".gradle",
 					".meta$",
 					".unityproj$",
-					".csproj$",
-					".sln$",
+					--				".csproj$",
+					--				".sln$",
 					".pidb$",
 					".booproj$",
 					".svd$",
