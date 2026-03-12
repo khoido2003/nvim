@@ -53,9 +53,9 @@ return {
 	},
 	{
 		"khoido2003/roslyn-filewatch.nvim",
-		event = "VeryLazy",
+		build = "nvim -l build.lua --",
 		config = function()
-			require("roslyn_filewatch").setup({})
+			require("roslyn_filewatch").setup()
 		end,
 	},
 }
