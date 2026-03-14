@@ -11,4 +11,5 @@ return {
 	require("plugins.blink"),
 	require("plugins.lsp"),
 	require("plugins.git_signs"),
+	require("plugins.luasnip"),
 }
