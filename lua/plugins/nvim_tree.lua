@@ -49,18 +49,21 @@ return {
 					".egg%-info$",
 
 					-- Unity
-					"Library",
-					"Logs",
-					"Temp",
-					"Build",
-					"UserSettings",
-					"obj",
-					"bin",
+					"^Library/$",
+					"^Logs$",
+					"^Temp$",
+					"^Build$",
+					"^UserSettings$",
+					"^obj$",
+					"^bin$",
+					"^target$",
+					"^dist$",
+					"^out$",
+					"^coverage$",
+
 					".gradle",
 					".meta$",
 					".unityproj$",
-					--				".csproj$",
-					--				".sln$",
 					".pidb$",
 					".booproj$",
 					".svd$",
@@ -88,11 +91,6 @@ return {
 					"%.sqlite$",
 					"%.sqlite3$",
 					"%.db$",
-
-					-- Build outputs
-					"dist",
-					"out",
-					"coverage",
 
 					-- Backups / swap
 					"%.swp$",
