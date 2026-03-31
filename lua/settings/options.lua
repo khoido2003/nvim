@@ -40,7 +40,7 @@ vim.opt.expandtab = true
 vim.opt.relativenumber = true
 vim.opt.number = true
 
-vim.lsp.set_log_level("off")
+vim.lsp.log.set_level("off")
 vim.diagnostic.config({ virtual_text = true })
 
 if vim.fn.has("win32") == 1 then
