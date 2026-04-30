@@ -7,6 +7,7 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "proxy": "",
   "buffer_font_family": "CaskaydiaCove Nerd Font",
   "agent_servers": {
     "github-copilot-cli": {
@@ -14,8 +15,8 @@
     }
   },
   "vim_mode": true,
-  "ui_font_size": 16,
-  "buffer_font_size": 15,
+  "ui_font_size": 14.0,
+  "buffer_font_size": 13.5,
   "theme": {
     "mode": "system",
     "light": "Gruvbox Light",
@@ -42,5 +43,32 @@
       "update_debounce_ms": 150,
       "padding": 4
     }
-  }
+  },
+  "colorize_brackets": true,
+  "semantic_tokens": "combined",
+
+  "inlay_hints": {
+    "enabled": true,
+    "show_type_hints": true,
+    "show_parameter_hints": true,
+    "show_other_hints": true
+  },
+
+  // Format on save
+  "format_on_save": "on",
+  "ensure_final_newline_on_save": true,
+  "remove_trailing_whitespace_on_save": true,
+
+  "vertical_scroll_margin": 8,
+  "scroll_beyond_last_line": "one_page",
+
+  "git": {
+    "inline_blame": {
+      "enabled": true,
+      "delay_ms": 500
+    },
+    "git_gutter": "tracked_files"
+  },
+
+  "use_smartcase_search": true
 }
