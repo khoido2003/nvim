@@ -1,0 +1,60 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-s": "workspace::Save",
+      "space e": "workspace::ToggleLeftDock",
+      "space a": "workspace::ToggleRightDock",
+      "space f f": "file_finder::Toggle",
+      "space f": "workspace::NewSearch",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-a": "editor::SelectAll",
+      "ctrl-c": "editor::Copy",
+      "ctrl-v": "editor::Paste",
+      "alt-f": "buffer_search::Deploy"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "ctrl-z": "editor::Undo",
+      "alt-k": "editor::MoveLineUp",
+      "alt-j": "editor::MoveLineDown",
+      // <leader>gd → go to definition
+      "space g d": "editor::GoToDefinition",
+      // <leader>gt → go to type definition
+      "space g t": "editor::GoToTypeDefinition",
+      // <leader>k → hover
+      "space k": "editor::Hover",
+      // <leader>rn → rename
+      "space r n": "editor::Rename",
+      // <leader>ca → code action
+      "space c a": "editor::ToggleCodeActions",
+      // <leader>sh → signature help
+      "space s h": "editor::ShowSignatureHelp"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "ctrl-v": "editor::Paste",
+      "ctrl-z": "editor::Undo",
+      "j k": "vim::NormalBefore"
+    }
+  }
+]

@@ -1,0 +1,39 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "buffer_font_family": "CaskaydiaCove Nerd Font",
+  "agent_servers": {
+    "github-copilot-cli": {
+      "type": "registry"
+    }
+  },
+  "vim_mode": true,
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "theme": {
+    "mode": "system",
+    "light": "Gruvbox Light",
+    "dark": "Monokai Pro (CE)"
+  },
+  "agent": {
+    "dock": "right",
+    "default_height": 320
+  },
+  "project_panel": {
+    "dock": "left",
+    "starts_open": true
+  },
+  "close_panel_on_toggle": true,
+  "toolbar": {
+    "breadcrumbs": false,
+    "quick_actions": false,
+    "selections_menu": false,
+    "code_actions": false
+  }
+}
