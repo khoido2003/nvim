@@ -46,7 +46,20 @@
       // <leader>ca → code action
       "space c a": "editor::ToggleCodeActions",
       // <leader>sh → signature help
-      "space s h": "editor::ShowSignatureHelp"
+      "space s h": "editor::ShowSignatureHelp",
+
+      // Navigation
+      "space n h": "editor::GoToHunk",
+      "space p v": "editor::GoToPreviousHunk",
+
+      // Hunk actions
+      "space r h": "git::Restore",
+      "space p h": "editor::ToggleSelectedDiffHunks",
+      "space h i": "editor::ToggleSelectedDiffHunks",
+      "space d f": "editor::OpenExcerpts",
+
+      // Blame
+      "space b l": "git::Blame"
     }
   },
   {

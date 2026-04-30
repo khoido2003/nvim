@@ -19,7 +19,7 @@
   "theme": {
     "mode": "system",
     "light": "Gruvbox Light",
-    "dark": "Monokai Pro (CE)"
+    "dark": "Monokai-og"
   },
   "agent": {
     "dock": "right",
@@ -35,5 +35,12 @@
     "quick_actions": false,
     "selections_menu": false,
     "code_actions": false
+  },
+  "diagnostics": {
+    "inline": {
+      "enabled": true,
+      "update_debounce_ms": 150,
+      "padding": 4
+    }
   }
 }
