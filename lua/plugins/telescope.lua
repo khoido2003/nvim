@@ -13,9 +13,10 @@
 --   - CMake >= 3.17   : winget install Kitware.CMake
 --   - MinGW/GCC       : Install MSYS2 from https://www.msys2.org
 --                       then in MSYS2 MINGW64 terminal:
---                         pacman -S mingw-w64-x86_64-gcc make
+--                         pacman -S mingw-w64-x86_64-make --needed
 --                       then add to Windows PATH:
 --                         C:\msys64\mingw64\bin
+--   - Check: mingw32-make --version
 --
 -- OPTIONAL BUT RECOMMENDED:
 --   - bat             - syntax-highlighted previews
