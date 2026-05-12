@@ -3,7 +3,6 @@ return {
 	event = "BufWritePost",
 	lazy = true,
 	config = function()
-		-- Formatter setup
 		require("conform").setup({
 			formatters_by_ft = {
 				html = { "prettier" },
@@ -29,7 +28,7 @@ return {
 				gdscript = { "gdformat" },
 			},
 			timeout = 7000,
-			debug = true,
+			debug = false,
 
 			formatters = {
 				csharpier = {
