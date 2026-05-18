@@ -1,4 +1,3 @@
--- plugins.lua
 return {
 	require("plugins.monokai"),
 	require("plugins.utils"),
