@@ -9,7 +9,13 @@ return {
 
 		local servers = {
 			roslyn_ls = {
-
+				capabilities = vim.tbl_deep_extend("force", capabilities, {
+					workspace = {
+						didChangeWatchedFiles = {
+							dynamicRegistration = false,
+						},
+					},
+				}),
 				settings = {
 					["csharp|background_analysis"] = {
 						dotnet_analyzer_diagnostics_scope = "openFiles",
