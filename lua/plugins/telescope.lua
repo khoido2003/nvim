@@ -5,6 +5,9 @@
 --   - ripgrep (rg)  - for live_grep / vimgrep
 --       Windows: winget install BurntSushi.ripgrep.MSVC
 --                or scoop install ripgrep
+--       Linux: sudo apt update
+--              sudo apt install cmake build-essential
+--
 --   - fd             - for find_files
 --       Windows: winget install sharkdp.fd
 --                or scoop install fd
@@ -38,9 +41,14 @@ return {
 			"nvim-telescope/telescope-fzf-native.nvim",
 
 			-- Requires CMake + MinGW GCC on Windows (see header comments)
-			build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -G 'MinGW Makefiles' && cmake --build build --config Release",
 			-- If CMake issues persist, delete the 'build' folder inside the
 			-- plugin directory and re-run :Lazy clean + :Lazy build
+
+			-- Window
+			build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -G 'MinGW Makefiles' && cmake --build build --config Release",
+
+			-- Linux
+			-- build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
 		},
 	},
 	config = function()
