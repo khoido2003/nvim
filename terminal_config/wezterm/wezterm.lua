@@ -8,7 +8,7 @@ wezterm.on("format-tab-title", function(tab)
 end)
 
 local config = {
-	enable_wayland = true,
+	enable_wayland = false,
 	check_for_updates = false,
 
 	window_frame = {
@@ -119,13 +119,19 @@ local config = {
 		{ key = "x", mods = "CTRL|SHIFT", action = wezterm.action.CloseCurrentPane({ confirm = true }) },
 
 		{ key = " ", mods = "CTRL", action = act.SendKey({ key = " ", mods = "CTRL" }) },
+		{
+			key = "LeftArrow",
+			mods = "CTRL|ALT",
+			action = act.MoveTabRelative(-1),
+		},
+		{
+			key = "RightArrow",
+			mods = "CTRL|ALT",
+			action = act.MoveTabRelative(1),
+		},
 	},
 
-	-- Window
 	default_prog = { "pwsh", "-NoLogo" },
-
-	-- Linux (KDE Neon)
-	-- default_prog = { "zsh" },
 }
 
 return config
