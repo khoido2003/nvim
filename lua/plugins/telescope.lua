@@ -67,26 +67,82 @@ return {
 				},
 			},
 			defaults = {
-
 				vimgrep_arguments = {
 					"rg",
+
 					"--color=never",
 					"--no-heading",
 					"--with-filename",
 					"--line-number",
 					"--column",
 					"--smart-case",
+					"--glob-case-insensitive",
+
+					-- Search hidden files
 					"--hidden",
-					"--glob=!**/.git/*",
-					"--glob=!**/node_modules/*",
-					"--glob=!**/target/*",
-					"--glob=!**/dist/*",
-					"--glob=!**/build/*",
+
+					-- Git / editor
+					"--glob=!**/.git/**",
+					"--glob=!**/.vscode/**",
+					"--glob=!**/.idea/**",
+
+					-- Unity
+					"--glob=!**/Library/**",
+					"--glob=!**/Temp/**",
+					"--glob=!**/Obj/**",
+					"--glob=!**/Logs/**",
+					"--glob=!**/Build/**",
+					"--glob=!**/Builds/**",
+					"--glob=!**/UserSettings/**",
+					"--glob=!**/MemoryCaptures/**",
+					"--glob=!**/Recordings/**",
+
+					-- Godot
+					"--glob=!**/.godot/**",
+					"--glob=!**/.import/**",
+					"--glob=!**/export/**",
+
+					-- Other engines / dependencies
+					"--glob=!**/node_modules/**",
+					"--glob=!**/dist/**",
+					"--glob=!**/build/**",
+					"--glob=!**/target/**",
+
+					-- Unity generated files
+					"--glob=!**/*.meta",
+					"--glob=!**/*.csproj",
+					"--glob=!**/*.sln",
+					"--glob=!**/*.pdb",
+					"--glob=!**/*.mdb",
+
+					-- Binary files
+					"--glob=!**/*.dll",
+					"--glob=!**/*.exe",
+					"--glob=!**/*.so",
+					"--glob=!**/*.dylib",
+
+					-- Media
+					"--glob=!**/*.png",
+					"--glob=!**/*.jpg",
+					"--glob=!**/*.jpeg",
+					"--glob=!**/*.gif",
+					"--glob=!**/*.webp",
+					"--glob=!**/*.mp4",
+					"--glob=!**/*.mov",
+					"--glob=!**/*.wav",
+					"--glob=!**/*.mp3",
+
+					-- Databases / archives
+					"--glob=!**/*.db",
+					"--glob=!**/*.sqlite",
+					"--glob=!**/*.sqlite3",
+					"--glob=!**/*.zip",
+					"--glob=!**/*.7z",
+					"--glob=!**/*.tar",
+					"--glob=!**/*.gz",
 				},
-
-				generic_sorter = require("telescope.sorters").get_fzf_sorter,
-				file_sorter = require("telescope.sorters").get_fzf_sorter,
-
+				override_generic_sorter = true,
+				override_file_sorter = true,
 				path_display = { "truncate" },
 
 				cache_picker = {
@@ -154,7 +210,7 @@ return {
 					"%.min%.js$",
 					"%.min%.css$",
 					"%.map$",
-					-- Binary / media (fd doesn't filter these by default)
+					-- Binary / media
 					"%.jpg$",
 					"%.jpeg$",
 					"%.png$",
