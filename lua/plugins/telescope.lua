@@ -298,8 +298,28 @@ return {
 			builtin.find_files(themes.get_dropdown({ previewer = false, hidden = true }))
 		end, { desc = "Find Files" })
 
+		map("n", "<leader>gd", function()
+			builtin.lsp_definitions(themes.get_dropdown({
+				previewer = true,
+			}))
+		end, { desc = "LSP Definitions" })
+
+		map("n", "<leader>gi", function()
+			builtin.lsp_implementations(themes.get_dropdown({
+				previewer = true,
+			}))
+		end, { desc = "LSP Implementations" })
+
+		map("n", "<leader>gt", function()
+			builtin.lsp_type_definitions(themes.get_dropdown({
+				previewer = true,
+			}))
+		end, { desc = "LSP Type Definitions" })
+
 		map("n", "<leader>gr", function()
-			builtin.lsp_references(themes.get_dropdown({ previewer = false }))
+			builtin.lsp_references(themes.get_dropdown({
+				previewer = true,
+			}))
 		end, { desc = "LSP References" })
 	end,
 }

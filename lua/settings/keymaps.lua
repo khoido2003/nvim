@@ -77,11 +77,19 @@ function M.setup()
 			end,
 			"LSP: Go to Definition",
 		},
+		["<leader>gi"] = {
+			function()
+				vim.lsp.buf.implementation()
+			end,
+			"LSP: Go to Implementation",
+		},
+		["<leader>gr"] = {
+			vim.lsp.buf.references,
+			"LSP: Find References",
+		},
 		["<leader>k"] = {
 			function()
-				vim.lsp.buf.hover({
-					--    border = "single"
-				})
+				vim.lsp.buf.hover({})
 			end,
 			"LSP: Hover",
 		},
@@ -99,9 +107,7 @@ function M.setup()
 		},
 		["<leader>sh"] = {
 			function()
-				vim.lsp.buf.signature_help({
-					--    border = "single"
-				})
+				vim.lsp.buf.signature_help({})
 			end,
 			"LSP: Signature Help",
 		},
@@ -115,7 +121,6 @@ function M.setup()
 			function()
 				vim.diagnostic.open_float(nil, {
 					source = "always",
-					--	border = "single",
 				})
 			end,
 			"LSP: Show Diagnostic",
