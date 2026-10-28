@@ -298,6 +298,10 @@ return {
 			builtin.find_files(themes.get_dropdown({ previewer = false, hidden = true }))
 		end, { desc = "Find Files" })
 
+		map("n", "<leader>pf", function()
+			builtin.git_files(themes.get_dropdown({ previewer = false, hidden = true }))
+		end, { desc = "Find Files In Git" })
+
 		map("n", "<leader>gd", function()
 			builtin.lsp_definitions(themes.get_dropdown({
 				previewer = true,
