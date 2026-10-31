@@ -288,12 +288,10 @@ return {
 
 		-- Keymaps
 		local map = vim.keymap.set
-		map("n", "<leader>f", function()
-			builtin.live_grep({
-				previewer = true,
-				cwd = vim.fn.getcwd(),
-			})
-		end, { desc = "Live Grep Test" })
+
+		map("n", "f", function()
+			builtin.current_buffer_fuzzy_find(themes.get_dropdown({ previewer = true }))
+		end, { desc = "Fuzzy Find in Buffer" })
 
 		-- standard live grep
 		map("n", "<leader>f", function()
