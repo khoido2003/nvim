@@ -70,6 +70,17 @@ return {
 				vimgrep_arguments = {
 					"rg",
 
+					"--max-filesize",
+					"1M",
+
+					"--max-columns",
+					"200",
+
+					"--max-columns-preview",
+
+					"--threads",
+					"4",
+
 					"--color=never",
 					"--no-heading",
 					"--with-filename",
@@ -96,6 +107,9 @@ return {
 					"--glob=!**/UserSettings/**",
 					"--glob=!**/MemoryCaptures/**",
 					"--glob=!**/Recordings/**",
+					"--glob=!**/.cache/**",
+					"--glob=!**/.venv/**",
+					"--glob=!**/Packages/**",
 
 					-- Godot
 					"--glob=!**/.godot/**",
@@ -275,12 +289,27 @@ return {
 		-- Keymaps
 		local map = vim.keymap.set
 		map("n", "<leader>f", function()
-			extensions.live_grep_args.live_grep_args(themes.get_dropdown({ previewer = true }))
-		end, { desc = "Live Grep Args" })
+			builtin.live_grep({
+				previewer = true,
+				cwd = vim.fn.getcwd(),
+			})
+		end, { desc = "Live Grep Test" })
 
-		map("n", "f", function()
-			builtin.current_buffer_fuzzy_find(themes.get_dropdown({ previewer = true }))
-		end, { desc = "Fuzzy Find in Buffer" })
+		-- standard live grep
+		map("n", "<leader>f", function()
+			builtin.live_grep({
+				previewer = false,
+				theme = "dropdown",
+			})
+		end, { desc = "Live Grep" })
+
+		-- Live grep with arguments
+		map("n", "<leader>fa", function()
+			extensions.live_grep_args.live_grep_args({
+				previewer = false,
+				theme = "dropdown",
+			})
+		end, { desc = "Live Grep Args" })
 
 		map("n", "<leader>fo", function()
 			builtin.oldfiles(themes.get_dropdown({ previewer = false }))
